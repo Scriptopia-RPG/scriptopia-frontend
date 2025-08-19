@@ -1,16 +1,13 @@
 ---
 name: "❓ Question"
-about: 질문/논의
+about: 발생한 버그를 제보할 때 사용
 title: "[Question] "
 labels: "❓ question"
-assignees: ''
-
+assignees: ""
 ---
 
 ## 📑 질문 내용
 
-
 ## ✏️ 시도한 것
-
 
 ## 📎 추가 정보
