@@ -5,10 +5,10 @@ import localFont from 'next/font/local';
 import { MSWProvider } from '@/app/providers/msw-provider';
 import './globals.css';
 
-// if (process.env.NEXT_RUNTIME === 'nodejs' && process.env.NODE_ENV !== 'production') {
-//   const { server } = require('@/shared/api/mocks/server');
-//   server.listen();
-// }
+if (process.env.NEXT_RUNTIME === 'nodejs' && process.env.NODE_ENV !== 'production') {
+  const { server } = await import('@/shared/api/mocks/server');
+  server.listen();
+}
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
