@@ -1,10 +1,13 @@
 import { http, HttpResponse } from 'msw';
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
 export const handlers = [
-  http.get('*/test', () => {
+  http.get(`${baseUrl}/test`, () => {
     return HttpResponse.json({
-      postId: 1,
-      content: `test message`,
+      id: 'abc-123',
+      firstName: 'John',
+      lastName: 'Maverick',
     });
   }),
 ];
