@@ -3,6 +3,12 @@
 import { Suspense, use } from 'react';
 import { handlers } from '@/shared/api/mocks/handlers';
 
+declare global {
+  interface ImportMeta {
+    hot?: { dispose(cb: () => void): void };
+  }
+}
+
 const mockingEnabledPromise =
   typeof window !== 'undefined'
     ? import('@/shared/api/mocks/browser').then(async ({ default: worker }) => {
@@ -18,7 +24,8 @@ const mockingEnabledPromise =
           },
         });
         worker.use(...handlers);
-        (module as any).hot?.dispose(() => {
+
+        import.meta.hot?.dispose(() => {
           worker.stop();
         });
         console.log(worker.listHandlers());
