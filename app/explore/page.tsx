@@ -3,6 +3,9 @@
 import { useEffect, useState } from 'react';
 
 import SearchBar from '@/shared/ui/search-bar/search-bar';
+import TagAddButton from '@/entities/tag/ui/tag-add-button';
+import Tag from '@/entities/tag/ui/tag';
+import ResetButton from '@/entities/tag/ui/reset-button';
 
 const Page = () => {
   const [q, setQ] = useState('');
@@ -19,10 +22,44 @@ const Page = () => {
     console.log(debounced);
   }, [debounced]);
 
+  const tags = [
+    { tagId: 0, tagName: '로맨스' },
+    { tagId: 1, tagName: '공포' },
+    { tagId: 2, tagName: '추리' },
+    { tagId: 3, tagName: '시뮬레이션' },
+    { tagId: 4, tagName: '아포칼립스' },
+  ];
+
+  const [selectedTags, setSelectedTags] = useState(tags);
+
   return (
-    <div className="mx-32 mt-12">
-      <SearchBar value={q} onChange={setQ} onClear={() => setQ('')} />
-      <div>태그</div>
+    <div className="mt-12">
+      <div className="flex flex-col gap-5">
+        <SearchBar value={q} onChange={setQ} onClear={() => setQ('')} />
+        <div className="flex gap-2.5">
+          <div className="shrink-0">
+            <TagAddButton onClick={() => {}} />
+          </div>
+          <div className="min-w-0 flex-1 overflow-x-auto">
+            <div className="flex gap-2.5 whitespace-nowrap">
+              {selectedTags.map((tag) => (
+                <Tag
+                  key={tag.tagId}
+                  name={tag.tagName}
+                  selected
+                  removable
+                  onRemove={() =>
+                    setSelectedTags((prev) => prev.filter((t) => t.tagId !== tag.tagId))
+                  }
+                />
+              ))}
+            </div>
+          </div>
+          <div className="shrink-0">
+            <ResetButton onClick={() => setSelectedTags([])} />
+          </div>
+        </div>
+      </div>
       <div>정렬</div>
       <div>카드 리스트</div>
     </div>
