@@ -11,5 +11,13 @@ export interface TagsResponse {
   tagNames: TagItem[];
 }
 
-export const useTags = () =>
-  useQuery({ queryKey: ['tags'], queryFn: () => customFetch<TagsResponse>('/games/shared/tags') });
+export const useTags = () => {
+  const { data } = useQuery({
+    queryKey: ['tags'],
+    queryFn: () => customFetch<TagsResponse>('/games/shared/tags'),
+  });
+
+  return {
+    tags: data?.tagNames ?? [],
+  };
+};
