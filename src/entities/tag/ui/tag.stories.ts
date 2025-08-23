@@ -20,7 +20,7 @@ const meta = {
     selected: false,
     removable: false,
   },
-  parameters: { controls: { exclude: ['onRemove'] } },
+  parameters: { controls: { exclude: ['onSelect', 'onRemove'] } },
 } satisfies Meta<typeof Tag>;
 
 export default meta;

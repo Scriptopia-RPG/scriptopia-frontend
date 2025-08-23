@@ -4,7 +4,7 @@ import { cn } from '@/shared/utils/styles';
 
 import CloseIcon from '@icons/close.svg';
 
-const chipStyles = cva('inline-flex gap-2.5 items-center rounded-full select-none', {
+const tagStyles = cva('inline-flex gap-2.5 items-center rounded-full select-none text-fg', {
   variants: {
     size: {
       sm: 'text-sm px-2 py-1',
@@ -21,7 +21,7 @@ const chipStyles = cva('inline-flex gap-2.5 items-center rounded-full select-non
   },
 });
 
-interface ChipProps extends VariantProps<typeof chipStyles> {
+interface TagProps extends VariantProps<typeof tagStyles> {
   name: string;
   size?: 'sm' | 'md';
   selected?: boolean;
@@ -37,9 +37,9 @@ const Tag = ({
   removable = false,
   onSelect,
   onRemove,
-}: ChipProps) => {
+}: TagProps) => {
   if (size === 'sm') {
-    return <span className={cn(chipStyles({ size: 'sm' }))}>#{name}</span>;
+    return <span className={cn(tagStyles({ size: 'sm' }))}>#{name}</span>;
   }
 
   const handleClick = () => {
@@ -54,7 +54,7 @@ const Tag = ({
     <button
       onClick={handleClick}
       aria-pressed={selected}
-      className={cn(chipStyles({ size, selected }))}
+      className={cn(tagStyles({ size, selected }))}
     >
       <span>#{name}</span>
       {removable && <CloseIcon className="h-4 w-4" />}
