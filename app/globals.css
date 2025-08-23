@@ -17,6 +17,17 @@
   --color-bg: var(--bg);
   --color-fg: var(--fg);
   --color-surface: var(--surface);
+
+  --color-primary: #ff6f00;
+  --color-secondary: #534d83;
+  --gradient-primary: linear-gradient(to right, #ffa600, #ff6f00);
+  --gradient-secondary: linear-gradient(to right, #212127, #4b4b63), rgba(0, 0, 0, 0.2);
+
+  --color-gray-100: #e8e8e8;
+  --color-gray-200: #dadada;
+  --color-gray-300: #c4c4c4;
+  --color-gray-400: #a4a4a4;
+  --color-gray-500: #8c8c8c;
 }
 
 body {
