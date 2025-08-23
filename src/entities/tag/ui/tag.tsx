@@ -1,6 +1,7 @@
 import { cva, VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/shared/utils/styles';
+
 import CloseIcon from '@icons/close.svg';
 
 const chipStyles = cva('inline-flex gap-2.5 items-center rounded-full select-none', {
@@ -25,23 +26,39 @@ interface ChipProps extends VariantProps<typeof chipStyles> {
   size?: 'sm' | 'md';
   selected?: boolean;
   removable?: boolean;
+  onSelect?: (next: boolean) => void;
   onRemove?: () => void;
 }
 
-const Tag = ({ name, size = 'md', selected = false, removable = false, onRemove }: ChipProps) => {
+const Tag = ({
+  name,
+  size = 'md',
+  selected = false,
+  removable = false,
+  onSelect,
+  onRemove,
+}: ChipProps) => {
   if (size === 'sm') {
     return <span className={cn(chipStyles({ size: 'sm' }))}>#{name}</span>;
   }
 
+  const handleClick = () => {
+    if (removable) {
+      onRemove?.();
+    } else {
+      onSelect?.(!selected);
+    }
+  };
+
   return (
-    <div className={cn(chipStyles({ size, selected }))}>
+    <button
+      onClick={handleClick}
+      aria-pressed={selected}
+      className={cn(chipStyles({ size, selected }))}
+    >
       <span>#{name}</span>
-      {removable && (
-        <button onClick={onRemove} aria-label="태그 제거">
-          <CloseIcon className="h-4 w-4" />
-        </button>
-      )}
-    </div>
+      {removable && <CloseIcon className="h-4 w-4" />}
+    </button>
   );
 };
 
