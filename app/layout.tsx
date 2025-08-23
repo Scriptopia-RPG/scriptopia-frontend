@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { MSWProvider } from '@/app/providers/msw-provider';
+import { ReactQueryProvider } from '@/app/providers/react-query-provider';
 import { pretendard } from '@/shared/styles/fonts';
 import './globals.css';
 
@@ -19,9 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body className={`${pretendard.variable} antialiased`}>
-        <MSWProvider>{children}</MSWProvider>
+        <MSWProvider>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </MSWProvider>
       </body>
     </html>
   );
