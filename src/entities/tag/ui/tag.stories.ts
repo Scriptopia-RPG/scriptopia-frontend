@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import Chip from './chip';
+import Tag from './tag';
 
 const meta = {
-  title: 'entities/Chip',
-  component: Chip,
+  title: 'entities/Tag',
+  component: Tag,
   tags: ['autodocs'],
   argTypes: {
     size: {
@@ -20,7 +20,8 @@ const meta = {
     selected: false,
     removable: false,
   },
-} satisfies Meta<typeof Chip>;
+  parameters: { controls: { exclude: ['onRemove'] } },
+} satisfies Meta<typeof Tag>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

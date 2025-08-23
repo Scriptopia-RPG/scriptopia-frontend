@@ -7,7 +7,7 @@ const chipStyles = cva('inline-flex gap-2.5 items-center rounded-full select-non
   variants: {
     size: {
       sm: 'text-sm px-2 py-1',
-      md: 'px-4 py-2 text-base',
+      md: 'px-4 py-2 text-base cursor-pointer',
     },
     selected: {
       true: 'bg-primary',
@@ -28,7 +28,11 @@ interface ChipProps extends VariantProps<typeof chipStyles> {
   onRemove?: () => void;
 }
 
-const Chip = ({ name, size = 'md', selected = false, removable = false, onRemove }: ChipProps) => {
+const Tag = ({ name, size = 'md', selected = false, removable = false, onRemove }: ChipProps) => {
+  if (size === 'sm') {
+    return <span className={cn(chipStyles({ size: 'sm' }))}>#{name}</span>;
+  }
+
   return (
     <div className={cn(chipStyles({ size, selected }))}>
       <span>#{name}</span>
@@ -41,4 +45,4 @@ const Chip = ({ name, size = 'md', selected = false, removable = false, onRemove
   );
 };
 
-export default Chip;
+export default Tag;
