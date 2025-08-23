@@ -11,7 +11,7 @@ const tagStyles = cva('inline-flex gap-2.5 items-center rounded-full select-none
       md: 'px-4 py-2 text-base cursor-pointer',
     },
     selected: {
-      true: 'bg-primary',
+      true: 'bg-btn-bg text-btn-text',
       false: 'bg-surface',
     },
   },

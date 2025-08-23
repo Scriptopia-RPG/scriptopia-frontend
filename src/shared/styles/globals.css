@@ -5,18 +5,24 @@
   --bg: #151518;
   --fg: #f2f2f2;
   --surface: color-mix(in srgb, var(--fg) 20%, transparent);
+  --btn-text: var(--color-fg);
+  --btn-bg: var(--color-primary);
 }
 
 [data-theme='light'] {
   --bg: #ffffff;
   --fg: #232323;
   --surface: #e2e2e2;
+  --btn-text: var(--color-primary);
+  --btn-bg: color-mix(in srgb, var(--color-primary) 18%, transparent);
 }
 
 @theme {
   --color-bg: var(--bg);
   --color-fg: var(--fg);
   --color-surface: var(--surface);
+  --color-btn-text: var(--btn-text);
+  --color-btn-bg: var(--btn-bg);
 
   --color-primary: #ff6f00;
   --color-secondary: #534d83;
