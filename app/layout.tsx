@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { MSWProvider } from '@/app/providers/msw-provider';
 import { ReactQueryProvider } from '@/app/providers/react-query-provider';
 import { pretendard } from '@/shared/styles/fonts';
-import './globals.css';
+import '@/shared/styles/globals.css';
 
 if (process.env.NEXT_RUNTIME === 'nodejs' && process.env.NODE_ENV !== 'production') {
   const { server } = await import('@/shared/api/mocks/server');

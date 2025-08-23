@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/nextjs';
-import '../app/globals.css';
+import '../src/shared/styles/globals.css';
 import { pretendard } from '../src/shared/styles/fonts';
 
 export const globalTypes = {
