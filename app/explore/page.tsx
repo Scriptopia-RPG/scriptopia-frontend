@@ -36,7 +36,7 @@ const Page = () => {
   return (
     <>
       <Header />
-      <div className="mx-auto mt-12 flex w-full max-w-6xl flex-col gap-7 px-[clamp(12px,4vw,32px)]">
+      <div className="mx-auto mt-12 flex w-full max-w-5xl flex-col gap-7 px-4">
         <div className="flex flex-col gap-5">
           <SearchBar value={q} onChange={setQ} onClear={() => setQ('')} />
           <div className="flex gap-2.5">
