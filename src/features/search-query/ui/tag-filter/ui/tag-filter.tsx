@@ -1,13 +1,15 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+import { useTags } from '@/entities/tag/model/use-tags.query';
+
 import TagAddButton from '@/entities/tag/ui/tag-add-button';
 import Tag from '@/entities/tag/ui/tag';
 import ResetButton from '@/entities/tag/ui/reset-button';
-import { useTags } from '@/entities/tag/model/use-tags.query';
 
-export default function TagFilter() {
+const TagFilter = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -67,4 +69,6 @@ export default function TagFilter() {
       </div>
     </div>
   );
-}
+};
+
+export default TagFilter;
