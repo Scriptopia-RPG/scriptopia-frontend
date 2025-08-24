@@ -6,6 +6,7 @@ import SearchBar from '@/shared/ui/search-bar/search-bar';
 import TagAddButton from '@/entities/tag/ui/tag-add-button';
 import Tag from '@/entities/tag/ui/tag';
 import ResetButton from '@/entities/tag/ui/reset-button';
+import Header from '@/widgets/header/ui/header';
 
 const Page = () => {
   const [q, setQ] = useState('');
@@ -33,36 +34,39 @@ const Page = () => {
   const [selectedTags, setSelectedTags] = useState(tags);
 
   return (
-    <div className="mt-12">
-      <div className="flex flex-col gap-5">
-        <SearchBar value={q} onChange={setQ} onClear={() => setQ('')} />
-        <div className="flex gap-2.5">
-          <div className="shrink-0">
-            <TagAddButton onClick={() => {}} />
-          </div>
-          <div className="min-w-0 flex-1 overflow-x-auto">
-            <div className="flex gap-2.5 whitespace-nowrap">
-              {selectedTags.map((tag) => (
-                <Tag
-                  key={tag.tagId}
-                  name={tag.tagName}
-                  selected
-                  removable
-                  onRemove={() =>
-                    setSelectedTags((prev) => prev.filter((t) => t.tagId !== tag.tagId))
-                  }
-                />
-              ))}
+    <>
+      <Header />
+      <div className="mx-auto mt-12 flex w-full max-w-6xl flex-col gap-7 px-[clamp(12px,4vw,32px)]">
+        <div className="flex flex-col gap-5">
+          <SearchBar value={q} onChange={setQ} onClear={() => setQ('')} />
+          <div className="flex gap-2.5">
+            <div className="shrink-0">
+              <TagAddButton onClick={() => {}} />
+            </div>
+            <div className="min-w-0 flex-1 overflow-x-auto">
+              <div className="flex gap-2.5 whitespace-nowrap">
+                {selectedTags.map((tag) => (
+                  <Tag
+                    key={tag.tagId}
+                    name={tag.tagName}
+                    selected
+                    removable
+                    onRemove={() =>
+                      setSelectedTags((prev) => prev.filter((t) => t.tagId !== tag.tagId))
+                    }
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="shrink-0">
+              <ResetButton onClick={() => setSelectedTags([])} />
             </div>
           </div>
-          <div className="shrink-0">
-            <ResetButton onClick={() => setSelectedTags([])} />
-          </div>
         </div>
+        <div>정렬</div>
+        <div>카드 리스트</div>
       </div>
-      <div>정렬</div>
-      <div>카드 리스트</div>
-    </div>
+    </>
   );
 };
 
