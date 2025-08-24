@@ -8,10 +8,10 @@ const ResetButton = ({ onClick }: ResetButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className="flex cursor-pointer items-center justify-center gap-2.5 rounded-full border px-4 py-2 select-none"
+      className="text-fg ring-fg flex cursor-pointer items-center justify-center gap-1 rounded-full px-4 py-2 text-sm ring-1 select-none ring-inset"
     >
       초기화
-      <ResetIcon className="h-4 w-4" />
+      <ResetIcon className="h-3.5 w-3.5" />
     </button>
   );
 };

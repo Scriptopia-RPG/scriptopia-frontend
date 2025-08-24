@@ -4,11 +4,11 @@ import { cn } from '@/shared/utils/styles';
 
 import CloseIcon from '@icons/close.svg';
 
-const tagStyles = cva('inline-flex gap-2.5 items-center rounded-full select-none text-fg', {
+const tagStyles = cva('inline-flex gap-1 items-center rounded-full select-none text-fg', {
   variants: {
     size: {
       sm: 'text-sm px-2 py-1',
-      md: 'px-4 py-2 text-base cursor-pointer',
+      md: 'px-3 py-2 text-sm cursor-pointer',
     },
     selected: {
       true: 'bg-btn-bg text-btn-text',
@@ -57,7 +57,7 @@ const Tag = ({
       className={cn(tagStyles({ size, selected }))}
     >
       <span>#{name}</span>
-      {removable && <CloseIcon className="h-4 w-4" />}
+      {removable && <CloseIcon className="h-3.5 w-3.5" />}
     </button>
   );
 };

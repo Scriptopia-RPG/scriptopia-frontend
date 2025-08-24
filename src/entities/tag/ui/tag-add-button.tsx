@@ -8,10 +8,10 @@ const TagAddButton = ({ onClick }: TagAddButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className="bg-surface inline-flex cursor-pointer items-center gap-2.5 rounded-full px-4 py-2 text-base select-none"
+      className="bg-surface inline-flex cursor-pointer items-center gap-1 rounded-full px-4 py-2 text-sm select-none"
     >
       <span>태그</span>
-      <PlusIcon className="h-4 w-4" />
+      <PlusIcon className="h-3.5 w-3.5" />
     </button>
   );
 };
