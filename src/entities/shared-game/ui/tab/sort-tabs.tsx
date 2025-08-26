@@ -10,7 +10,11 @@ const SortTabs = () => {
   const searchParams = useSearchParams();
   const current = (searchParams.get('sort') as SortKey) ?? 'popular';
 
-  const handleSortSet = (key: SortKey) => {};
+  const handleSortSet = (key: SortKey) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('sort', key);
+    router.replace(`${pathname}?${params}`);
+  };
 
   return (
     <ul role="tablist" className="m-0 mt-6 flex list-none items-center divide-x p-0">
