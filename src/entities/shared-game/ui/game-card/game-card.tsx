@@ -10,7 +10,7 @@ interface GameCardProps {
 const GameCard = ({ thumbnail, title, tags }: GameCardProps) => {
   return (
     <div className="w-44">
-      <div className="relative mb-4 aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
+      <div className="relative mb-4 aspect-[3/4] overflow-hidden rounded-lg bg-gray-100 shadow-[0_0_2px_0_rgba(255,255,255,0.8)]">
         {thumbnail && (
           <Image src={thumbnail} fill alt={title} sizes="176px" className="object-cover" />
         )}
