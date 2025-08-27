@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import ResetButton from './reset-button';
 
 const meta = {
-  title: 'tag/ResetButton',
+  title: 'Shared Game/ResetButton',
   component: ResetButton,
   tags: ['autodocs'],
   // args: { onClick: fn() },

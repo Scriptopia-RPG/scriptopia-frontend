@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import Tag from './tag';
 
 const meta = {
-  title: 'tag/Tag',
+  title: 'Shared Game/Tag',
   component: Tag,
   tags: ['autodocs'],
   argTypes: {

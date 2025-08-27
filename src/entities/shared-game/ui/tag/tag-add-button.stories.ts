@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import TagAddButton from './tag-add-button';
 
 const meta = {
-  title: 'tag/TagAddButton',
+  title: 'Shared Game/TagAddButton',
   component: TagAddButton,
   tags: ['autodocs'],
   //   parameters: { controls: { exclude: ['onClick'] } },
