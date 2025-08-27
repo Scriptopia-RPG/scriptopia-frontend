@@ -6,6 +6,7 @@ import Header from '@/widgets/header/ui/header';
 import SearchBar from '@/shared/ui/search-bar/search-bar';
 import TagFilter from '@/features/tag-filter/ui/tag-filter';
 import SortTabs from '@/entities/shared-game/ui/sort-tab/sort-tabs';
+import GameCardList from '@/entities/shared-game/ui/game-card/game-card-list';
 
 const Page = () => {
   type Mode = 'search' | 'filter';
@@ -37,8 +38,7 @@ const Page = () => {
             <SortTabs />
           </div>
         )}
-
-        <div>카드 리스트</div>
+        <GameCardList />
       </div>
     </>
   );
