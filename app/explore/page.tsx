@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 import Header from '@/widgets/header/ui/header';
 import SearchBar from '@/shared/ui/search-bar/search-bar';
-import TagFilter from '@/features/search-query/ui/tag-filter/ui/tag-filter';
-import SortTabs from '@/entities/shared-game/ui/tab/sort-tabs';
+import TagFilter from '@/features/tag-filter/ui/tag-filter';
+import SortTabs from '@/entities/shared-game/ui/sort-tab/sort-tabs';
 
 const Page = () => {
   const [q, setQ] = useState('');
