@@ -3,11 +3,11 @@
 import { useMemo } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { useTags } from '@/entities/tag/model/use-tags.query';
+import { useTags } from '@/entities/shared-game/model/use-tags.query';
 
-import TagAddButton from '@/entities/tag/ui/tag-add-button';
-import Tag from '@/entities/tag/ui/tag';
-import ResetButton from '@/entities/tag/ui/reset-button';
+import TagAddButton from '@/entities/shared-game/ui/tag/tag-add-button';
+import Tag from '@/entities/shared-game/ui/tag/tag';
+import ResetButton from '@/entities/shared-game/ui/tag/reset-button';
 
 const TagFilter = () => {
   const router = useRouter();
