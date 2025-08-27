@@ -34,6 +34,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.4.6",
     "eslint-plugin-storybook": "^9.1.1",
+    "msw": "^2.10.5",
     "playwright": "^1.54.2",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
@@ -41,5 +42,10 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^3.2.4"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
