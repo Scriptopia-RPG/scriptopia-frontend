@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Header from '@/widgets/header/ui/header';
 import SearchBar from '@/shared/ui/search-bar/search-bar';
 import TagFilter from '@/features/search-query/ui/tag-filter/ui/tag-filter';
+import SortTabs from '@/entities/shared-game/ui/tab/sort-tabs';
 
 const Page = () => {
   const [q, setQ] = useState('');
@@ -29,7 +30,9 @@ const Page = () => {
           <SearchBar value={q} onChange={setQ} onClear={() => setQ('')} />
           <TagFilter />
         </div>
-        <div>정렬</div>
+        <div className="flex justify-end">
+          <SortTabs />
+        </div>
         <div>카드 리스트</div>
       </div>
     </>

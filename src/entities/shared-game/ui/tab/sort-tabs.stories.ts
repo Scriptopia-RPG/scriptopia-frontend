@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import SortTabs from './sort-tabs';
 
 const meta = {
-  title: 'explore/SortTabs',
+  title: 'Shared Game/SortTabs',
   component: SortTabs,
   tags: ['autodocs'],
 } satisfies Meta<typeof SortTabs>;

@@ -1,8 +1,9 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { cn } from '@/shared/utils/styles';
-import { SORT_OPTIONS } from '../../model/constants';
-import { SortKey } from '../../model/types';
+import { SortKey } from '@/entities/shared-game/model/types';
+import { SORT_OPTIONS } from '@/entities/shared-game/model/constants';
+
+import Tabs from '@/shared/ui/tabs/tabs';
 
 const SortTabs = () => {
   const router = useRouter();
@@ -16,23 +17,7 @@ const SortTabs = () => {
     router.replace(`${pathname}?${params}`);
   };
 
-  return (
-    <ul role="tablist" className="m-0 mt-6 flex list-none items-center divide-x p-0">
-      {SORT_OPTIONS.map(({ key, label }) => (
-        <li key={key} role="none" className="flex items-center px-3">
-          <button
-            type="button"
-            role="tab"
-            aria-selected={current === key}
-            onClick={() => handleSortSet(key)}
-            className={cn('text-sm leading-none', current === key ? 'text-primary' : 'text-fg')}
-          >
-            {label}
-          </button>
-        </li>
-      ))}
-    </ul>
-  );
+  return <Tabs options={SORT_OPTIONS} current={current} onChange={handleSortSet} />;
 };
 
 export default SortTabs;
