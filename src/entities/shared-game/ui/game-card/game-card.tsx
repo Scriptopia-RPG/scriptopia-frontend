@@ -9,14 +9,13 @@ interface GameCardProps {
 
 const GameCard = ({ thumbnail, title, tags }: GameCardProps) => {
   return (
-    <div className="group w-44 cursor-pointer">
+    <div className="group cursor-pointer">
       <div className="relative mb-4 aspect-[3/4] overflow-hidden rounded-lg bg-gray-100 shadow-[0_0_2px_0_rgba(255,255,255,0.8)]">
         {thumbnail && (
           <Image
             src={thumbnail}
             fill
             alt={title}
-            sizes="176px"
             className="object-cover transition duration-200 group-hover:brightness-[0.6]"
           />
         )}
