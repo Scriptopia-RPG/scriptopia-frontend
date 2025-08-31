@@ -1,6 +1,6 @@
 'use client';
 
-import { LoginModal } from '@/widgets/login-modal/ui';
+import { LoginModal } from '@/features/auth/login/ui/login-modal';
 import { useState } from 'react';
 
 export default function Home() {
@@ -14,8 +14,8 @@ export default function Home() {
       >
         로그인
       </button>
-
-      <LoginModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      
+      <LoginModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </main>
   );
 }
