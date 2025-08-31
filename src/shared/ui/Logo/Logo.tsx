@@ -15,3 +15,5 @@ const Logo: FC<LogoProps> = ({ className }) => {
 };
 
 export default Logo;
+
+//폰트...폰트... 도트폰트로 바꿔야 함..

@@ -2,9 +2,9 @@
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { tv, VariantProps } from "tailwind-variants";
-import { Button } from "@/shared/ui/Button";
-import { Icon } from "@/shared/ui/Icon";
-import { Logo } from "@/shared/ui/Logo";
+import { Button } from "@/shared/ui/Button/Button";
+import Icon from "@/shared/ui/Icon/Icon";
+import Logo from "@/shared/ui/Logo/Logo";
 
 const loginModalVariants = tv({
   slots: {
