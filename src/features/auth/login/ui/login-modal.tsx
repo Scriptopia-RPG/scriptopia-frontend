@@ -4,6 +4,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { tv, VariantProps } from "tailwind-variants";
 import { Button } from "@/shared/ui/Button/Button";
 import Icon from "@/shared/ui/Icon/Icon";
+import Input from "@/shared/ui/Input/Input";
 import Logo from "@/shared/ui/Logo/Logo";
 
 const loginModalVariants = tv({
@@ -13,7 +14,7 @@ const loginModalVariants = tv({
     closeButton: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-neutral-100 data-[state=open]:text-neutral-500",
     title: "text-lg font-semibold",
     description: "text-sm text-neutral-500",
-    loginForm: "flex flex-col gap-4",
+    loginForm: "flex flex-col gap-8",
     socialLoginContainer: "relative",
     socialLoginDivider: "absolute inset-0 flex items-center",
     socialLoginText: "relative flex justify-center text-xs uppercase",
@@ -36,18 +37,30 @@ const LoginModal = ({ ...props }: LoginModalProps) => {
             <Logo />
             <div className="w-full space-y-6">
               <form className={loginForm()}>
-                <input type="email" placeholder="이메일" className="h-12 w-full rounded-md border px-4 text-gray-800" />
-                <input type="password" placeholder="비밀번호" className="h-12 w-full rounded-md border px-4 text-gray-800" />
-                <Button type="submit" className="h-12 w-full text-base">
+                <Input
+                  id="email"
+                  label="이메일"
+                  type="email"
+                  placeholder="이메일을 입력해 주세요."
+                  required
+                />
+                <Input
+                  id="password"
+                  label="비밀번호"
+                  type="password"
+                  placeholder="비밀번호를 입력해 주세요."
+                  required
+                />
+                <Button type="submit" className="h-12 w-fu  ll text-base">
                   로그인
                 </Button>
               </form>
               <div className={socialLoginContainer()}>
                 <div className={socialLoginDivider()}>
-                  <span className="w-full border-t" />
+                  <span className="w-full border-t border-gray-300" />
                 </div>
                 <div className={socialLoginText()}>
-                  <span className="bg-white px-2 text-neutral-500">간편 로그인</span>
+                  <span className="bg-white px-2 text-neutral-600">간편 로그인</span>
                 </div>
               </div>
               <div className={socialButtonContainer()}>
@@ -64,8 +77,14 @@ const LoginModal = ({ ...props }: LoginModalProps) => {
             </div>
             <div className={signupText()}>
               <p>
-                아직 회원이 아니신가요? <a href="/signup" className="font-semibold text-orange-500 hover:underline">회원가입</a>
+                아직 회원이 아니신가요?{' '}
+                <a href="/signup" className="font-semibold text-orange-500 hover:underline">
+                  회원가입
+                </a>
               </p>
+              <a href="/forgot-password" className="mt-2 inline-block text-xs hover:underline">
+                비밀번호를 잊으셨나요?
+              </a>
             </div>
           </div>
           <Dialog.Close className={closeButton()}>
