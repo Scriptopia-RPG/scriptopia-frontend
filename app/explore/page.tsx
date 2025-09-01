@@ -28,7 +28,7 @@ const Page = () => {
   return (
     <>
       <Header />
-      <div className="mx-auto mt-12 flex w-full max-w-5xl flex-col gap-7 px-4">
+      <div className="mx-auto mt-12 flex w-full max-w-5xl flex-col gap-7 px-8">
         <div className="flex flex-col gap-5">
           <SearchBar value={q} onChange={setQ} onClear={() => setQ('')} />
           {mode === 'filter' && <TagFilter />}

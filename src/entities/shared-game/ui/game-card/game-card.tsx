@@ -10,7 +10,7 @@ interface GameCardProps {
 const GameCard = ({ thumbnail, title, tags }: GameCardProps) => {
   return (
     <div className="group cursor-pointer">
-      <div className="relative mb-4 aspect-[3/4] overflow-hidden rounded-lg bg-gray-100 shadow-[0_0_2px_0_rgba(255,255,255,0.8)]">
+      <div className="relative mb-3 aspect-[3/4] overflow-hidden rounded-lg bg-gray-100 shadow-[0_0_2px_0_rgba(255,255,255,0.8)]">
         {thumbnail && (
           <Image
             src={thumbnail}
@@ -20,9 +20,9 @@ const GameCard = ({ thumbnail, title, tags }: GameCardProps) => {
           />
         )}
       </div>
-      <div className="space-y-3">
+      <div className="space-y-2">
         <p className="text-fg truncate text-lg font-medium">{title}</p>
-        <div className="flex gap-2.5 overflow-x-auto whitespace-nowrap">
+        <div className="flex gap-1.5 overflow-x-auto whitespace-nowrap">
           {tags.map((tag) => (
             <Tag key={tag} name={tag} size="sm" />
           ))}

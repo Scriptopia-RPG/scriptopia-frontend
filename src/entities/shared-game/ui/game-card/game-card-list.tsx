@@ -12,7 +12,7 @@ const GameCardList = () => {
   }, [sharedGames]);
 
   return (
-    <div className="grid grid-cols-3 gap-x-4 gap-y-7 sm:grid-cols-4 lg:grid-cols-5">
+    <div className="grid grid-cols-3 gap-x-6 gap-y-12 sm:grid-cols-4 lg:grid-cols-5">
       {sharedGames &&
         sharedGames.map((sharedGame) => (
           <GameCard
