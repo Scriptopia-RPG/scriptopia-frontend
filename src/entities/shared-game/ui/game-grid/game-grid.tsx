@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 import { useSharedGames } from '../../model/use-shared-games.query';
-import GameCard from './game-card';
+import GameCard from '../game-card/game-card';
 
-const GameCardList = () => {
+const GameGrid = () => {
   const { data: sharedGames = [], isLoading, isError, error } = useSharedGames({ mode: 'filter' });
 
   useEffect(() => {
@@ -26,4 +26,4 @@ const GameCardList = () => {
   );
 };
 
-export default GameCardList;
+export default GameGrid;

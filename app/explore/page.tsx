@@ -1,7 +1,7 @@
 import Header from '@/widgets/header/ui/header';
 import TagFilter from '@/features/tag-filter/ui/tag-filter';
 import SortTabs from '@/entities/shared-game/ui/sort-tab/sort-tabs';
-import GameCardList from '@/entities/shared-game/ui/game-card/game-card-list';
+import GameGrid from '@/entities/shared-game/ui/game-grid/game-grid';
 import SearchBarContainer from '@/widgets/explore/ui/search-bar-container';
 
 const Page = async ({ searchParams }: { searchParams: Promise<{ q: string }> }) => {
@@ -21,7 +21,7 @@ const Page = async ({ searchParams }: { searchParams: Promise<{ q: string }> }) 
             <SortTabs />
           </div>
         )}
-        <GameCardList />
+        <GameGrid />
       </div>
     </>
   );
