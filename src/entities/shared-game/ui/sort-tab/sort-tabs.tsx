@@ -1,3 +1,5 @@
+'use client';
+
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { SortKey } from '@/entities/shared-game/model/types';
