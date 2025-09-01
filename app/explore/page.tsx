@@ -1,12 +1,28 @@
+import { getSharedGames } from '@/entities/shared-game/model/use-shared-games.query';
+
 import Header from '@/widgets/header/ui/header';
 import TagFilter from '@/features/tag-filter/ui/tag-filter';
 import SortTabs from '@/entities/shared-game/ui/sort-tab/sort-tabs';
 import GameGrid from '@/entities/shared-game/ui/game-grid/game-grid';
 import SearchBarContainer from '@/widgets/explore/ui/search-bar-container';
 
-const Page = async ({ searchParams }: { searchParams: Promise<{ q: string }> }) => {
-  const { q } = await searchParams;
+const Page = async ({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) => {
+  const sp = await searchParams;
+  const q = (typeof sp.q === 'string' ? sp.q : '').trim();
   const mode = q ? 'search' : 'filter';
+  const sort = !q && typeof sp.sort === 'string' ? sp.sort : undefined;
+  const tags = !q && typeof sp.tags === 'string' ? sp.tags : undefined;
+
+  const { sharedGames } = await getSharedGames({
+    mode: mode,
+    sort: sort,
+    tags: tags?.split(',').map(Number),
+    query: q,
+  });
 
   return (
     <>
@@ -21,7 +37,7 @@ const Page = async ({ searchParams }: { searchParams: Promise<{ q: string }> }) 
             <SortTabs />
           </div>
         )}
-        <GameGrid />
+        <GameGrid sharedGames={sharedGames} />
       </div>
     </>
   );

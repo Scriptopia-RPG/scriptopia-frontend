@@ -1,14 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 import customFetch from '@/shared/api/custom-fetch';
-import { SortKey } from './types';
-
-interface SharedGame {
-  sharedGameId: number;
-  thumbnailUrl: string;
-  title: string;
-  tags: string[];
-}
+import { SharedGame, SortKey } from '@/entities/shared-game/model/types';
 
 export interface SharedGamesResponse {
   sharedGames: SharedGame[];
@@ -38,7 +31,7 @@ const buildQueryString = ({ mode, sort, tags, query }: SharedGamesParams) => {
   return params.toString();
 };
 
-const getSharedGames = async (params: SharedGamesParams): Promise<SharedGamesResponse> => {
+export const getSharedGames = async (params: SharedGamesParams): Promise<SharedGamesResponse> => {
   const queryString = buildQueryString(params);
   return customFetch<SharedGamesResponse>(`/games/shared?${queryString}`);
 };
