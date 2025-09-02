@@ -32,11 +32,13 @@ const Page = async ({
           <SearchBarContainer q={q} />
           {mode === 'filter' && <TagFilter />}
         </div>
+
         {mode === 'filter' && (
           <div className="flex justify-end">
             <SortTabs />
           </div>
         )}
+
         <GameGrid sharedGames={sharedGames} />
       </div>
     </>

@@ -49,7 +49,7 @@ const TagFilter = () => {
   return (
     <div className="flex gap-2.5">
       <div className="shrink-0">
-        <TagAddButton onClick={() => {}} />
+        <TagAddButton onClick={() => router.push(`/explore/tags`)} />
       </div>
       <div className="min-w-0 flex-1 overflow-x-auto">
         <div className="flex gap-2.5 whitespace-nowrap">
