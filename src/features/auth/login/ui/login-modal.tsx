@@ -1,6 +1,8 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { tv, VariantProps } from "tailwind-variants";
 import { Button } from "@/shared/ui/Button/Button";
 import Icon from "@/shared/ui/Icon/Icon";
@@ -25,23 +27,60 @@ const loginModalVariants = tv({
 
 type LoginModalProps = React.ComponentProps<typeof Dialog.Root> & VariantProps<typeof loginModalVariants>;
 
-const LoginModal = ({ ...props }: LoginModalProps) => {
-    const { overlay, content, closeButton, title, description, loginForm, socialLoginContainer, socialLoginDivider, socialLoginText, socialButtonContainer, signupText } = loginModalVariants();
+const LoginModal = ({ onOpenChange, ...props }: LoginModalProps) => {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { overlay, content, closeButton, loginForm, socialLoginContainer, socialLoginDivider, socialLoginText, socialButtonContainer, signupText } = loginModalVariants();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      alert("이메일과 비밀번호를 입력해주세요.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        if (onOpenChange) {
+          onOpenChange(false);
+        }
+        router.back();
+      } else {
+        alert("로그인에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert("로그인 중 오류가 발생했습니다.");
+    }
+  };
 
   return (
-    <Dialog.Root {...props}>
+    <Dialog.Root onOpenChange={onOpenChange} {...props}>
       <Dialog.Portal>
         <Dialog.Overlay className={overlay()} />
         <Dialog.Content className={content()}>
+        <Dialog.Title className="sr-only">로그인</Dialog.Title>
           <div className="flex flex-col items-center space-y-8">
             <Logo />
             <div className="w-full space-y-6">
-              <form className={loginForm()}>
+              <form className={loginForm()} onSubmit={handleSubmit}>
                 <Input
                   id="email"
                   label="이메일"
                   type="email"
                   placeholder="이메일을 입력해 주세요."
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                 />
                 <Input
@@ -49,6 +88,8 @@ const LoginModal = ({ ...props }: LoginModalProps) => {
                   label="비밀번호"
                   type="password"
                   placeholder="비밀번호를 입력해 주세요."
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
                 <Button type="submit" className="h-12 w-full text-base">
