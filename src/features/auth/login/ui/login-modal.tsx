@@ -9,8 +9,8 @@ import Logo from "@/shared/ui/Logo/Logo";
 
 const loginModalVariants = tv({
   slots: {
-    overlay: "fixed inset-0 bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-    content: "fixed left-1/2 top-1/2 w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-8 shadow-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
+    overlay: "fixed inset-0 z-40 bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+    content: "fixed left-1/2 top-1/2 z-50 w-[90vw] max-w-[480px] -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white p-8 shadow-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
     closeButton: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-neutral-950 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-neutral-100 data-[state=open]:text-neutral-500",
     title: "text-lg font-semibold",
     description: "text-sm text-neutral-500",
@@ -26,7 +26,7 @@ const loginModalVariants = tv({
 type LoginModalProps = React.ComponentProps<typeof Dialog.Root> & VariantProps<typeof loginModalVariants>;
 
 const LoginModal = ({ ...props }: LoginModalProps) => {
-  const { overlay, content, closeButton, loginForm, socialLoginContainer, socialLoginDivider, socialLoginText, socialButtonContainer, signupText } = loginModalVariants();
+    const { overlay, content, closeButton, title, description, loginForm, socialLoginContainer, socialLoginDivider, socialLoginText, socialButtonContainer, signupText } = loginModalVariants();
 
   return (
     <Dialog.Root {...props}>
@@ -51,7 +51,7 @@ const LoginModal = ({ ...props }: LoginModalProps) => {
                   placeholder="비밀번호를 입력해 주세요."
                   required
                 />
-                <Button type="submit" className="h-12 w-fu  ll text-base">
+                <Button type="submit" className="h-12 w-full text-base">
                   로그인
                 </Button>
               </form>
@@ -64,13 +64,13 @@ const LoginModal = ({ ...props }: LoginModalProps) => {
                 </div>
               </div>
               <div className={socialButtonContainer()}>
-                <button>
+                <button type="button" aria-label="네이버로 로그인">
                   <Icon name="naver" className="h-10 w-10" />
                 </button>
-                <button>
+                <button type="button" aria-label="카카오로 로그인">
                   <Icon name="kakao" className="h-10 w-10" />
                 </button>
-                <button>
+                <button type="button" aria-label="구글로 로그인">
                   <Icon name="google" className="h-10 w-10" />
                 </button>
               </div>
