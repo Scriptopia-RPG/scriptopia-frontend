@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { useTags } from '@/entities/shared-game/model/use-tags.query';
+import { parseTagIds } from '@/shared/utils/parse-tag-ids';
 
 import TagAddButton from '@/entities/shared-game/ui/tag/tag-add-button';
 import Tag from '@/entities/shared-game/ui/tag/tag';
@@ -20,14 +21,10 @@ const TagFilter = () => {
 
   const selectedTagIds = useMemo(() => {
     const raw = searchParams.get('tags') ?? '';
-    const ids = raw
-      .split(',')
-      .map((x) => x.trim())
-      .filter(Boolean)
-      .map(Number);
+    const ids = parseTagIds(raw);
 
     const valid = new Set(tags.map((t) => t.tagId));
-    return Array.from(new Set(ids.filter((id) => valid.has(id))));
+    return Array.from(new Set(ids?.filter((id) => valid.has(id))));
   }, [searchParams, tags]);
 
   const tagIdToName = useMemo(() => {

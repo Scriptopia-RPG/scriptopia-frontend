@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { getSharedGames } from '@/entities/shared-game/model/use-shared-games.query';
+import { parseTagIds } from '@/shared/utils/parse-tag-ids';
 import type { SortKey } from '@/entities/shared-game/model/shared-game.type';
 
 import Header from '@/widgets/header/ui/header';
@@ -18,12 +19,8 @@ const Page = async ({
   const q = (typeof sp.q === 'string' ? (sp.q as SortKey) : '').trim();
   const mode = q ? 'search' : 'filter';
   const sort = !q && typeof sp.sort === 'string' ? sp.sort : undefined;
-  const tags = !q && typeof sp.tags === 'string' ? sp.tags : undefined;
-  const selectedTags = tags
-    ?.split(',')
-    .map((x) => x.trim())
-    .filter(Boolean)
-    .map(Number);
+  const tags = !q && typeof sp.tags === 'string' ? sp.tags : '';
+  const selectedTags = parseTagIds(tags);
 
   const queryClient = new QueryClient();
 
