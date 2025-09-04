@@ -1,46 +1,74 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 import customFetch from '@/shared/api/custom-fetch';
-import { SharedGame, SortKey } from '@/entities/shared-game/model/types';
+import type { SharedGame, SortKey } from '@/entities/shared-game/model/types';
+import type { CursorRequest, CursorResponse } from '@/shared/types/pagination';
 
-export interface SharedGamesResponse {
+interface SharedGamesResponse extends CursorResponse {
   sharedGames: SharedGame[];
 }
 
-interface SharedGamesParams {
+interface SharedGamesRequest extends CursorRequest {
   mode: 'filter' | 'search';
   sort?: SortKey;
   tags?: number[];
   query?: string;
 }
 
-const buildQueryString = ({ mode, sort, tags, query }: SharedGamesParams) => {
-  const params = new URLSearchParams();
+const buildQueryString = ({
+  mode,
+  sort,
+  tags,
+  query,
+  isFirstPage,
+  lastUuid,
+  pageSize,
+}: SharedGamesRequest) => {
+  const qs = new URLSearchParams();
 
   if (mode === 'filter') {
-    params.set('sort', sort ?? 'popular');
-    if (tags && tags.length) {
-      params.set('tags', tags.join(','));
+    qs.set('sort', sort ?? 'popular');
+    if (tags?.length) {
+      qs.set('tags', tags.join(','));
     }
-  } else if (mode === 'search') {
-    if (query && query.trim()) {
-      params.set('query', query.trim());
-    }
+  } else if (mode === 'search' && query) {
+    qs.set('query', query);
   }
 
-  return params.toString();
+  if (isFirstPage) qs.set('isFirstPage', String(isFirstPage));
+  if (lastUuid) qs.set('lastUuid', lastUuid);
+  if (pageSize) qs.set('pageSize', String(pageSize));
+
+  return qs.toString();
 };
 
-export const getSharedGames = async (params: SharedGamesParams): Promise<SharedGamesResponse> => {
+export const getSharedGames = async (params: SharedGamesRequest): Promise<SharedGamesResponse> => {
   const queryString = buildQueryString(params);
   return customFetch<SharedGamesResponse>(`/games/shared?${queryString}`);
 };
 
-export const useSharedGames = (params: SharedGamesParams) => {
-  return useQuery({
-    queryKey: ['shared-games', params],
-    queryFn: () => getSharedGames(params),
-    enabled: params.mode === 'filter' || !!params.query?.trim(),
-    select: (data) => data.sharedGames,
+export const useSharedGames = ({
+  mode,
+  sort,
+  tags,
+  query,
+  pageSize = 10,
+}: Omit<SharedGamesRequest, 'isFirstPage' | 'lastUuid'>) => {
+  return useInfiniteQuery({
+    queryKey: ['shared-games', { mode, sort, tags, query }],
+    queryFn: ({ pageParam }) =>
+      getSharedGames({
+        mode,
+        sort,
+        tags,
+        query,
+        pageSize,
+        ...(pageParam ?? { isFirstPage: true }),
+      }),
+    initialPageParam: { isFirstPage: true },
+    getNextPageParam: (lastPage) =>
+      lastPage.hasNextPage && lastPage.lastUuid
+        ? { isFirstPage: false, lastUuid: lastPage.lastUuid }
+        : undefined,
   });
 };
