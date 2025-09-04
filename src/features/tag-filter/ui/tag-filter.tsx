@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { useTags } from '@/entities/shared-game/model/use-tags.query';
@@ -8,18 +8,21 @@ import { useTags } from '@/entities/shared-game/model/use-tags.query';
 import TagAddButton from '@/entities/shared-game/ui/tag/tag-add-button';
 import Tag from '@/entities/shared-game/ui/tag/tag';
 import ResetButton from '@/entities/shared-game/ui/tag/reset-button';
+import TagSelectModal from '@/entities/shared-game/ui/tag/tag-select-modal';
 
 const TagFilter = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  const [isOpen, setIsOpen] = useState(false);
   const { tags } = useTags();
 
   const selectedTagIds = useMemo(() => {
     const params = searchParams.get('tags');
-    if (!params) return [];
-
+    if (!params) {
+      return [];
+    }
     return params.split(',').map(Number).filter(Number.isFinite);
   }, [searchParams]);
 
@@ -49,7 +52,7 @@ const TagFilter = () => {
   return (
     <div className="flex gap-2.5">
       <div className="shrink-0">
-        <TagAddButton onClick={() => router.push(`/explore/tags`)} />
+        <TagAddButton onClick={() => setIsOpen(true)} />
       </div>
       <div className="min-w-0 flex-1 overflow-x-auto">
         <div className="flex gap-2.5 whitespace-nowrap">
@@ -67,6 +70,8 @@ const TagFilter = () => {
       <div className="shrink-0">
         <ResetButton onClick={resetAll} />
       </div>
+
+      <TagSelectModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </div>
   );
 };

@@ -18,7 +18,7 @@ export const handlers = [
         { tagId: 11, tagName: '힐링' },
         { tagId: 12, tagName: '판타지' },
         { tagId: 13, tagName: 'SF' },
-        { tagId: 14, tagName: '무협' },
+        { tagId: 14, tagName: '게임' },
         { tagId: 15, tagName: '조선' },
         { tagId: 16, tagName: '히어로' },
         { tagId: 17, tagName: '던전' },

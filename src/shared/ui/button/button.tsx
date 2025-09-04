@@ -3,9 +3,13 @@ interface ButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const Button = ({ label }: ButtonProps) => {
+const Button = ({ label, onClick }: ButtonProps) => {
   return (
-    <button type="button" className="bg-gradient-primary w-full rounded-xl py-2.5 text-white">
+    <button
+      type="button"
+      onClick={onClick}
+      className="bg-gradient-primary w-full cursor-pointer rounded-xl py-2.5 text-white"
+    >
       {label}
     </button>
   );
