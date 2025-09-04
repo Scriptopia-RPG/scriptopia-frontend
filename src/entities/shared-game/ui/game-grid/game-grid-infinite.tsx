@@ -6,16 +6,17 @@ import { useSharedGames } from '@/entities/shared-game/model/use-shared-games.qu
 import type { SortKey } from '@/entities/shared-game/model/shared-game.type';
 
 import GameGrid from '@/entities/shared-game/ui/game-grid/game-grid';
+import { usePageSize } from '@/entities/shared-game/model/use-page-size';
 
 interface GameGridInfiniteProps {
   mode: 'filter' | 'search';
   sort?: SortKey;
   tags?: number[];
   query?: string;
-  pageSize?: number;
 }
 
-const GameGridInfinite = ({ mode, sort, tags, query, pageSize = 10 }: GameGridInfiniteProps) => {
+const GameGridInfinite = ({ mode, sort, tags, query }: GameGridInfiniteProps) => {
+  const pageSize = usePageSize();
   const q = useSharedGames({ mode, sort, tags, query, pageSize });
 
   const items = useMemo(() => q.data?.pages.flatMap((p) => p.sharedGames) ?? [], [q.data]);

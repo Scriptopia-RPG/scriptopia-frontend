@@ -54,7 +54,7 @@ const Page = async ({
         )}
 
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <GameGridInfinite mode={mode} sort={sort} tags={selectedTags} query={q} pageSize={10} />
+          <GameGridInfinite mode={mode} sort={sort} tags={selectedTags} query={q} />
         </HydrationBoundary>
       </div>
     </div>
