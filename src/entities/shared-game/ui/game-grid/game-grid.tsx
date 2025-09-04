@@ -1,4 +1,4 @@
-import { SharedGame } from '@/entities/shared-game/model/types';
+import type { SharedGame } from '@/entities/shared-game/model/shared-game.type';
 
 import GameCard from '@/entities/shared-game/ui/game-card/game-card';
 
@@ -11,7 +11,7 @@ const GameGrid = ({ sharedGames }: GameGridProps) => {
     <div className="grid grid-cols-3 gap-x-6 gap-y-12 sm:grid-cols-4 lg:grid-cols-5">
       {sharedGames?.map((sharedGame) => (
         <GameCard
-          key={sharedGame.sharedGameId}
+          key={sharedGame.sharedGameUuid}
           thumbnail={sharedGame.thumbnailUrl}
           title={sharedGame.title}
           tags={sharedGame.tags}

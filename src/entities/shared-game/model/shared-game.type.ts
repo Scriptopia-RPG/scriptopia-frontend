@@ -1,9 +1,9 @@
-import { SORT_OPTIONS } from './constants';
+import { SORT_OPTIONS } from '@/entities/shared-game/model/constants';
 
 export type SortKey = (typeof SORT_OPTIONS)[number]['key'];
 
 export interface SharedGame {
-  sharedGameId: number;
+  sharedGameUuid: string;
   thumbnailUrl: string;
   title: string;
   tags: string[];

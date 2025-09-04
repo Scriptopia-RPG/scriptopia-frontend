@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 
 import { useSharedGames } from '@/entities/shared-game/model/use-shared-games.query';
-import type { SortKey } from '@/entities/shared-game/model/types';
+import type { SortKey } from '@/entities/shared-game/model/shared-game.type';
 
 import GameGrid from '@/entities/shared-game/ui/game-grid/game-grid';
 

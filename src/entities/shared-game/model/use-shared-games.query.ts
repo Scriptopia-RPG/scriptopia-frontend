@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import customFetch from '@/shared/api/custom-fetch';
-import type { SharedGame, SortKey } from '@/entities/shared-game/model/types';
+import type { SharedGame, SortKey } from '@/entities/shared-game/model/shared-game.type';
 import type { CursorRequest, CursorResponse } from '@/shared/types/pagination';
 
 interface SharedGamesResponse extends CursorResponse {
