@@ -7,7 +7,7 @@ type JsonRequestInit = Omit<NonNullable<RequestInit>, 'body'> & {
 const isFormData = (b: unknown): b is FormData =>
   typeof FormData !== 'undefined' && b instanceof FormData;
 
-const customFetch = async <T>(url: string, options?: JsonRequestInit): Promise<T | null> => {
+const customFetch = async <T>(url: string, options?: JsonRequestInit): Promise<T> => {
   const accessToken = '';
 
   const defaultHeaders: Record<string, string> = {
@@ -33,35 +33,21 @@ const customFetch = async <T>(url: string, options?: JsonRequestInit): Promise<T
 
   const response = await fetch(`${BASE_URL}${url}`, fetchOptions);
 
-  // 실패면 에러 파싱
   if (!response.ok) {
-    let errBody: unknown = null;
-    try {
-      errBody = await response.json();
-    } catch {
-      try {
-        errBody = await response.text();
-      } catch {
-        errBody = null;
-      }
-    }
+    const errBody = await response.text().catch(() => null);
     throw { status: response.status, statusText: response.statusText, body: errBody, url };
   }
 
   // 204나 빈 본문이면 null
-  if (response.status === 204) return null as T;
+  if (response.status === 204) {
+    return undefined as unknown as T;
+  }
 
   const ct = response.headers.get('content-type') || '';
   if (ct.includes('application/json')) {
-    try {
-      return (await response.json()) as T;
-    } catch {
-      return null as T;
-    }
-  } else {
-    const text = await response.text();
-    return text ? (text as unknown as T) : (null as T);
+    return (await response.json()) as T;
   }
+  return (await response.text()) as unknown as T;
 };
 
 export default customFetch;
