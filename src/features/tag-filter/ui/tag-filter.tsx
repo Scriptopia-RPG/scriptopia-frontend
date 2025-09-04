@@ -29,7 +29,6 @@ const TagFilter = () => {
     const valid = new Set(tags.map((t) => t.tagId));
     return Array.from(new Set(ids.filter((id) => valid.has(id))));
   }, [searchParams, tags]);
-  console.log(selectedTagIds);
 
   const tagIdToName = useMemo(() => {
     return new Map(tags.map((tag) => [tag.tagId, tag.tagName]));

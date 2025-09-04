@@ -35,7 +35,7 @@ const buildQueryString = ({
     qs.set('query', query);
   }
 
-  if (isFirstPage) qs.set('isFirstPage', String(isFirstPage));
+  if (isFirstPage !== null) qs.set('isFirstPage', String(isFirstPage));
   if (lastUuid) qs.set('lastUuid', lastUuid);
   if (pageSize) qs.set('pageSize', String(pageSize));
 
