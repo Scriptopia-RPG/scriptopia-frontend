@@ -5,13 +5,10 @@ import ResetButton from './reset-button';
 const meta = {
   title: 'Shared Game/ResetButton',
   component: ResetButton,
-  tags: ['autodocs'],
-  // args: { onClick: fn() },
+  args: { onClick: () => {} },
 } satisfies Meta<typeof ResetButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
-  args: {},
-};
+export const Default: Story = {};

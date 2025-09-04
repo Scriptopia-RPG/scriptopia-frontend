@@ -5,7 +5,6 @@ import Button from './button';
 const meta = {
   title: 'shared/Button',
   component: Button,
-  tags: ['autodocs'],
   args: { onClick: () => {} },
 } satisfies Meta<typeof Button>;
 

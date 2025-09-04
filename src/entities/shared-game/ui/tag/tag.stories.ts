@@ -5,7 +5,6 @@ import Tag from './tag';
 const meta = {
   title: 'Shared Game/Tag',
   component: Tag,
-  tags: ['autodocs'],
   argTypes: {
     size: {
       control: { type: 'inline-radio' },

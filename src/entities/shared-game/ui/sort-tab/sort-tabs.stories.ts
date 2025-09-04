@@ -5,7 +5,6 @@ import SortTabs from './sort-tabs';
 const meta = {
   title: 'Shared Game/SortTabs',
   component: SortTabs,
-  tags: ['autodocs'],
 } satisfies Meta<typeof SortTabs>;
 
 export default meta;

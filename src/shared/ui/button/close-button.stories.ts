@@ -5,13 +5,10 @@ import CloseButton from './close-button';
 const meta = {
   title: 'shared/CloseButton',
   component: CloseButton,
-  tags: ['autodocs'],
   args: { onClick: () => {} },
 } satisfies Meta<typeof CloseButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {},
-};
+export const Default: Story = {};

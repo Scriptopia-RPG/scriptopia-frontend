@@ -5,7 +5,6 @@ import GameCard from './game-card';
 const meta = {
   title: 'Shared Game/GameCard',
   component: GameCard,
-  tags: ['autodocs'],
   args: {
     thumbnail: '',
     title: '멸망한 왕국의 마지막 검',

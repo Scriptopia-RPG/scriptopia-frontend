@@ -6,7 +6,6 @@ import { SORT_OPTIONS } from '@/entities/shared-game/model/constants';
 const meta = {
   title: 'shared/Tabs',
   component: Tabs,
-  tags: ['autodocs'],
   args: {
     options: SORT_OPTIONS,
     current: SORT_OPTIONS[0].key,
