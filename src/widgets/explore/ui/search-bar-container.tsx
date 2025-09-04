@@ -9,7 +9,7 @@ const SearchBarContainer = ({ q }: { q: string }) => {
   const pathname = usePathname();
 
   const handleChange = (value: string) => {
-    const next = value.trim();
+    const next = value;
     if (next.length === 0) {
       router.replace(pathname);
       return;

@@ -22,7 +22,7 @@ export const sharedGame = [
     const mode = sp.get('mode') ?? undefined; // 선택 사항
     const sort = sp.get('sort') ?? 'popular';
     const tagIds = parseTagIds(sp.get('tags'));
-    const query = sp.get('query')?.trim() || '';
+    const query = sp.get('query') || '';
 
     // 커서 파라미터
     const isFirstPage = parseBool(sp.get('isFirstPage'));

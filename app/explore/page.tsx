@@ -16,7 +16,7 @@ const Page = async ({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) => {
   const sp = await searchParams;
-  const q = (typeof sp.q === 'string' ? (sp.q as SortKey) : '').trim();
+  const q = typeof sp.q === 'string' ? (sp.q as SortKey) : '';
   const mode = q ? 'search' : 'filter';
   const sort = !q && typeof sp.sort === 'string' ? sp.sort : undefined;
   const tags = !q && typeof sp.tags === 'string' ? sp.tags : '';
