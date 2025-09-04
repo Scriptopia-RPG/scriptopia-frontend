@@ -7,7 +7,7 @@ import CloseIcon from '@icons/close.svg';
 const tagStyles = cva('inline-flex gap-1 items-center rounded-full select-none text-fg', {
   variants: {
     size: {
-      sm: 'text-sm px-2 py-1',
+      sm: 'text-xs px-2 py-1',
       md: 'px-3 py-2 text-sm cursor-pointer',
     },
     selected: {
