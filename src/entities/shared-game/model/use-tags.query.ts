@@ -1,14 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
 import customFetch from '@/shared/api/custom-fetch';
-
-interface TagItem {
-  tagId: number;
-  tagName: string;
-}
+import { Tag } from '@/entities/shared-game/model/shared-game.type';
 
 export interface TagsResponse {
-  tagNames: TagItem[];
+  tagNames: Tag[];
 }
 
 export const useTags = () => {

@@ -1,10 +1,12 @@
 import Image from 'next/image';
-import Tag from '../tag/tag';
+
+import Tag from '@/entities/shared-game/ui/tag/tag';
+import type { Tag as TagType } from '@/entities/shared-game/model/shared-game.type';
 
 interface GameCardProps {
   thumbnail: string;
   title: string;
-  tags: string[];
+  tags: TagType[];
 }
 
 const GameCard = ({ thumbnail, title, tags }: GameCardProps) => {
@@ -24,7 +26,7 @@ const GameCard = ({ thumbnail, title, tags }: GameCardProps) => {
         <p className="text-fg truncate text-lg font-medium">{title}</p>
         <div className="flex gap-1.5 overflow-x-auto whitespace-nowrap">
           {tags.map((tag) => (
-            <Tag key={tag} name={tag} size="sm" />
+            <Tag key={tag.tagId} name={tag.tagName} size="sm" />
           ))}
         </div>
       </div>
