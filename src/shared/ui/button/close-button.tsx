@@ -1,7 +1,9 @@
+import { MouseEventHandler } from 'react';
+
 import CloseIcon from '@icons/close.svg';
 
 interface CloseButtonProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 const CloseButton = ({ onClick }: CloseButtonProps) => {

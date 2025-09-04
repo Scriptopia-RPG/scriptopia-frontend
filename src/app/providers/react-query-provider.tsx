@@ -1,10 +1,10 @@
 'use client';
 
+import { ReactNode, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useState } from 'react';
 
-export function ReactQueryProvider({ children }: { children: React.ReactNode }) {
+export function ReactQueryProvider({ children }: { children: ReactNode }) {
   // 클라이언트에서만 인스턴스 생성
   const [client] = useState(
     () =>

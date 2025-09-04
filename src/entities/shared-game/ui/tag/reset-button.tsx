@@ -1,7 +1,9 @@
+import { MouseEventHandler } from 'react';
+
 import ResetIcon from '@icons/reset.svg';
 
 interface ResetButtonProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 const ResetButton = ({ onClick }: ResetButtonProps) => {

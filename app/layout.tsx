@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
+import { ReactNode } from 'react';
+
 import { MSWProvider } from '@/app/providers/msw-provider';
 import { ReactQueryProvider } from '@/app/providers/react-query-provider';
+
 import { pretendard } from '@/shared/styles/fonts';
 import '@/shared/styles/globals.css';
 
@@ -17,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="ko">

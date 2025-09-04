@@ -1,7 +1,9 @@
+import { MouseEventHandler } from 'react';
+
 import PlusIcon from '@icons/plus.svg';
 
 interface TagAddButtonProps {
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 const TagAddButton = ({ onClick }: TagAddButtonProps) => {
