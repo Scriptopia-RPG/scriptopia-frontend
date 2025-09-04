@@ -76,7 +76,11 @@ const TagFilter = () => {
         <ResetButton onClick={resetAll} />
       </div>
 
-      <TagSelectModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <TagSelectModal
+        isOpen={isOpen}
+        initialSelected={selectedTagIds}
+        onClose={() => setIsOpen(false)}
+      />
     </div>
   );
 };

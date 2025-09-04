@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { useTags } from '@/entities/shared-game/model/use-tags.query';
 
@@ -8,31 +9,19 @@ import CloseButton from '@/shared/ui/button/close-button';
 import Tag from '@/entities/shared-game/ui/tag/tag';
 import ResetButton from '@/entities/shared-game/ui/tag/reset-button';
 import Button from '@/shared/ui/button/button';
-import { useEffect, useMemo, useState } from 'react';
 
 interface TagSelectModalProps {
   isOpen: boolean;
+  initialSelected: number[];
   onClose: () => void;
 }
 
-const TagSelectModal = ({ isOpen, onClose }: TagSelectModalProps) => {
+const TagSelectModal = ({ isOpen, initialSelected, onClose }: TagSelectModalProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { tags } = useTags();
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
-
-  const initialSelected = useMemo(() => {
-    const raw = searchParams.get('tags') ?? '';
-    const ids = raw
-      .split(',')
-      .map((x) => x.trim())
-      .filter(Boolean)
-      .map(Number);
-
-    const valid = new Set(tags.map((t) => t.tagId));
-    return Array.from(new Set(ids.filter((id) => valid.has(id))));
-  }, [searchParams, tags]);
 
   useEffect(() => {
     if (isOpen) {
@@ -46,9 +35,11 @@ const TagSelectModal = ({ isOpen, onClose }: TagSelectModalProps) => {
 
   const handleApply = () => {
     const next = new URLSearchParams(searchParams.toString());
-    if (selectedTagIds.length) next.set('tags', selectedTagIds.join(','));
-    else next.delete('tags');
-
+    if (selectedTagIds.length > 0) {
+      next.set('tags', selectedTagIds.join(','));
+    } else {
+      next.delete('tags');
+    }
     router.replace(`${pathname}?${next.toString()}`);
     onClose();
   };
