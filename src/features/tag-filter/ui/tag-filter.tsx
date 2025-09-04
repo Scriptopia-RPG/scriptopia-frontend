@@ -19,12 +19,17 @@ const TagFilter = () => {
   const { tags } = useTags();
 
   const selectedTagIds = useMemo(() => {
-    const params = searchParams.get('tags');
-    if (!params) {
-      return [];
-    }
-    return params.split(',').map(Number).filter(Number.isFinite);
-  }, [searchParams]);
+    const raw = searchParams.get('tags') ?? '';
+    const ids = raw
+      .split(',')
+      .map((x) => x.trim())
+      .filter(Boolean)
+      .map(Number);
+
+    const valid = new Set(tags.map((t) => t.tagId));
+    return Array.from(new Set(ids.filter((id) => valid.has(id))));
+  }, [searchParams, tags]);
+  console.log(selectedTagIds);
 
   const tagIdToName = useMemo(() => {
     return new Map(tags.map((tag) => [tag.tagId, tag.tagName]));

@@ -20,7 +20,7 @@ const TagSelectModal = ({ isOpen, onClose }: TagSelectModalProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { tags } = useTags();
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
 
   const initialSelected = useMemo(() => {
     const raw = searchParams.get('tags') ?? '';
@@ -36,17 +36,17 @@ const TagSelectModal = ({ isOpen, onClose }: TagSelectModalProps) => {
 
   useEffect(() => {
     if (isOpen) {
-      setSelectedIds(initialSelected);
+      setSelectedTagIds(initialSelected);
     }
   }, [isOpen, initialSelected]);
 
   const handleTagToggle = (id: number) => {
-    setSelectedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+    setSelectedTagIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
   };
 
   const handleApply = () => {
     const next = new URLSearchParams(searchParams.toString());
-    if (selectedIds.length) next.set('tags', selectedIds.join(','));
+    if (selectedTagIds.length) next.set('tags', selectedTagIds.join(','));
     else next.delete('tags');
 
     router.replace(`${pathname}?${next.toString()}`);
@@ -80,12 +80,12 @@ const TagSelectModal = ({ isOpen, onClose }: TagSelectModalProps) => {
             <Tag
               key={tag.tagId}
               name={tag.tagName}
-              selected={selectedIds.includes(tag.tagId)}
+              selected={selectedTagIds.includes(tag.tagId)}
               onSelect={() => handleTagToggle(tag.tagId)}
             />
           ))}
 
-          <ResetButton onClick={() => setSelectedIds([])} />
+          <ResetButton onClick={() => setSelectedTagIds([])} />
         </div>
 
         <Button label="검색하기" onClick={handleApply} />
