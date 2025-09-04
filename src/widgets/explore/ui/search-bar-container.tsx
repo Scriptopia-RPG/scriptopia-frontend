@@ -1,7 +1,8 @@
 'use client';
 
-import SearchBar from '@/shared/ui/search-bar/search-bar';
 import { usePathname, useRouter } from 'next/navigation';
+
+import SearchBar from '@/shared/ui/input/search-bar';
 
 const SearchBarContainer = ({ q }: { q: string }) => {
   const router = useRouter();
