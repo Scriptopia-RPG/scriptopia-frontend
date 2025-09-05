@@ -18,7 +18,7 @@ const GameCard = ({ thumbnail, title, tags }: GameCardProps) => {
             src={thumbnail}
             fill
             alt={title}
-            sizes="200"
+            sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 20vw"
             className="object-cover transition duration-200 group-hover:brightness-[0.6]"
           />
         )}
