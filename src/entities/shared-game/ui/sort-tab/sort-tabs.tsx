@@ -2,8 +2,8 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import type { SortKey } from '@/entities/shared-game/model/shared-game.type';
 import { SORT_OPTIONS } from '@/entities/shared-game/model/shared-game.constant';
+import type { SortKey } from '@/entities/shared-game/model/shared-game.type';
 
 import Tabs from '@/shared/ui/tabs/tabs';
 
@@ -11,7 +11,8 @@ const SortTabs = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const current = (searchParams.get('sort') as SortKey) ?? 'popular';
+  const sp = searchParams.get('sort');
+  const current = sp && SORT_OPTIONS.some((o) => o.key === sp) ? (sp as SortKey) : 'popular';
 
   const handleSortSet = (key: SortKey) => {
     const params = new URLSearchParams(searchParams.toString());
