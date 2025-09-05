@@ -10,25 +10,32 @@ const isFormData = (b: unknown): b is FormData =>
 const customFetch = async <T>(url: string, options?: JsonRequestInit): Promise<T> => {
   const accessToken = '';
 
-  const defaultHeaders: Record<string, string> = {
+  const method = (options?.method ?? 'GET').toUpperCase();
+
+  const defaultHeaders: HeadersInit = {
     Accept: 'application/json',
     ...(options?.body && !isFormData(options.body) ? { 'Content-Type': 'application/json' } : {}),
     ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
   };
 
+  const normalizedHeaders = new Headers(defaultHeaders);
+  if (options?.headers) {
+    new Headers(options.headers).forEach((v, k) => normalizedHeaders.set(k, v));
+  }
+  if (options?.body && isFormData(options.body)) {
+    normalizedHeaders.delete('Content-Type');
+  }
+
   const fetchOptions: RequestInit = {
-    method: options?.method ?? 'GET',
     ...options,
-    headers: {
-      ...defaultHeaders,
-      ...options?.headers,
-    },
-    // FormData면 그대로 사용하고 아니면 JSON으로 직렬화
-    body: options?.body
-      ? isFormData(options.body)
-        ? options.body
-        : JSON.stringify(options.body)
-      : undefined,
+    method,
+    headers: normalizedHeaders,
+    body:
+      options?.body && !['GET', 'HEAD'].includes(method)
+        ? isFormData(options.body)
+          ? options.body
+          : JSON.stringify(options.body)
+        : undefined,
   };
 
   const response = await fetch(`${BASE_URL}${url}`, fetchOptions);
