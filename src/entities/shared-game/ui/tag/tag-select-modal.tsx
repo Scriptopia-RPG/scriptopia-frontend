@@ -52,6 +52,7 @@ const TagSelectModal = ({ isOpen, initialSelected, onClose }: TagSelectModalProp
     <div
       role="dialog"
       aria-modal="true"
+      aria-labelledby="tag-select-title"
       onClick={onClose}
       className="fixed inset-0 z-50 flex items-center justify-center"
     >
@@ -62,7 +63,9 @@ const TagSelectModal = ({ isOpen, initialSelected, onClose }: TagSelectModalProp
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between">
-          <p className="text-xl font-medium select-none">검색할 게임 태그를 선택해 주세요.</p>
+          <p id="tag-select-title" className="text-xl font-medium select-none">
+            검색할 게임 태그를 선택해 주세요.
+          </p>
           <CloseButton onClick={onClose} />
         </div>
 
