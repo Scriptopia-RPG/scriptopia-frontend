@@ -20,11 +20,9 @@ const TagFilter = () => {
   const { tags } = useTags();
 
   const selectedTagIds = useMemo(() => {
-    const raw = searchParams.get('tags') ?? '';
-    const ids = parseTagIds(raw);
-
+    const ids = parseTagIds(searchParams.get('tags'));
     const valid = new Set(tags.map((t) => t.tagId));
-    return Array.from(new Set(ids?.filter((id) => valid.has(id))));
+    return [...new Set(ids)].filter((id) => valid.has(id));
   }, [searchParams, tags]);
 
   const tagIdToName = useMemo(() => {

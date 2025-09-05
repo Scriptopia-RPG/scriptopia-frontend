@@ -1,6 +1,6 @@
 export const parseTagIds = (csv: string | null) => {
   if (!csv) {
-    return undefined;
+    return [];
   }
 
   const ids = csv
@@ -11,5 +11,5 @@ export const parseTagIds = (csv: string | null) => {
     .filter((n) => Number.isInteger(n) && n > 0);
 
   const unique = Array.from(new Set(ids));
-  return unique.length ? unique : undefined;
+  return unique.length ? unique : [];
 };
