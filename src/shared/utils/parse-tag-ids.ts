@@ -5,8 +5,11 @@ export const parseTagIds = (csv: string | null) => {
 
   const ids = csv
     .split(',')
-    .map((x) => Number(x.trim()))
-    .filter(Number.isFinite);
+    .map((x) => x.trim())
+    .filter((x) => x !== '')
+    .map(Number)
+    .filter((n) => Number.isInteger(n) && n > 0);
 
-  return ids.length ? ids : undefined;
+  const unique = Array.from(new Set(ids));
+  return unique.length ? unique : undefined;
 };
