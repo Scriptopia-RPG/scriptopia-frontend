@@ -24,7 +24,7 @@ const Page = async ({
   const queryClient = new QueryClient();
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ['shared-games', { mode, sort, selectedTags, q }],
+    queryKey: ['shared-games', { mode, sort, selectedTags, query: q }],
     queryFn: ({ pageParam }) =>
       getSharedGames({
         mode,
