@@ -40,17 +40,16 @@
   background-image: var(--gradient-primary);
 }
 
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-user-font, var(--font-pretendard)), sans-serif;
-}
-
-* {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-*::-webkit-scrollbar {
-  display: none;
 }

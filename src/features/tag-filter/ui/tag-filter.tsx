@@ -53,7 +53,7 @@ const TagFilter = () => {
       <div className="shrink-0">
         <TagAddButton onClick={() => setIsOpen(true)} />
       </div>
-      <div className="min-w-0 flex-1 overflow-x-auto">
+      <div className="scrollbar-none min-w-0 flex-1 overflow-x-auto">
         <div className="flex gap-2.5 whitespace-nowrap">
           {selectedTagIds.map((id) => (
             <Tag

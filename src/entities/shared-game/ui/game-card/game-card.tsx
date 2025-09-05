@@ -25,7 +25,7 @@ const GameCard = ({ thumbnail, title, tags }: GameCardProps) => {
       </div>
       <div className="space-y-2">
         <p className="text-fg truncate text-lg font-medium">{title}</p>
-        <div className="flex gap-1.5 overflow-x-auto whitespace-nowrap">
+        <div className="scrollbar-none flex gap-1.5 overflow-x-auto whitespace-nowrap">
           {tags.map((tag) => (
             <Tag key={tag.tagId} name={tag.tagName} size="sm" />
           ))}
