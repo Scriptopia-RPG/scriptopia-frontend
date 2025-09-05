@@ -9,6 +9,7 @@ interface ResetButtonProps {
 const ResetButton = ({ onClick }: ResetButtonProps) => {
   return (
     <button
+      type="button"
       onClick={onClick}
       className="text-fg ring-fg flex cursor-pointer items-center justify-center gap-1 rounded-full px-4 py-2 text-sm ring-1 select-none ring-inset"
     >
