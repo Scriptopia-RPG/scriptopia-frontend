@@ -5,7 +5,6 @@ interface SearchBarProps {
   value: string;
   placeholder?: string;
   onChange: (value: string) => void;
-  onSubmit?: (value: string) => void;
   onClear?: () => void;
 }
 
@@ -13,7 +12,6 @@ const SearchBar = ({
   value,
   placeholder = '검색어를 입력해 주세요.',
   onChange,
-  onSubmit,
   onClear,
 }: SearchBarProps) => {
   return (
@@ -25,9 +23,6 @@ const SearchBar = ({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') onSubmit?.(value);
-        }}
         aria-label="검색어 입력"
         className="bg-surface text-fg w-full rounded-full py-2 pr-12 pl-14 placeholder:text-gray-400 focus:outline-none"
       />
