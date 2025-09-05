@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef } from 'react';
 
-import { useSharedGames } from '@/entities/shared-game/model/use-shared-games.query';
+import { useSharedGames } from '@/entities/shared-game/api/use-shared-games.query';
 import { usePageSize } from '@/entities/shared-game/model/use-page-size';
 import { useDebounced } from '@/shared/hooks/use-debounced';
 import type { SortKey } from '@/entities/shared-game/model/shared-game.type';

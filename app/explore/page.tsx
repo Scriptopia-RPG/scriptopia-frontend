@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { getSharedGames } from '@/entities/shared-game/model/use-shared-games.query';
+import { getSharedGames } from '@/entities/shared-game/api/use-shared-games.query';
 import { parseTagIds } from '@/shared/utils/parse-tag-ids';
 import { SortKey } from '@/entities/shared-game/model/shared-game.type';
 

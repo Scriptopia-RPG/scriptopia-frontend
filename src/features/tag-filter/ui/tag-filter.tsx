@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-import { useTags } from '@/entities/shared-game/model/use-tags.query';
+import { useTags } from '@/entities/shared-game/api/use-tags.query';
 import { parseTagIds } from '@/shared/utils/parse-tag-ids';
 
 import TagAddButton from '@/entities/shared-game/ui/tag/tag-add-button';

@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { useTags } from '@/entities/shared-game/model/use-tags.query';
+import { useTags } from '@/entities/shared-game/api/use-tags.query';
 
 import CloseButton from '@/shared/ui/button/close-button';
 import Tag from '@/entities/shared-game/ui/tag/tag';
