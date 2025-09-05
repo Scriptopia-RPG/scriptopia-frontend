@@ -52,12 +52,14 @@ const Tag = ({
 
   return (
     <button
+      type="button"
       onClick={handleClick}
       aria-pressed={selected}
+      aria-label={name}
       className={cn(tagStyles({ size, selected }))}
     >
       <span>#{name}</span>
-      {removable && <CloseIcon className="h-3.5 w-3.5" />}
+      {removable && <CloseIcon aria-hidden className="h-3.5 w-3.5" />}
     </button>
   );
 };
