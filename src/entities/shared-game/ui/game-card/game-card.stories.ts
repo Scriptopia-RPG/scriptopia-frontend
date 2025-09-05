@@ -8,7 +8,10 @@ const meta = {
   args: {
     thumbnail: '',
     title: '멸망한 왕국의 마지막 검',
-    tags: ['판타지', '용사', '생존', '아포칼립스'],
+    tags: [
+      { tagId: 1, tagName: '판타지' },
+      { tagId: 2, tagName: '용사' },
+    ],
   },
 } satisfies Meta<typeof GameCard>;
 
