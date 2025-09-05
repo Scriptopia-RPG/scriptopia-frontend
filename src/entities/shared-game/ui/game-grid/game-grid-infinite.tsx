@@ -17,19 +17,25 @@ interface GameGridInfiniteProps {
 
 const GameGridInfinite = ({ mode, sort, tags, query }: GameGridInfiniteProps) => {
   const pageSize = usePageSize();
-  const q = useSharedGames({ mode, sort, tags, query, pageSize });
+  const { data, hasNextPage, isFetchingNextPage, fetchNextPage, isLoading } = useSharedGames({
+    mode,
+    sort,
+    tags,
+    query,
+    pageSize,
+  });
 
-  const items = useMemo(() => q.data?.pages.flatMap((p) => p.sharedGames) ?? [], [q.data]);
+  const items = useMemo(() => data?.pages.flatMap((p) => p.sharedGames) ?? [], [data]);
 
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!q.hasNextPage || q.isFetchingNextPage) {
+    if (!hasNextPage || isFetchingNextPage) {
       return;
     }
 
     const io = new IntersectionObserver(
-      (entries) => entries[0]?.isIntersecting && q.fetchNextPage(),
+      (entries) => entries[0]?.isIntersecting && fetchNextPage(),
       { rootMargin: '160px' },
     );
 
@@ -39,13 +45,20 @@ const GameGridInfinite = ({ mode, sort, tags, query }: GameGridInfiniteProps) =>
     }
 
     return () => io.disconnect();
-  }, [q]);
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  if (!isLoading && items.length === 0) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <p className="text-gray-500">표시할 게임이 없습니다.</p>
+      </div>
+    );
+  }
 
   return (
     <>
       <GameGrid sharedGames={items} />
-      {q.isFetchingNextPage && <p className="col-span-full mt-4 text-center text-sm">Loading…</p>}
-      {q.hasNextPage && <div ref={sentinelRef} className="col-span-full h-10" />}
+      {hasNextPage && <div ref={sentinelRef} className="col-span-full h-10" />}
     </>
   );
 };
