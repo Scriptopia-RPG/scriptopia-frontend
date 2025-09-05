@@ -13,7 +13,7 @@ const SearchBarContainer = ({ q }: { q: string }) => {
 
   const handleChange = (value: string) => {
     setText(value);
-    router.replace(`${pathname}?q=${encodeURIComponent(value)}`);
+    router.replace(`${pathname}?q=${encodeURIComponent(value.trim())}`);
   };
 
   const handleClear = () => {
