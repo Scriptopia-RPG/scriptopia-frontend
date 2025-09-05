@@ -7,8 +7,6 @@ interface SearchBarProps {
   onChange: (value: string) => void;
   onSubmit?: (value: string) => void;
   onClear?: () => void;
-  onCompositionStart?: () => void;
-  onCompositionEnd?: () => void;
 }
 
 const SearchBar = ({
@@ -17,8 +15,6 @@ const SearchBar = ({
   onChange,
   onSubmit,
   onClear,
-  onCompositionStart,
-  onCompositionEnd,
 }: SearchBarProps) => {
   return (
     <div className="relative w-full">
@@ -32,8 +28,6 @@ const SearchBar = ({
         onKeyDown={(e) => {
           if (e.key === 'Enter') onSubmit?.(value);
         }}
-        onCompositionStart={onCompositionStart}
-        onCompositionEnd={onCompositionEnd}
         aria-label="검색어 입력"
         className="bg-surface text-fg w-full rounded-full py-2 pr-12 pl-14 placeholder:text-gray-400 focus:outline-none"
       />
