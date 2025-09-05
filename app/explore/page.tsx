@@ -2,6 +2,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query
 
 import { getSharedGames } from '@/entities/shared-game/model/use-shared-games.query';
 import { parseTagIds } from '@/shared/utils/parse-tag-ids';
+import { SortKey } from '@/entities/shared-game/model/shared-game.type';
 
 import Header from '@/widgets/header/ui/header';
 import TagFilter from '@/features/tag-filter/ui/tag-filter';
@@ -17,7 +18,7 @@ const Page = async ({
   const sp = await searchParams;
   const q = typeof sp.q === 'string' ? sp.q : '';
   const mode = q ? 'search' : 'filter';
-  const sort = !q && typeof sp.sort === 'string' ? sp.sort : undefined;
+  const sort = !q && typeof sp.sort === 'string' ? (sp.sort as SortKey) : undefined;
   const tags = !q && typeof sp.tags === 'string' ? sp.tags : '';
   const selectedTags = parseTagIds(tags);
 
