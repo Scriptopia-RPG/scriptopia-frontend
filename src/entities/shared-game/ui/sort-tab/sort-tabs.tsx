@@ -3,7 +3,7 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import type { SortKey } from '@/entities/shared-game/model/shared-game.type';
-import { SORT_OPTIONS } from '@/entities/shared-game/model/constants';
+import { SORT_OPTIONS } from '@/entities/shared-game/model/shared-game.constant';
 
 import Tabs from '@/shared/ui/tabs/tabs';
 

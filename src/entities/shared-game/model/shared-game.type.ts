@@ -1,4 +1,4 @@
-import { SORT_OPTIONS } from '@/entities/shared-game/model/constants';
+import { SORT_OPTIONS } from '@/entities/shared-game/model/shared-game.constant';
 
 export type SortKey = (typeof SORT_OPTIONS)[number]['key'];
 

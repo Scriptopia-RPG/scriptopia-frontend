@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
 import Tabs from './tabs';
-import { SORT_OPTIONS } from '@/entities/shared-game/model/constants';
+import { SORT_OPTIONS } from '@/entities/shared-game/model/shared-game.constant';
 
 const meta = {
   title: 'shared/Tabs',
