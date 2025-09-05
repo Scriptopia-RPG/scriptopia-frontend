@@ -7,6 +7,7 @@ import type { SortKey } from '@/entities/shared-game/model/shared-game.type';
 
 import GameGrid from '@/entities/shared-game/ui/game-grid/game-grid';
 import { usePageSize } from '@/entities/shared-game/model/use-page-size';
+import { useDebounced } from '@/shared/hooks/use-debounced';
 
 interface GameGridInfiniteProps {
   mode: 'filter' | 'search';
@@ -17,11 +18,12 @@ interface GameGridInfiniteProps {
 
 const GameGridInfinite = ({ mode, sort, tags, query }: GameGridInfiniteProps) => {
   const pageSize = usePageSize();
+  const debouncedQ = useDebounced(query);
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage, isLoading } = useSharedGames({
     mode,
     sort,
     tags,
-    query,
+    query: mode === 'search' ? debouncedQ : '',
     pageSize,
   });
 

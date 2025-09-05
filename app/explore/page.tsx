@@ -23,19 +23,21 @@ const Page = async ({
 
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ['shared-games', { mode, sort, selectedTags, query: q }],
-    queryFn: ({ pageParam }) =>
-      getSharedGames({
-        mode,
-        sort,
-        tags: selectedTags,
-        query: q,
-        pageSize: 10,
-        ...(pageParam ?? { isFirstPage: true }),
-      }),
-    initialPageParam: { isFirstPage: true },
-  });
+  if (mode === 'filter') {
+    await queryClient.prefetchInfiniteQuery({
+      queryKey: ['shared-games', { mode, sort, selectedTags, query: q }],
+      queryFn: ({ pageParam }) =>
+        getSharedGames({
+          mode,
+          sort,
+          tags: selectedTags,
+          query: q,
+          pageSize: 10,
+          ...(pageParam ?? { isFirstPage: true }),
+        }),
+      initialPageParam: { isFirstPage: true },
+    });
+  }
 
   return (
     <div className="mb-14">
