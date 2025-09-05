@@ -5,6 +5,6 @@ export interface CursorRequest {
 }
 
 export interface CursorResponse {
-  hasNextPage?: boolean;
+  hasNextPage: boolean;
   lastUuid?: string;
 }
