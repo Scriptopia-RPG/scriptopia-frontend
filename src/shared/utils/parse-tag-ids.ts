@@ -8,7 +8,7 @@ export const parseTagIds = (csv: string | null) => {
     .map((x) => x.trim())
     .filter((x) => x !== '')
     .map(Number)
-    .filter((n) => Number.isInteger(n) && n > 0);
+    .filter((n) => Number.isInteger(n) && n >= 0);
 
   const unique = Array.from(new Set(ids));
   return unique.length ? unique : [];
