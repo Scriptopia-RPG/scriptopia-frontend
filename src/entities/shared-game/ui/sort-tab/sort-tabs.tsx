@@ -17,7 +17,7 @@ const SortTabs = () => {
   const handleSortSet = (key: SortKey) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('sort', key);
-    router.replace(`${pathname}?${params}`);
+    router.replace(`${pathname}?${params.toString()}`);
   };
 
   return <Tabs options={SORT_OPTIONS} current={current} onChange={handleSortSet} />;
