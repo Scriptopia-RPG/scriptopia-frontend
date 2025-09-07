@@ -33,7 +33,7 @@ const GameCard = ({ sharedGameUuid, thumbnail, title, totalPlayed, tags }: Share
           <h3 className="text-fg truncate text-sm font-medium sm:text-lg">{title}</h3>
           <div>
             <p className="text-xs text-gray-500 sm:text-sm">{formatTotalPlayed(totalPlayed)}</p>
-            <div className="scrollbar-none mt-3 flex hidden gap-1.5 overflow-x-auto whitespace-nowrap sm:flex">
+            <div className="scrollbar-none mt-3 hidden gap-1.5 overflow-x-auto whitespace-nowrap sm:flex">
               {tags.map((tag) => (
                 <Tag key={tag.tagId} name={tag.tagName} size="sm" />
               ))}
