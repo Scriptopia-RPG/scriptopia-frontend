@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 interface ModalProps {
   ariaLabelledby?: string;
-  onClose: () => void;
+  onClose?: () => void;
   children: ReactNode;
 }
 
