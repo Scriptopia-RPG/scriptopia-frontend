@@ -4,9 +4,9 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { tv, VariantProps } from "tailwind-variants";
-import { Button } from "@/shared/ui/button/button";
+import { Button } from "@/shared/ui/button/login-button";
 import Icon from "@/shared/ui/icon/icon";
-import Input from "@/shared/ui/input/input";
+import Input from "@/shared/ui/Input/input";
 import Logo from "@/shared/ui/logo/logo";
 
 const loginModalVariants = tv({
