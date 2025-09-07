@@ -1,13 +1,3 @@
-import { http, HttpResponse } from 'msw';
+import { sharedGame } from '@/shared/api/handlers/shared-game.handler';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
-export const handlers = [
-  http.get(`${baseUrl}/test`, () => {
-    return HttpResponse.json({
-      id: 'abc-123',
-      firstName: 'John',
-      lastName: 'Maverick',
-    });
-  }),
-];
+export const handlers = [...sharedGame];
