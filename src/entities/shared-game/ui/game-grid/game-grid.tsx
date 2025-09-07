@@ -8,7 +8,7 @@ interface GameGridProps {
 
 const GameGrid = ({ sharedGames }: GameGridProps) => {
   return (
-    <ul className="grid grid-cols-3 gap-x-1.5 gap-y-12 sm:grid-cols-4 sm:gap-x-3 lg:grid-cols-6">
+    <ul className="grid grid-cols-3 gap-x-1.5 gap-y-12 sm:grid-cols-4 sm:gap-x-3">
       {sharedGames?.map((sharedGame) => (
         <li key={sharedGame.sharedGameUuid}>
           <GameCard
