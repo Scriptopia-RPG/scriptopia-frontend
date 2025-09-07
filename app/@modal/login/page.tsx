@@ -3,7 +3,7 @@
 import { LoginModal } from '@/features/auth/login/ui/login-modal';
 import { useRouter } from 'next/navigation';
 
-export default function LoginModalPage() {
+const LoginModalPage = () => {
     const router = useRouter();
 
     const handleOpenChange = (open: boolean) => {
@@ -15,4 +15,6 @@ export default function LoginModalPage() {
     return (
         <LoginModal open={true} onOpenChange={handleOpenChange} />
     );
-}
+};
+
+export default LoginModalPage;

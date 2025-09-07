@@ -1,8 +1,6 @@
-// app/login/page.tsx
-
 import { LoginModal } from '@/features/auth/login/ui/login-modal'; // 예시: 모달이 아닌 일반 폼 컴포넌트
 
-export default function LoginPage() {
+const LoginPage = () => {
     return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
         <div>
@@ -11,4 +9,6 @@ export default function LoginPage() {
         </div>
     </main>
     );
-}
+};
+
+export default LoginPage;
