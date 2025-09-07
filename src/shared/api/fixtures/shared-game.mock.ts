@@ -25,15 +25,20 @@ export const MOCK_TAG_NAMES: Tag[] = [
   { tagId: 21, tagName: '코믹' },
 ];
 
+const getRandomInt = (min: number, max: number): number => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
 const pickRandomTags = (all: Tag[]): Tag[] => {
-  const count = Math.floor(Math.random() * 4) + 1; // 1~4개
+  const count = getRandomInt(1, 4);
   const shuffled = [...all].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, count);
 };
 
 export const MOCK_SHARED_GAMES: SharedGame[] = Array.from({ length: 60 }).map((_, i) => ({
   sharedGameUuid: String(i + 1),
-  thumbnailUrl: `https://picsum.photos/seed/${i + 1}/300/200`,
+  thumbnail: `https://picsum.photos/seed/${i + 1}/300/200`,
   title: `Game ${i + 1}`,
+  totalPlayed: getRandomInt(1000, 100000),
   tags: pickRandomTags(MOCK_TAG_NAMES),
 }));
