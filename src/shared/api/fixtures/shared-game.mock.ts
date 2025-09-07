@@ -1,9 +1,8 @@
 import type { SharedGame, Tag } from '@/entities/shared-game/model/shared-game.type';
 
 export const MOCK_TAG_NAMES: Tag[] = [
-  { tagId: 0, tagName: '로맨스' },
-  { tagId: 1, tagName: '현대' },
-  { tagId: 2, tagName: '공포' },
+  { tagId: 1, tagName: '로맨스' },
+  { tagId: 2, tagName: '현대' },
   { tagId: 3, tagName: '추리' },
   { tagId: 4, tagName: '시뮬레이션' },
   { tagId: 5, tagName: '빙의' },
@@ -23,6 +22,7 @@ export const MOCK_TAG_NAMES: Tag[] = [
   { tagId: 19, tagName: '액션' },
   { tagId: 20, tagName: '전쟁' },
   { tagId: 21, tagName: '코믹' },
+  { tagId: 22, tagName: '공포' },
 ];
 
 const getRandomInt = (min: number, max: number) => {
