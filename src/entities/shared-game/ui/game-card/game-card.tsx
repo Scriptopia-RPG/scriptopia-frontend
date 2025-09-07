@@ -5,7 +5,16 @@ import type { SharedGame } from '@/entities/shared-game/model/shared-game.type';
 import Link from 'next/link';
 
 const GameCard = ({ sharedGameUuid, thumbnail, title, totalPlayed, tags }: SharedGame) => {
-  console.log(thumbnail);
+  const formatTotalPlayed = (num: number) => {
+    if (num < 1000) {
+      return String(num);
+    } else if (num < 10000) {
+      return (num / 1000).toFixed(1).replace(/\.0$/, '') + '천';
+    } else {
+      return (num / 10000).toFixed(1).replace(/\.0$/, '') + '만';
+    }
+  };
+
   return (
     <Link href={`/explore/${sharedGameUuid}`} className="group cursor-pointer">
       <div className="relative aspect-[3/4] overflow-hidden rounded-md bg-gray-100 shadow-[0_0_2px_0_rgba(255,255,255,0.8)]">
@@ -22,7 +31,7 @@ const GameCard = ({ sharedGameUuid, thumbnail, title, totalPlayed, tags }: Share
       <div className="mt-2 space-y-1">
         <p className="text-fg truncate text-sm font-medium sm:text-lg">{title}</p>
         <div>
-          <p className="text-xs text-gray-500">{totalPlayed}</p>
+          <p className="text-xs text-gray-500 sm:text-sm">{formatTotalPlayed(totalPlayed)}</p>
           <div className="scrollbar-none mt-3 flex hidden gap-1.5 overflow-x-auto whitespace-nowrap sm:flex">
             {tags.map((tag) => (
               <Tag key={tag.tagId} name={tag.tagName} size="sm" />
