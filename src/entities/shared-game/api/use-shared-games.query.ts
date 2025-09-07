@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import customFetch from '@/shared/api/custom-fetch';
+import { SORT_OPTIONS } from '../model/shared-game.constant';
 import type { SharedGame, SortKey } from '@/entities/shared-game/model/shared-game.type';
 import type { CursorRequest, CursorResponse } from '@/shared/types/pagination';
 
@@ -27,7 +28,7 @@ const buildQueryString = ({
   const qs = new URLSearchParams();
 
   if (mode === 'filter') {
-    qs.set('sort', sort ?? 'popular');
+    qs.set('sort', sort ?? SORT_OPTIONS[0].key);
     if (tags?.length) {
       qs.set('tags', tags.join(','));
     }

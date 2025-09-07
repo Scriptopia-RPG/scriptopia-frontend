@@ -12,7 +12,8 @@ const SortTabs = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const sp = searchParams.get('sort');
-  const current = sp && SORT_OPTIONS.some((o) => o.key === sp) ? (sp as SortKey) : 'popular';
+  const current =
+    sp && SORT_OPTIONS.some((o) => o.key === sp) ? (sp as SortKey) : SORT_OPTIONS[0].key;
 
   const handleSortSet = (key: SortKey) => {
     const params = new URLSearchParams(searchParams.toString());
