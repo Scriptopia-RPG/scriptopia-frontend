@@ -17,7 +17,7 @@ const TagFilter = () => {
   const searchParams = useSearchParams();
 
   const [isOpen, setIsOpen] = useState(false);
-  const { tags } = useTags();
+  const { tags = [] } = useTags();
 
   const selectedTagIds = useMemo(() => {
     const ids = parseTagIds(searchParams.get('tags'));
