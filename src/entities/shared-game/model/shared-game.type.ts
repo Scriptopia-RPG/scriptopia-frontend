@@ -9,7 +9,8 @@ export interface Tag {
 
 export interface SharedGame {
   sharedGameUuid: string;
-  thumbnailUrl: string;
+  thumbnail: string;
   title: string;
+  totalPlayed: number;
   tags: Tag[];
 }
