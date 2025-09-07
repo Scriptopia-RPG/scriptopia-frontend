@@ -43,22 +43,27 @@ const Page = async ({
   return (
     <div className="mb-14">
       <Header />
-      <div className="mx-auto mt-7 flex w-full max-w-6xl flex-col gap-7 px-3.5 sm:px-8">
-        <div className="flex flex-col gap-5">
+      <main className="mx-auto mt-7 flex w-full max-w-6xl flex-col gap-7 px-3.5 sm:px-8">
+        <h1 className="sr-only">공유된 게임 탐색</h1>
+        <section className="flex flex-col gap-5">
+          <h2 className="sr-only">탐색 제어</h2>
           <SearchBarContainer q={q} />
           {mode === 'filter' && <TagFilter />}
-        </div>
+        </section>
 
         {mode === 'filter' && (
-          <div className="flex justify-end">
+          <nav className="flex justify-end">
             <SortTabs />
-          </div>
+          </nav>
         )}
 
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <GameGridInfinite mode={mode} sort={sort} tags={selectedTags} query={q} />
-        </HydrationBoundary>
-      </div>
+        <section>
+          <h2 className="sr-only">공유된 게임 목록</h2>
+          <HydrationBoundary state={dehydrate(queryClient)}>
+            <GameGridInfinite mode={mode} sort={sort} tags={selectedTags} query={q} />
+          </HydrationBoundary>
+        </section>
+      </main>
     </div>
   );
 };
