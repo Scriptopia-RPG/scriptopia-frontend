@@ -12,5 +12,5 @@ export interface SharedGame {
   thumbnail: string;
   title: string;
   totalPlayed: number;
-  tags: Tag[];
+  tags: ReadonlyArray<Tag>;
 }
