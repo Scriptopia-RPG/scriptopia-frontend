@@ -25,7 +25,7 @@ export const MOCK_TAG_NAMES: Tag[] = [
   { tagId: 21, tagName: '코믹' },
 ];
 
-const getRandomInt = (min: number, max: number): number => {
+const getRandomInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 

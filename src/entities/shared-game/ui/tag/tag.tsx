@@ -7,8 +7,8 @@ import CloseIcon from '@icons/close.svg';
 const tagStyles = cva('inline-flex gap-1 items-center rounded-full select-none text-fg', {
   variants: {
     size: {
-      sm: 'text-xs px-2 py-1',
-      md: 'px-3 py-2 text-sm cursor-pointer',
+      sm: 'text-xs sm:px-2 sm:py-1 px-1.5 py-0.5',
+      md: 'px-2.5 py-1 sm:px-3 sm:py-2 text-sm cursor-pointer',
     },
     selected: {
       true: 'bg-btn-bg text-btn-text',
@@ -58,7 +58,7 @@ const Tag = ({
       aria-label={name}
       className={cn(tagStyles({ size, selected }))}
     >
-      <span>#{name}</span>
+      <span>{name}</span>
       {removable && <CloseIcon aria-hidden className="h-3.5 w-3.5" />}
     </button>
   );

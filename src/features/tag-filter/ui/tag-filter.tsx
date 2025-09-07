@@ -49,12 +49,12 @@ const TagFilter = () => {
   };
 
   return (
-    <div className="flex gap-2.5">
+    <div className="flex gap-1.5 sm:gap-2.5">
       <div className="shrink-0">
         <TagAddButton onClick={() => setIsOpen(true)} />
       </div>
       <div className="scrollbar-none min-w-0 flex-1 overflow-x-auto">
-        <div className="flex gap-2.5 whitespace-nowrap">
+        <div className="flex gap-1.5 whitespace-nowrap sm:gap-2.5">
           {selectedTagIds.map((id) => (
             <Tag
               key={id}
@@ -66,7 +66,7 @@ const TagFilter = () => {
           ))}
         </div>
       </div>
-      <div className="shrink-0">
+      <div className="hidden shrink-0 sm:flex">
         <ResetButton onClick={resetAll} />
       </div>
 

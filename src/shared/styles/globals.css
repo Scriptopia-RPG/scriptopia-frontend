@@ -4,7 +4,7 @@
 [data-theme='light'] {
   --bg: #ffffff;
   --fg: #232323;
-  --surface: #e8e8e8;
+  --surface: #eeeeee;
   --btn-text: var(--color-primary);
   --btn-bg: color-mix(in srgb, var(--color-primary) 18%, transparent);
 }

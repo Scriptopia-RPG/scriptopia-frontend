@@ -59,11 +59,11 @@ const TagSelectModal = ({ isOpen, initialSelected, onClose }: TagSelectModalProp
       <div className="absolute inset-0 bg-black/80"></div>
 
       <div
-        className="bg-bg relative z-40 w-full max-w-lg space-y-10 rounded-2xl p-10"
+        className="bg-bg relative z-40 mx-6 w-full max-w-lg space-y-10 rounded-2xl p-10"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between">
-          <p id="tag-select-title" className="text-xl font-medium select-none">
+          <p id="tag-select-title" className="text-base font-medium select-none sm:text-xl">
             검색할 게임 태그를 선택해 주세요.
           </p>
           <CloseButton onClick={onClose} />

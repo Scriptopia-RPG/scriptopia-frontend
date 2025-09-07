@@ -33,7 +33,7 @@ const Page = async ({
           sort,
           tags: selectedTags,
           query: q,
-          pageSize: 10,
+          pageSize: 12,
           ...(pageParam ?? { isFirstPage: true }),
         }),
       initialPageParam: { isFirstPage: true },
@@ -43,7 +43,7 @@ const Page = async ({
   return (
     <div className="mb-14">
       <Header />
-      <div className="mx-auto mt-12 flex w-full max-w-5xl flex-col gap-7 px-8">
+      <div className="mx-auto mt-7 flex w-full max-w-6xl flex-col gap-7 px-3.5 sm:px-8">
         <div className="flex flex-col gap-5">
           <SearchBarContainer q={q} />
           {mode === 'filter' && <TagFilter />}

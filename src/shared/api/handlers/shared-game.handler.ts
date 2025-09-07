@@ -27,7 +27,7 @@ export const sharedGame = [
     // 커서 파라미터
     const isFirstPage = parseBool(sp.get('isFirstPage'));
     const lastUuid = sp.get('lastUuid') || undefined;
-    const pageSize = Number(sp.get('pageSize') ?? 10);
+    const pageSize = Number(sp.get('pageSize') ?? 12);
 
     // 1) 전체 복사
     let items = [...MOCK_SHARED_GAMES];

@@ -52,7 +52,7 @@ export const useSharedGames = ({
   sort,
   tags,
   query,
-  pageSize = 10,
+  pageSize = 12,
 }: Omit<SharedGamesRequest, 'isFirstPage' | 'lastUuid'>) => {
   return useInfiniteQuery({
     queryKey: ['shared-games', { mode, sort, tags, query }],

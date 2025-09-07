@@ -13,7 +13,7 @@ interface TabsProps<K extends string> {
 
 const Tabs = <K extends string>({ options, current, onChange }: TabsProps<K>) => {
   return (
-    <ul role="tablist" className="m-0 flex list-none items-center divide-x p-0">
+    <ul role="tablist" className="m-0 flex list-none items-center divide-x divide-gray-200 p-0">
       {options.map(({ key, label }) => (
         <li key={key} role="none" className="flex items-center px-3 first:pl-0 last:pr-0">
           <button
@@ -23,7 +23,7 @@ const Tabs = <K extends string>({ options, current, onChange }: TabsProps<K>) =>
             onClick={() => onChange(key)}
             className={cn(
               'hover:text-primary cursor-pointer text-sm leading-none',
-              current === key ? 'text-primary' : 'text-fg',
+              current === key ? 'text-primary' : 'text-gray-400',
             )}
           >
             {label}
