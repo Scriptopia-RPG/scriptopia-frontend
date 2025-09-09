@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
 
-export const authHandlers = [
-  http.post('/api/login', async ({ request }) => {
+export const auth = [
+  http.post('*/login', async ({ request }) => {
     const { email, password } = (await request.json()) as {
       email: string;
       password: string;
@@ -9,7 +9,7 @@ export const authHandlers = [
 
     console.log('Mock API received:', { email, password });
 
-    if (email === "test@test.com" && password === "test") {
+    if (email === 'test@test.com' && password === 'test') {
       console.log('Mock API: Login successful');
       return HttpResponse.json({
         user: {
