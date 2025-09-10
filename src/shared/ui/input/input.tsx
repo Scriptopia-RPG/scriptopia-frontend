@@ -1,28 +1,21 @@
-
 import { forwardRef, InputHTMLAttributes, useId } from 'react';
-import { twMerge } from 'tailwind-merge';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  className?: string;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(({ label, id, className, ...props }, ref) => {
-    const generatedId = useId();
-    const inputId = id ?? generatedId;
+const Input = forwardRef<HTMLInputElement, InputProps>(({ label, id }, ref) => {
+  const generatedId = useId();
+  const inputId = id ?? generatedId;
   return (
     <div className="w-full">
-      <label htmlFor={inputId} className="block text-sm font-medium text-gray-700 mb-1">
+      <label htmlFor={inputId} className="text-fg block text-sm font-medium">
         {label}
       </label>
       <input
         id={inputId}
         ref={ref}
-        className={twMerge(
-          'w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500',
-          className
-        )}
-        {...props}
+        className="focus:border-primary text-fg mt-2 w-full rounded-lg border border-gray-200 p-2.5 text-sm placeholder-gray-400 focus:outline-none"
       />
     </div>
   );
