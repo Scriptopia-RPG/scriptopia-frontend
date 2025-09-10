@@ -1,14 +1,17 @@
+'use client';
+
 import { MouseEventHandler } from 'react';
 
 interface ButtonProps {
+  type?: 'button' | 'submit';
   label: string;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Button = ({ label, onClick }: ButtonProps) => {
+const Button = ({ type = 'button', label, onClick }: ButtonProps) => {
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       className="bg-gradient-primary w-full cursor-pointer rounded-xl py-2.5 text-white"
     >
