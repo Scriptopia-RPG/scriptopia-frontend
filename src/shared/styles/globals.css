@@ -27,7 +27,7 @@
   --bg: #151518;
   --fg: #f2f2f2;
   --surface: color-mix(in srgb, var(--fg) 20%, transparent);
-  --btn-text: var(--color-fg);
+  --btn-text: var(--fg);
   --btn-bg: var(--color-primary);
 
   --color-gray-100: var(--gray-500);
