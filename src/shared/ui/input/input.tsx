@@ -1,10 +1,24 @@
-import { forwardRef, InputHTMLAttributes, useId } from 'react';
+import { ChangeEvent, useId } from 'react';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps {
+  id?: string;
   label: string;
+  type?: 'text' | 'email' | 'password';
+  placeholder?: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(({ label, id }, ref) => {
+const Input = ({
+  id,
+  label,
+  type = 'text',
+  placeholder,
+  value,
+  onChange,
+  required = false,
+}: InputProps) => {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   return (
@@ -14,12 +28,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({ label, id }, ref) => {
       </label>
       <input
         id={inputId}
-        ref={ref}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required={required}
         className="focus:border-primary text-fg mt-2 w-full rounded-lg border border-gray-200 p-2.5 text-sm placeholder-gray-400 focus:outline-none"
       />
     </div>
   );
-});
+};
 
 Input.displayName = 'Input';
 
