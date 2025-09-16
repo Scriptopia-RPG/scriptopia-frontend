@@ -25,7 +25,7 @@ const Input = ({
   const inputId = id ?? generatedId;
   return (
     <div className="w-full">
-      <label htmlFor={inputId} className="text-fg block text-sm font-medium">
+      <label htmlFor={inputId} className="text-fg block text-sm">
         {label}
       </label>
       <input
@@ -36,7 +36,7 @@ const Input = ({
         onChange={onChange}
         disabled={disabled}
         required={required}
-        className="focus:border-primary text-fg mt-2 w-full rounded-lg border border-gray-200 p-2.5 text-sm placeholder-gray-400 focus:outline-none"
+        className="focus:border-primary text-fg mt-2 w-full rounded-lg border border-gray-100 p-2.5 text-sm placeholder-gray-400 focus:outline-none"
       />
     </div>
   );

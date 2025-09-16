@@ -7,7 +7,7 @@ const SocialLogin = () => {
     <div>
       <div className="relative my-6">
         <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-400" />
+          <div className="w-full border-t border-gray-200" />
         </div>
         <div className="relative flex justify-center">
           <span className="bg-bg px-3 text-sm text-gray-400">간편 로그인</span>
