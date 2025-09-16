@@ -28,8 +28,10 @@ export default function RootLayout({
     <html lang="ko">
       <body className={`${pretendard.variable} antialiased`}>
         <MSWProvider>
-          {modal}
-          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <ReactQueryProvider>
+            {children}
+            {modal}
+          </ReactQueryProvider>
         </MSWProvider>
       </body>
     </html>
