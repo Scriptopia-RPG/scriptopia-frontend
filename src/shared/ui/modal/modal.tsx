@@ -19,7 +19,7 @@ const Modal = ({ ariaLabelledby, onClose, children }: ModalProps) => {
 
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-bg relative z-40 mx-4 w-full max-w-sm rounded-2xl"
+        className="bg-bg relative z-40 mx-4 w-full max-w-sm rounded-2xl sm:max-w-lg"
       >
         {children}
       </div>
