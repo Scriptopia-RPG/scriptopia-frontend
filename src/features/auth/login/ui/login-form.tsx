@@ -28,7 +28,7 @@ const LoginModal = () => {
     }
 
     mutate(
-      { email, password },
+      { email, password, deviceId: '1' },
       {
         onSuccess: () => {
           router.back();

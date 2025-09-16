@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 interface LoginRequest {
   email: string;
   password: string;
+  deviceId: string;
 }
 
 interface LoginResponse {
