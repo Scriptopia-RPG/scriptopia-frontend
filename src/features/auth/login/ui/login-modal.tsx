@@ -11,7 +11,7 @@ import CloseButton from '@/shared/ui/button/close-button';
 import LogoText from '@public/logo/logo-text.svg';
 import Input from '@/shared/ui/input/input';
 import Button from '@/shared/ui/button/button';
-import SocialLogin from '@/features/auth/login/ui/social-login';
+import SocialAuth from '@/features/auth/social/social-auth';
 
 const LoginModal = () => {
   const router = useRouter();
@@ -83,7 +83,7 @@ const LoginModal = () => {
           />
         </form>
 
-        <SocialLogin />
+        <SocialAuth mode="login" />
 
         <div className="flex flex-col items-center gap-y-6 text-xs text-gray-400">
           <div className="flex gap-x-2.5">
