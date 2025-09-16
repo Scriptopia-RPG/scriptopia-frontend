@@ -1,4 +1,6 @@
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+import useAuthStore from '@/entities/auth/model/auth.store';
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? '';
 
 type JsonRequestInit = Omit<NonNullable<RequestInit>, 'body'> & {
   body?: object | FormData;
@@ -8,7 +10,7 @@ const isFormData = (b: unknown): b is FormData =>
   typeof FormData !== 'undefined' && b instanceof FormData;
 
 const customFetch = async <T>(url: string, options?: JsonRequestInit): Promise<T> => {
-  const accessToken = '';
+  const accessToken = useAuthStore.getState().accessToken;
 
   const method = (options?.method ?? 'GET').toUpperCase();
 
@@ -30,6 +32,7 @@ const customFetch = async <T>(url: string, options?: JsonRequestInit): Promise<T
     ...options,
     method,
     headers: normalizedHeaders,
+    credentials: 'include',
     body:
       options?.body && !['GET', 'HEAD'].includes(method)
         ? isFormData(options.body)
