@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 
+:root,
 [data-theme='light'] {
   --bg: #ffffff;
   --fg: #232323;
@@ -13,7 +14,7 @@
   --color-gray-400: #a4a4a4;
   --color-gray-500: #777777;
 }
-:root,
+
 [data-theme='dark'] {
   --bg: #151518;
   --fg: #f2f2f2;
@@ -25,7 +26,7 @@
   --color-gray-200: #a4a4a4;
   --color-gray-300: #c4c4c4;
   --color-gray-400: #dadada;
-  --color-gray-500: #e8e8e8;
+  --color-gray-500: #d8d8d8;
 }
 
 @theme {

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
+import { useArgs } from 'storybook/preview-api';
+
 import Input from './input';
-import { useArgs } from 'storybook/internal/preview-api';
 
 const meta: Meta<typeof Input> = {
   title: 'Shared/Input',
