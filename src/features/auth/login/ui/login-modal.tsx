@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useState } from 'react';
 import Link from 'next/link';
 
-import { useLogin } from '@/entities/user/api/use-login.mutation';
+import { useLogin } from '@/features/auth/login/api/use-login.mutation';
 
 import Modal from '@/shared/ui/modal/modal';
 import CloseButton from '@/shared/ui/button/close-button';
