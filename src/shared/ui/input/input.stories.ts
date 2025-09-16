@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 import Input from './input';
 
 const meta: Meta<typeof Input> = {
-  title: 'Shared/UI/Input',
+  title: 'Shared/Input',
   component: Input,
   parameters: {
     layout: 'centered',
@@ -18,7 +18,7 @@ const meta: Meta<typeof Input> = {
 export default meta;
 type Story = StoryObj<typeof Input>;
 
-export const Default: Story = {
+export const Email: Story = {
   args: {
     label: '이메일',
     id: 'email',

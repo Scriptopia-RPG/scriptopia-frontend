@@ -7,6 +7,7 @@ interface InputProps {
   placeholder?: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
   required?: boolean;
 }
 
@@ -17,6 +18,7 @@ const Input = ({
   placeholder,
   value,
   onChange,
+  disabled = false,
   required = false,
 }: InputProps) => {
   const generatedId = useId();
@@ -32,6 +34,7 @@ const Input = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        disabled={disabled}
         required={required}
         className="focus:border-primary text-fg mt-2 w-full rounded-lg border border-gray-200 p-2.5 text-sm placeholder-gray-400 focus:outline-none"
       />
