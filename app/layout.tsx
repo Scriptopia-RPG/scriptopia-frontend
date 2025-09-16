@@ -19,14 +19,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: ReactNode;
+  modal: ReactNode;
 }>) {
   return (
     <html lang="ko">
       <body className={`${pretendard.variable} antialiased`}>
         <MSWProvider>
-          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <ReactQueryProvider>
+            {children}
+            {modal}
+          </ReactQueryProvider>
         </MSWProvider>
       </body>
     </html>

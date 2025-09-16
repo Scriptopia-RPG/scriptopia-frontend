@@ -9,12 +9,12 @@ declare global {
   }
 }
 
+const enableMocking =
+  process.env.NODE_ENV !== 'production' && process.env.NEXT_PUBLIC_API_MOCKING === 'true';
+
 const mockingEnabledPromise =
-  typeof window !== 'undefined'
+  typeof window !== 'undefined' && enableMocking
     ? import('@/shared/api/mocks/browser').then(async ({ default: worker }) => {
-        if (process.env.NODE_ENV === 'production') {
-          return;
-        }
         await worker.start({
           onUnhandledRequest(request, print) {
             if (request.url.includes('_next')) {

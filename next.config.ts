@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
         as: '*.js',
       },
     },
-    resolveAlias: { '@': './src', '@icons': './public/icons' },
+    resolveAlias: { '@': './src', '@public': './public', '@icons': './public/icons' },
     resolveExtensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
   },
 
