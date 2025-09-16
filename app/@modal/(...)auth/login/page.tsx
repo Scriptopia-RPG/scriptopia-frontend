@@ -1,20 +1,7 @@
-'use client'; 
+import LoginModal from '@/features/auth/login/ui/login-form';
 
-import { LoginModal } from '@/features/auth/login/ui/login-modal';
-import { useRouter } from 'next/navigation';
-
-const LoginModalPage = () => {
-    const router = useRouter();
-
-    const handleOpenChange = (open: boolean) => {
-    if (!open) {
-        router.back();
-    }
+const Page = () => {
+  return <LoginModal />;
 };
 
-    return (
-        <LoginModal open={true} onOpenChange={handleOpenChange} />
-    );
-};
-
-export default LoginModalPage;
+export default Page;
