@@ -4,8 +4,8 @@ import Tag from '@/entities/shared-game/ui/tag/tag';
 import type { SharedGame } from '@/entities/shared-game/model/shared-game.type';
 import Link from 'next/link';
 
-const GameCard = ({ sharedGameUuid, thumbnail, title, totalPlayed, tags }: SharedGame) => {
-  const formatTotalPlayed = (num: number) => {
+const GameCard = ({ sharedGameUuid, thumbnail, title, playCount, tags }: SharedGame) => {
+  const formatPlayCount = (num: number) => {
     if (num < 1000) {
       return String(num);
     } else if (num < 10000) {
@@ -32,7 +32,7 @@ const GameCard = ({ sharedGameUuid, thumbnail, title, totalPlayed, tags }: Share
         <div className="mt-2 space-y-1">
           <h3 className="text-fg truncate text-sm font-medium sm:text-lg">{title}</h3>
           <div>
-            <p className="text-xs text-gray-500 sm:text-sm">{formatTotalPlayed(totalPlayed)}</p>
+            <p className="text-xs text-gray-500 sm:text-sm">{formatPlayCount(playCount)}</p>
             <div className="scrollbar-none mt-3 hidden gap-1.5 overflow-x-auto whitespace-nowrap sm:flex">
               {tags.map((tag) => (
                 <Tag key={tag.tagId} name={tag.tagName} size="sm" />

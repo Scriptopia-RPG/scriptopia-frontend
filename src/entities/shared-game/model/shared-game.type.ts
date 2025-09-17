@@ -10,6 +10,6 @@ export interface SharedGame {
   sharedGameUuid: string;
   thumbnail: string;
   title: string;
-  totalPlayed: number;
+  playCount: number;
   tags: ReadonlyArray<Tag>;
 }

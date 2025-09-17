@@ -15,7 +15,7 @@ const GameGrid = ({ sharedGames }: GameGridProps) => {
             sharedGameUuid={sharedGame.sharedGameUuid}
             thumbnail={sharedGame.thumbnail}
             title={sharedGame.title}
-            totalPlayed={sharedGame.totalPlayed}
+            playCount={sharedGame.playCount}
             tags={sharedGame.tags}
           />
         </li>

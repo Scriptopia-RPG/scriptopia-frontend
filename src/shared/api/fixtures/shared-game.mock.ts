@@ -39,6 +39,6 @@ export const MOCK_SHARED_GAMES: SharedGame[] = Array.from({ length: 60 }).map((_
   sharedGameUuid: String(i + 1),
   thumbnail: `https://picsum.photos/seed/${i + 1}/300/200`,
   title: `Game ${i + 1}`,
-  totalPlayed: getRandomInt(1000, 100000),
+  playCount: getRandomInt(1000, 100000),
   tags: pickRandomTags(MOCK_TAG_NAMES),
 }));

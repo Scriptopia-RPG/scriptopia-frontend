@@ -9,7 +9,7 @@ const meta = {
     sharedGameUuid: '1',
     thumbnail: '',
     title: '멸망한 왕국의 마지막 검',
-    totalPlayed: 12635,
+    playCount: 12635,
     tags: [
       { tagId: 1, tagName: '판타지' },
       { tagId: 2, tagName: '용사' },
