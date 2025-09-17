@@ -7,7 +7,7 @@ import { SortKey } from '@/entities/shared-game/model/shared-game.type';
 import Header from '@/widgets/header/ui/header';
 import TagFilter from '@/features/tag-filter/ui/tag-filter';
 import SortTabs from '@/entities/shared-game/ui/sort-tab/sort-tabs';
-import SearchBarContainer from '@/widgets/explore/ui/search-bar-container';
+import SearchBarContainer from '@/features/shared-game-search/ui/search-bar-container';
 import GameGridInfinite from '@/entities/shared-game/ui/game-grid/game-grid-infinite';
 
 const Page = async ({
