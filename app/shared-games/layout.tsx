@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 
-interface ExploreLayoutProps {
+interface LayoutProps {
   children: ReactNode;
   modal: ReactNode;
 }
 
-const ExploreLayout = ({ children, modal }: ExploreLayoutProps) => {
+const Layout = ({ children, modal }: LayoutProps) => {
   return (
     <>
       {children}
@@ -14,4 +14,4 @@ const ExploreLayout = ({ children, modal }: ExploreLayoutProps) => {
   );
 };
 
-export default ExploreLayout;
+export default Layout;
