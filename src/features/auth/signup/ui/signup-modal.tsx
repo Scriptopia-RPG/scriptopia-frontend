@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ChangeEvent, FormEvent, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { useSignup } from '@/features/auth/signup/api/use-signup.mutation';
 import Modal from '@/shared/ui/modal/modal';
 import CloseButton from '@/shared/ui/button/close-button';
 import LogoText from '@public/logo/logo-text.svg';
@@ -15,8 +16,34 @@ type FieldKey = 'email' | 'nickname' | 'password' | 'passwordConfirm';
 
 type FormState = Record<FieldKey, string>;
 
+const getErrorMessage = (error: unknown) => {
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+
+  if (error && typeof error === 'object') {
+    const maybe = error as { body?: string; statusText?: string };
+    if (maybe.body) {
+      try {
+        const parsed = JSON.parse(maybe.body);
+        if (parsed?.message) {
+          return parsed.message;
+        }
+      } catch {
+        return maybe.body;
+      }
+    }
+    if (maybe.statusText) {
+      return maybe.statusText;
+    }
+  }
+
+  return '회원가입에 실패했습니다.';
+};
+
 const SignupModal = () => {
   const router = useRouter();
+  const { mutate, isPending } = useSignup();
   const [form, setForm] = useState<FormState>({
     email: '',
     nickname: '',
@@ -28,18 +55,36 @@ const SignupModal = () => {
     setForm((prev) => ({ ...prev, [key]: event.target.value }));
   };
 
+  const email = form.email.trim();
+  const nickname = form.nickname.trim();
+  const hasEmptyField = !email || !nickname || !form.password || !form.passwordConfirm;
+  const hasMismatch = form.password !== form.passwordConfirm;
+  const isSubmitDisabled = useMemo(() => isPending || hasEmptyField || hasMismatch, [hasEmptyField, hasMismatch, isPending]);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // TODO: integrate signup API
-  };
 
-  const isSubmitDisabled = useMemo(() => {
-    if (!form.email || !form.nickname || !form.password || !form.passwordConfirm) {
-      return true;
+    if (isSubmitDisabled) {
+      return;
     }
 
-    return form.password !== form.passwordConfirm;
-  }, [form]);
+    mutate(
+      {
+        email,
+        nickname,
+        password: form.password,
+      },
+      {
+        onSuccess: () => {
+          router.back();
+          router.refresh();
+        },
+        onError: (error) => {
+          alert(getErrorMessage(error));
+        },
+      },
+    );
+  };
 
   return (
     <Modal ariaLabelledby="signup-title" onClose={() => router.back()}>
@@ -53,7 +98,7 @@ const SignupModal = () => {
         </div>
 
         <h1 id="signup-title" className="sr-only">
-          Sign Up
+          회원가입
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -68,7 +113,7 @@ const SignupModal = () => {
           />
           <Input
             id="signup-nickname"
-            label="닉네임임"
+            label="닉네임"
             placeholder="닉네임을 입력해 주세요."
             value={form.nickname}
             onChange={handleChange('nickname')}
@@ -92,7 +137,11 @@ const SignupModal = () => {
             onChange={handleChange('passwordConfirm')}
             required
           />
-          <Button type="submit" label="Create Account" disabled={isSubmitDisabled} />
+          <Button
+            type="submit"
+            label={isPending ? '회원가입 중...' : '회원가입'}
+            disabled={isSubmitDisabled}
+          />
         </form>
 
         <SocialAuth mode="signup" />
