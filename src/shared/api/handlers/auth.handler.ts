@@ -25,7 +25,7 @@ const jsonError = (status: number, body: { code: string; message: string; status
   });
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const passwordRegex = /^(?=.*[a-z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,20}$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,20}$/;
 const codeRegex = /^\d{6}$/;
 
 const ensureValidEmail = (rawEmail?: string) => {
@@ -145,7 +145,7 @@ export const auth = [
     if (!passwordRegex.test(password)) {
       return jsonError(400, {
         code: 'E400006',
-        message: '비밀번호는 소문자, 숫자, 특수문자를 포함해야 합니다.',
+        message: '비밀번호는 대문자, 소문자, 숫자, 특수문자를 포함해야 합니다.',
         status: 'BAD_REQUEST',
       });
     }
