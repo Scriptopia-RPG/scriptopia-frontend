@@ -15,7 +15,7 @@ import Input from '@/shared/ui/input/input';
 import Button from '@/shared/ui/button/button';
 import SocialAuth from '@/features/auth/social/social-auth';
 
-const CODE_COOLDOWN_SECONDS = 30;
+const CODE_COOLDOWN_SECONDS = 60;
 
 const getErrorMessage = (error: unknown) => {
   if (error instanceof Error && error.message) {
@@ -46,6 +46,19 @@ type FieldKey = 'email' | 'nickname' | 'password' | 'passwordConfirm' | 'code';
 
 type FormState = Record<FieldKey, string>;
 
+type StatusMessage = {
+  type: 'success' | 'error';
+  text: string;
+};
+
+const getStatusTextClass = (message: StatusMessage | null) => {
+  if (!message) {
+    return '';
+  }
+
+  return message.type === 'error' ? 'text-red-500' : 'text-primary';
+};
+
 const SignupModal = () => {
   const router = useRouter();
   const { mutate: signup, isPending: isSigningUp } = useSignup();
@@ -64,8 +77,9 @@ const SignupModal = () => {
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [lastCodeSentAt, setLastCodeSentAt] = useState<number | null>(null);
   const [remainingSeconds, setRemainingSeconds] = useState(0);
-  const [emailStatus, setEmailStatus] = useState<string | null>(null);
-  const [codeStatus, setCodeStatus] = useState<string | null>(null);
+  const [emailMessage, setEmailMessage] = useState<StatusMessage | null>(null);
+  const [codeMessage, setCodeMessage] = useState<StatusMessage | null>(null);
+  const [signupMessage, setSignupMessage] = useState<StatusMessage | null>(null);
 
   useEffect(() => {
     if (!lastCodeSentAt) {
@@ -105,17 +119,19 @@ const SignupModal = () => {
       };
     });
 
+    setSignupMessage(null);
+
     if (key === 'email') {
       setIsEmailAvailable(false);
       setIsEmailVerified(false);
-      setEmailStatus(null);
-      setCodeStatus(null);
+      setEmailMessage(null);
+      setCodeMessage(null);
       setLastCodeSentAt(null);
     }
 
     if (key === 'code') {
       setIsEmailVerified(false);
-      setCodeStatus(null);
+      setCodeMessage(null);
     }
   };
 
@@ -136,11 +152,17 @@ const SignupModal = () => {
     event.preventDefault();
 
     if (isSubmitDisabled) {
-      if (!isEmailVerified) {
-        alert('이메일 인증을 완료해주세요.');
+      if (hasEmptyField) {
+        setSignupMessage({ type: 'error', text: '필수 정보를 모두 입력해 주세요.' });
+      } else if (hasMismatch) {
+        setSignupMessage({ type: 'error', text: '비밀번호가 일치하지 않습니다.' });
+      } else if (!isEmailVerified) {
+        setSignupMessage({ type: 'error', text: '이메일 인증을 완료해 주세요.' });
       }
       return;
     }
+
+    setSignupMessage(null);
 
     signup(
       {
@@ -154,7 +176,7 @@ const SignupModal = () => {
           router.refresh();
         },
         onError: (error) => {
-          alert(getErrorMessage(error));
+          setSignupMessage({ type: 'error', text: getErrorMessage(error) });
         },
       },
     );
@@ -162,9 +184,12 @@ const SignupModal = () => {
 
   const handleCheckEmail = () => {
     if (!email) {
-      alert('이메일을 입력해주세요.');
+      setEmailMessage({ type: 'error', text: '이메일을 입력해 주세요.' });
       return;
     }
+
+    setEmailMessage(null);
+    setCodeMessage(null);
 
     checkEmailDuplicate(
       { email },
@@ -172,13 +197,12 @@ const SignupModal = () => {
         onSuccess: (response) => {
           setIsEmailAvailable(true);
           setIsEmailVerified(false);
-          setEmailStatus(response.message ?? '사용 가능한 이메일입니다.');
-          setCodeStatus(null);
+          setEmailMessage({ type: 'success', text: response.message ?? '사용 가능한 이메일입니다.' });
+          setCodeMessage(null);
         },
         onError: (error) => {
           setIsEmailAvailable(false);
-          setEmailStatus(null);
-          alert(getErrorMessage(error));
+          setEmailMessage({ type: 'error', text: getErrorMessage(error) });
         },
       },
     );
@@ -186,9 +210,11 @@ const SignupModal = () => {
 
   const handleSendCode = () => {
     if (!isEmailAvailable) {
-      alert('이메일 중복 확인을 먼저 완료해주세요.');
+      setEmailMessage({ type: 'error', text: '이메일 중복 확인을 먼저 완료해 주세요.' });
       return;
     }
+
+    setCodeMessage(null);
 
     sendEmailCode(
       { email },
@@ -196,13 +222,13 @@ const SignupModal = () => {
         onSuccess: (response) => {
           setLastCodeSentAt(Date.now());
           setIsEmailVerified(false);
-          setCodeStatus(response.message ?? '인증 코드가 이메일로 발송되었습니다.');
+          setCodeMessage({ type: 'success', text: response.message ?? '인증 코드가 이메일로 발송되었습니다.' });
           if (response.code) {
             setForm((prev) => ({ ...prev, code: response.code ?? prev.code }));
           }
         },
         onError: (error) => {
-          alert(getErrorMessage(error));
+          setCodeMessage({ type: 'error', text: getErrorMessage(error) });
         },
       },
     );
@@ -212,24 +238,31 @@ const SignupModal = () => {
     const code = form.code.trim();
 
     if (code.length !== 6) {
-      alert('인증 코드는 6자리 숫자를 입력해주세요.');
+      setCodeMessage({ type: 'error', text: '인증 코드는 6자리 숫자로 입력해 주세요.' });
       return;
     }
+
+    setCodeMessage(null);
 
     verifyEmailCode(
       { email, code },
       {
         onSuccess: (response) => {
           setIsEmailVerified(true);
-          setCodeStatus(response.message ?? '이메일 인증이 완료되었습니다.');
+          setCodeMessage({ type: 'success', text: response.message ?? '이메일 인증이 완료되었습니다.' });
+          setSignupMessage(null);
         },
         onError: (error) => {
           setIsEmailVerified(false);
-          alert(getErrorMessage(error));
+          setCodeMessage({ type: 'error', text: getErrorMessage(error) });
         },
       },
     );
   };
+
+  const emailMessageClass = getStatusTextClass(emailMessage);
+  const codeMessageClass = getStatusTextClass(codeMessage);
+  const signupMessageClass = getStatusTextClass(signupMessage);
 
   return (
     <Modal ariaLabelledby="signup-title" onClose={() => router.back()}>
@@ -264,7 +297,7 @@ const SignupModal = () => {
               onClick={handleCheckEmail}
               disabled={!canCheckDuplicate}
             />
-            {emailStatus && <p className="text-xs text-primary">{emailStatus}</p>}
+            {emailMessage && <p className={`text-xs ${emailMessageClass}`}>{emailMessage.text}</p>}
           </div>
 
           <div className="space-y-2">
@@ -288,7 +321,7 @@ const SignupModal = () => {
               onClick={handleVerifyCode}
               disabled={!canVerifyCode}
             />
-            {codeStatus && <p className="text-xs text-primary">{codeStatus}</p>}
+            {codeMessage && <p className={`text-xs ${codeMessageClass}`}>{codeMessage.text}</p>}
           </div>
 
           <Input
@@ -317,6 +350,9 @@ const SignupModal = () => {
             onChange={handleChange('passwordConfirm')}
             required
           />
+
+          {signupMessage && <p className={`text-xs ${signupMessageClass}`}>{signupMessage.text}</p>}
+
           <Button
             type="submit"
             label={isSigningUp ? '회원가입 중...' : '회원가입'}
