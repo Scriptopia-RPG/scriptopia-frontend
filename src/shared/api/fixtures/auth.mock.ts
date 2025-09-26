@@ -15,3 +15,12 @@ export const MOCK_AUTH_USERS: MockAuthUser[] = [
     ticket: '3',
   },
 ];
+
+export interface MockEmailVerification {
+  email: string;
+  code: string;
+  expiresAt: number;
+  verified: boolean;
+}
+
+export const MOCK_EMAIL_VERIFICATIONS: MockEmailVerification[] = [];
