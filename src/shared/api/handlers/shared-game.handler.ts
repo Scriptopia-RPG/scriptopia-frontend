@@ -6,7 +6,7 @@ import { MOCK_TAG_NAMES, MOCK_SHARED_GAMES } from '@/shared/api/fixtures/shared-
 const parseBool = (v: string | null) => (v === 'true' ? true : v === 'false' ? false : undefined);
 
 export const sharedGame = [
-  http.get('*/games/shared/tags', () => {
+  http.get('*/shared-games/tags', () => {
     const payload = {
       tagNames: MOCK_TAG_NAMES,
     };
@@ -14,7 +14,7 @@ export const sharedGame = [
     return HttpResponse.json(payload, { status: 200 });
   }),
 
-  http.get('*/games/shared', ({ request }) => {
+  http.get('*/shared-games', ({ request }) => {
     const url = new URL(request.url);
     const sp = url.searchParams;
 

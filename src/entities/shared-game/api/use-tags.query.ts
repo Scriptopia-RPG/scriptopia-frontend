@@ -10,7 +10,7 @@ export interface TagsResponse {
 export const useTags = () => {
   const { data } = useQuery({
     queryKey: ['tags'],
-    queryFn: () => customFetch<TagsResponse>('/games/shared/tags'),
+    queryFn: () => customFetch<TagsResponse>('/shared-games/tags'),
   });
 
   return {
