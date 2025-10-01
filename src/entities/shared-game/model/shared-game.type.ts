@@ -8,7 +8,7 @@ export interface Tag {
 
 export interface SharedGame {
   sharedGameUuid: string;
-  thumbnail: string;
+  thumbnailUrl: string;
   title: string;
   playCount: number;
   tags: ReadonlyArray<Tag>;

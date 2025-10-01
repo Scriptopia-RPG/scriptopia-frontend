@@ -1,8 +1,4 @@
-import type {
-  SharedGame,
-  SharedGameDetail,
-  Tag,
-} from '@/entities/shared-game/model/shared-game.type';
+import type { SharedGame, Tag } from '@/entities/shared-game/model/shared-game.type';
 
 export const MOCK_TAG_NAMES: Tag[] = [
   { id: 1, tagName: '로맨스' },
@@ -41,7 +37,7 @@ const pickRandomTags = (all: Tag[]): Tag[] => {
 
 export const MOCK_SHARED_GAMES: SharedGame[] = Array.from({ length: 60 }).map((_, i) => ({
   sharedGameUuid: String(i + 1),
-  thumbnail: `https://picsum.photos/seed/${i + 1}/300/200`,
+  thumbnailUrl: `https://picsum.photos/seed/${i + 1}/300/200`,
   title: `Game ${i + 1}`,
   playCount: getRandomInt(1000, 100000),
   tags: pickRandomTags(MOCK_TAG_NAMES),

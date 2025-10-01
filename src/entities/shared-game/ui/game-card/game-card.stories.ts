@@ -7,7 +7,7 @@ const meta = {
   component: GameCard,
   args: {
     sharedGameUuid: '1',
-    thumbnail: '',
+    thumbnailUrl: '',
     title: '멸망한 왕국의 마지막 검',
     playCount: 12635,
     tags: [

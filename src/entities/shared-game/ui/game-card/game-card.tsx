@@ -4,7 +4,7 @@ import Tag from '@/entities/shared-game/ui/tag/tag';
 import type { SharedGame } from '@/entities/shared-game/model/shared-game.type';
 import Link from 'next/link';
 
-const GameCard = ({ sharedGameUuid, thumbnail, title, playCount, tags }: SharedGame) => {
+const GameCard = ({ sharedGameUuid, thumbnailUrl, title, playCount, tags }: SharedGame) => {
   const formatPlayCount = (num: number) => {
     if (num < 1000) {
       return String(num);
@@ -19,9 +19,9 @@ const GameCard = ({ sharedGameUuid, thumbnail, title, playCount, tags }: SharedG
     <article className="group cursor-pointer">
       <Link href={`/shared-games/${sharedGameUuid}`}>
         <div className="relative aspect-[3/4] overflow-hidden rounded-md bg-gray-100 shadow-[0_0_2px_0_rgba(255,255,255,0.8)]">
-          {thumbnail && (
+          {thumbnailUrl && (
             <Image
-              src={thumbnail}
+              src={thumbnailUrl}
               fill
               alt={`${title} 썸네일`}
               sizes="(max-width: 640px) 33vw, (max-width: 1024px) 25vw, 20vw"

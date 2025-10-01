@@ -13,7 +13,7 @@ const GameGrid = ({ sharedGames }: GameGridProps) => {
         <li key={sharedGame.sharedGameUuid}>
           <GameCard
             sharedGameUuid={sharedGame.sharedGameUuid}
-            thumbnail={sharedGame.thumbnail}
+            thumbnailUrl={sharedGame.thumbnailUrl}
             title={sharedGame.title}
             playCount={sharedGame.playCount}
             tags={sharedGame.tags}
