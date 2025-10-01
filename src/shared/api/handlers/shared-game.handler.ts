@@ -7,11 +7,7 @@ const parseBool = (v: string | null) => (v === 'true' ? true : v === 'false' ? f
 
 export const sharedGame = [
   http.get('*/shared-games/tags', () => {
-    const payload = {
-      tagNames: MOCK_TAG_NAMES,
-    };
-
-    return HttpResponse.json(payload, { status: 200 });
+    return HttpResponse.json(MOCK_TAG_NAMES, { status: 200 });
   }),
 
   http.get('*/shared-games', ({ request }) => {
@@ -43,7 +39,7 @@ export const sharedGame = [
     }
 
     // 4) 태그 필터
-    items = items.filter((g) => (tagIds ?? []).every((id) => g.tags.some((t) => t.tagId === id)));
+    items = items.filter((g) => (tagIds ?? []).every((id) => g.tags.some((t) => t.id === id)));
 
     // 5) 검색
     if (isSearchMode && query) {
