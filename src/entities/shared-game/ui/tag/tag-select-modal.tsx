@@ -62,10 +62,10 @@ const TagSelectModal = ({ isOpen, initialSelected, onClose }: TagSelectModalProp
         <div className="flex flex-wrap items-center gap-x-2 gap-y-3">
           {tags.map((tag) => (
             <Tag
-              key={tag.tagId}
+              key={tag.id}
               name={tag.tagName}
-              selected={selectedTagIds.includes(tag.tagId)}
-              onSelect={() => handleTagToggle(tag.tagId)}
+              selected={selectedTagIds.includes(tag.id)}
+              onSelect={() => handleTagToggle(tag.id)}
             />
           ))}
 
