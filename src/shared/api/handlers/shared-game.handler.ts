@@ -45,9 +45,7 @@ export const sharedGame = [
     }
 
     // 4) 태그 필터
-    items = items.filter((g) =>
-      (tagIds ?? []).every((id) => g.tags.some((t) => t.tagId === t.tagId)),
-    );
+    items = items.filter((g) => (tagIds ?? []).every((id) => g.tags.some((t) => t.tagId === id)));
 
     // 5) 검색
     if (isSearchMode && query) {
