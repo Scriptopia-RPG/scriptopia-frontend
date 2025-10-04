@@ -84,7 +84,7 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
               {sharedGameDetail.topScores.map((s, i) => (
                 <li
                   key={i}
-                  className="flex items-center justify-between border-b border-gray-100 px-2.5 py-3"
+                  className="flex items-center justify-between border-b border-gray-100 px-2.5 py-3 last:border-0"
                 >
                   <div className="flex items-center gap-2.5">
                     <span className="text-sm font-medium">{i + 1}</span>
