@@ -11,6 +11,7 @@ import Tag from '@/entities/shared-game/ui/tag/tag';
 import PlayIcon from '@icons/play.svg';
 import CrownIcon from '@icons/crown.svg';
 import LikeButton from '@/features/like-button/ui/like-button';
+import Button from '@/shared/ui/button/button';
 
 interface GameDetailModalProps {
   uuid: string;
@@ -31,7 +32,7 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
         <CloseButton onClick={() => router.back()} />
       </header>
 
-      <div className="flex flex-col items-stretch">
+      <div className="mb-5 flex flex-col items-stretch">
         <div className="flex justify-center pt-4 pb-7">
           <Image
             src={sharedGameDetail.posterUrl}
@@ -102,6 +103,10 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
             </ul>
           </section>
         </div>
+      </div>
+
+      <div className="bg-bg sticky bottom-0 z-10 flex border-t border-gray-100 px-4 py-3">
+        <Button label="게임 플레이" />
       </div>
     </Modal>
   );
