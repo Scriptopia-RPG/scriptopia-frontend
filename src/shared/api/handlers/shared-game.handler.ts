@@ -79,9 +79,7 @@ export const sharedGame = [
     );
   }),
 
-  http.get(`${BASE_URL}/shared-games/:sharedGameUuid`, ({ params }) => {
-    const { sharedGameUuid } = params;
-    console.log(sharedGameUuid);
+  http.get(`${BASE_URL}/shared-games/:sharedGameUuid`, () => {
     return HttpResponse.json(MOCK_SHARED_GAME_DETAIL, { status: 200 });
   }),
 ];

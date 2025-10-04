@@ -35,7 +35,7 @@ const GameCard = ({ sharedGameUuid, thumbnailUrl, title, playCount, tags }: Shar
             <p className="text-xs text-gray-500 sm:text-sm">{formatPlayCount(playCount)}</p>
             <div className="scrollbar-none mt-3 hidden gap-1.5 overflow-x-auto whitespace-nowrap sm:flex">
               {tags.map((tag) => (
-                <Tag key={tag.id} name={tag.tagName} size="sm" />
+                <Tag key={tag.tagId} name={tag.tagName} size="sm" />
               ))}
             </div>
           </div>
