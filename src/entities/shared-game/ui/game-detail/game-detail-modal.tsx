@@ -46,6 +46,7 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
 
         {/* 본문 */}
         <div className="space-y-4 px-5">
+          {/* 게임 제목, 창작자, 태그 */}
           <div className="flex flex-col gap-3 py-2.5">
             <h1 className="text-xl font-medium">{sharedGameDetail.title}</h1>
             <span>@{sharedGameDetail.creator}</span>
@@ -56,6 +57,7 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
             </div>
           </div>
 
+          {/* 플레이 수, 좋아요, 최고 점수 */}
           <div className="flex justify-between border-t border-b border-gray-200 px-7 py-4 sm:px-11">
             <div className="flex flex-1 items-center justify-start gap-2.5">
               <PlayIcon className="size-6" />
@@ -75,12 +77,14 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
 
           <section className="space-y-2.5 py-2.5">
             <h3 className="font-medium">시놉시스</h3>
-            <p className="rounded-xl bg-gray-50 px-4 py-3.5">{sharedGameDetail.backgroundStory}</p>
+            <p className="bg-surface-subtle rounded-xl px-4 py-3.5">
+              {sharedGameDetail.backgroundStory}
+            </p>
           </section>
 
           <section className="space-y-2.5 py-2.5">
             <h3 className="font-medium">랭킹</h3>
-            <ul className="rounded-xl bg-gray-50 px-4">
+            <ul className="bg-surface-subtle rounded-xl px-4">
               {sharedGameDetail.topScores.map((s, i) => (
                 <li
                   key={i}

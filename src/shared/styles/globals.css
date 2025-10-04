@@ -5,6 +5,7 @@
   --bg: #ffffff;
   --fg: #232323;
   --surface: #eeeeee;
+  --surface-subtle: #f6f6f6;
   --btn-text: var(--color-primary);
   --btn-bg: color-mix(in srgb, var(--color-primary) 18%, transparent);
 
@@ -19,6 +20,7 @@
   --bg: #151518;
   --fg: #f2f2f2;
   --surface: color-mix(in srgb, var(--fg) 20%, transparent);
+  --surface-subtle: #242428;
   --btn-text: var(--fg);
   --btn-bg: var(--color-primary);
 
@@ -33,6 +35,7 @@
   --color-bg: var(--bg);
   --color-fg: var(--fg);
   --color-surface: var(--surface);
+  --color-surface-subtle: var(--surface-subtle);
   --color-btn-text: var(--btn-text);
   --color-btn-bg: var(--btn-bg);
 
