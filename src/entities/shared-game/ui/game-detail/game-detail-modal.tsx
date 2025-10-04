@@ -10,6 +10,7 @@ import CloseButton from '@/shared/ui/button/close-button';
 import Tag from '@/entities/shared-game/ui/tag/tag';
 import PlayIcon from '@icons/play.svg';
 import CrownIcon from '@icons/crown.svg';
+import LikeButton from '@/features/like-button/ui/like-button';
 
 interface GameDetailModalProps {
   uuid: string;
@@ -54,7 +55,24 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
             </div>
           </div>
 
-          <div></div>
+          <div className="flex justify-between border-t border-b border-gray-200 px-7 py-4">
+            <div className="flex flex-1 items-center justify-start gap-2.5">
+              <PlayIcon />
+              <span className="text-sm">{sharedGameDetail.playCount}</span>
+            </div>
+
+            <div className="flex flex-1 items-center justify-center">
+              <LikeButton
+                isLiked={sharedGameDetail.isLiked}
+                likeCount={sharedGameDetail.likeCount}
+              />
+            </div>
+
+            <div className="flex flex-1 items-center justify-end gap-2.5">
+              <CrownIcon />
+              <span className="text-sm">{sharedGameDetail.topScores[0].score}</span>
+            </div>
+          </div>
 
           <section className="space-y-2.5 py-2.5">
             <h3 className="font-medium">시놉시스</h3>
