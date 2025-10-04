@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 interface ModalProps {
   ariaLabelledby?: string;
@@ -7,6 +7,15 @@ interface ModalProps {
 }
 
 const Modal = ({ ariaLabelledby, onClose, children }: ModalProps) => {
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = original || 'auto';
+    };
+  }, []);
+
   return (
     <div
       role="dialog"
