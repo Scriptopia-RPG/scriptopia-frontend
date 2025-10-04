@@ -55,21 +55,19 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
             </div>
           </div>
 
-          <div className="flex justify-between border-t border-b border-gray-200 px-7 py-4">
+          <div className="flex justify-between border-t border-b border-gray-200 px-7 py-4 sm:px-11">
             <div className="flex flex-1 items-center justify-start gap-2.5">
-              <PlayIcon />
+              <PlayIcon className="size-6" />
               <span className="text-sm">{sharedGameDetail.playCount}</span>
             </div>
-
             <div className="flex flex-1 items-center justify-center">
               <LikeButton
                 isLiked={sharedGameDetail.isLiked}
                 likeCount={sharedGameDetail.likeCount}
               />
             </div>
-
             <div className="flex flex-1 items-center justify-end gap-2.5">
-              <CrownIcon />
+              <CrownIcon className="size-6" />
               <span className="text-sm">{sharedGameDetail.topScores[0].score}</span>
             </div>
           </div>

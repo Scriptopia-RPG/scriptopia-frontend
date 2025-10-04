@@ -2,8 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 
-import { cn } from '@/shared/utils/styles';
-
 import ThumbsIcon from '@icons/thumbs-up.svg';
 import ThumbsFilledIcon from '@icons/thumbs-up-fill.svg';
 
@@ -27,7 +25,7 @@ const LikeButton = ({ isLiked = false, likeCount }: LikeButtonProps) => {
 
   return (
     <div className="flex items-center gap-2.5">
-      <button type="button" onClick={handleButtonClick} className={cn()}>
+      <button type="button" onClick={handleButtonClick} className="size-6 cursor-pointer">
         {isLiked ? <ThumbsFilledIcon /> : <ThumbsIcon />}
       </button>
       <span className="text-sm">{likeCount}</span>
