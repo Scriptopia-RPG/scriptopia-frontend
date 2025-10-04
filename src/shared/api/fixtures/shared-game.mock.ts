@@ -49,7 +49,7 @@ export const MOCK_SHARED_GAMES: SharedGame[] = Array.from({ length: 60 }).map((_
 
 export const MOCK_SHARED_GAME_DETAIL: SharedGameDetail = {
   sharedGameUuid: '3a91f5d8-32ab-4c7b-812a-91c9b92dfe8a',
-  posterUrl: 'https://picsum.photos/seed/1/300/200',
+  posterUrl: 'https://picsum.photos/seed/1/200/300',
   title: '99번째 열쇠',
   worldView:
     "폐허가 된 왕국의 마지막 비밀이 숨겨진 도서관, '고서관'. 오직 기억을 잃은 자만이 그 문을 열 수 있다.",
@@ -66,17 +66,20 @@ export const MOCK_SHARED_GAME_DETAIL: SharedGameDetail = {
   topScores: [
     {
       nickname: 'solaris',
-      score: 98.5,
+      profileUrl: 'https://robohash.org/solaris',
+      score: 19789,
       createdAt: '2025-09-13T18:32:21.017Z',
     },
     {
       nickname: 'hana_dev',
-      score: 97.8,
+      profileUrl: 'https://robohash.org/hana_dev',
+      score: 1283,
       createdAt: '2025-09-12T11:20:04.511Z',
     },
     {
       nickname: 'myst_reader',
-      score: 96.2,
+      profileUrl: 'https://robohash.org/myst_reader',
+      score: 684,
       createdAt: '2025-09-10T07:48:11.943Z',
     },
   ],

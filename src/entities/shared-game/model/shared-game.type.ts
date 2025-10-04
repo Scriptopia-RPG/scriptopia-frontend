@@ -16,6 +16,7 @@ export interface SharedGame {
 
 interface TopScore {
   nickname: string;
+  profileUrl: string;
   score: number;
   createdAt: string;
 }
@@ -30,6 +31,7 @@ export interface SharedGameDetail {
   creator: string;
   playCount: number;
   likeCount: number;
+  isLiked?: boolean;
   topScores: ReadonlyArray<TopScore>;
   sharedAt: string;
 }
