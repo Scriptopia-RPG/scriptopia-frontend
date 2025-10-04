@@ -2,7 +2,7 @@ export type SortKey =
   (typeof import('@/entities/shared-game/model/shared-game.constant').SORT_OPTIONS)[number]['key'];
 
 export interface Tag {
-  id: number;
+  tagId: number;
   tagName: string;
 }
 
@@ -12,4 +12,24 @@ export interface SharedGame {
   title: string;
   playCount: number;
   tags: ReadonlyArray<Tag>;
+}
+
+interface TopScore {
+  nickname: string;
+  score: number;
+  createdAt: string;
+}
+
+export interface SharedGameDetail {
+  sharedGameUuid: string;
+  posterUrl: string;
+  title: string;
+  worldView: string;
+  backgroundStory: string;
+  tags: ReadonlyArray<Tag>;
+  creator: string;
+  playCount: number;
+  likeCount: number;
+  topScores: ReadonlyArray<TopScore>;
+  sharedAt: string;
 }
