@@ -19,7 +19,7 @@ const Modal = ({ ariaLabelledby, onClose, children }: ModalProps) => {
 
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-bg scrollbar-none relative z-40 mx-4 max-h-[80vh] w-full max-w-sm overflow-y-auto rounded-2xl sm:max-w-lg"
+        className="bg-bg scrollbar-none relative z-40 mx-4 max-h-[80dvh] w-full max-w-sm overflow-y-auto rounded-2xl sm:max-w-lg"
       >
         {children}
       </div>

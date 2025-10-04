@@ -25,20 +25,20 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
 
   return (
     <Modal onClose={() => router.back()}>
-      <header className="sticky flex items-center justify-between px-6 py-4">
+      <header className="bg-bg sticky top-0 z-10 flex items-center justify-between px-6 py-3.5">
         <h2 className="text-lg font-medium">게임 정보</h2>
         <CloseButton onClick={() => router.back()} />
       </header>
 
       <div className="flex flex-col items-stretch">
-        <div className="flex justify-center pt-3 pb-7">
+        <div className="flex justify-center pt-4 pb-7">
           <Image
             src={sharedGameDetail.posterUrl}
             alt="게임 포스터"
             width={200}
             height={300}
-            className="rounded-sm"
-            style={{ boxShadow: '4px 4px 30px rgba(0, 0, 0, 0.5)' }}
+            className="shadow- rounded-sm"
+            style={{ boxShadow: '4px 6px 20px rgba(0, 0, 0, 0.4)' }}
           />
         </div>
 
