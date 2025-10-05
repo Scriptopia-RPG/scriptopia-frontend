@@ -69,7 +69,7 @@ export const sharedGame = [
     // 7) 응답 (프론트 타입과 일치)
     return HttpResponse.json(
       {
-        sharedGames: pageItems,
+        items: pageItems,
         hasNextPage,
         lastUuid: hasNextPage ? nextLastUuid : undefined,
       },

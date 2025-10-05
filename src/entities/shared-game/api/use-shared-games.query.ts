@@ -6,7 +6,7 @@ import type { SharedGame, SortKey } from '@/entities/shared-game/model/shared-ga
 import type { CursorRequest, CursorResponse } from '@/shared/types/pagination';
 
 interface SharedGamesResponse extends CursorResponse {
-  sharedGames: SharedGame[];
+  items: SharedGame[];
 }
 
 interface SharedGamesRequest extends CursorRequest {

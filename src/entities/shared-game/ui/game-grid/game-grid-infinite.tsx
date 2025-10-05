@@ -27,7 +27,7 @@ const GameGridInfinite = ({ mode, sort, tags, query }: GameGridInfiniteProps) =>
     pageSize,
   });
 
-  const items = useMemo(() => data?.pages.flatMap((p) => p.sharedGames) ?? [], [data]);
+  const items = useMemo(() => data?.pages.flatMap((p) => p.items) ?? [], [data]);
 
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
