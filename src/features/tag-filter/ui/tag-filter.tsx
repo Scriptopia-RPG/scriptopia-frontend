@@ -21,12 +21,12 @@ const TagFilter = () => {
 
   const selectedTagIds = useMemo(() => {
     const ids = parseTagIds(searchParams.get('tags'));
-    const valid = new Set(tags.map((t) => t.id));
+    const valid = new Set(tags.map((t) => t.tagId));
     return ids.filter((id) => valid.has(id));
   }, [searchParams, tags]);
 
   const tagIdToName = useMemo(() => {
-    return new Map(tags.map((tag) => [tag.id, tag.tagName]));
+    return new Map(tags.map((tag) => [tag.tagId, tag.tagName]));
   }, [tags]);
 
   const removeOne = (id: number) => {
