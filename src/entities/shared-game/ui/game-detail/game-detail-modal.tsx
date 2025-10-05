@@ -22,7 +22,13 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
   const { sharedGameDetail, isLoading } = useSharedGameDetail(uuid);
 
   if (isLoading || !sharedGameDetail) {
-    return <div>불러오는 중...</div>;
+    return (
+      <Modal onClose={() => router.back()}>
+        <div className="flex items-center justify-center p-20">
+          <p>불러오는 중...</p>
+        </div>
+      </Modal>
+    );
   }
 
   return (
