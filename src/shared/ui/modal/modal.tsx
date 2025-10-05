@@ -1,6 +1,4 @@
-'use client';
-
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 interface ModalProps {
   ariaLabelledby?: string;
@@ -9,6 +7,15 @@ interface ModalProps {
 }
 
 const Modal = ({ ariaLabelledby, onClose, children }: ModalProps) => {
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = original || 'auto';
+    };
+  }, []);
+
   return (
     <div
       role="dialog"
@@ -21,7 +28,7 @@ const Modal = ({ ariaLabelledby, onClose, children }: ModalProps) => {
 
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-bg relative z-40 mx-4 w-full max-w-sm rounded-2xl"
+        className="bg-bg scrollbar-none relative z-40 mx-4 max-h-[80dvh] w-full max-w-sm overflow-y-auto rounded-2xl sm:max-w-lg"
       >
         {children}
       </div>

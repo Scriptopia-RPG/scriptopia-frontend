@@ -1,20 +1,22 @@
 import { http, HttpResponse } from 'msw';
 
 import { parseTagIds } from '@/shared/utils/parse-tag-ids';
-import { MOCK_TAG_NAMES, MOCK_SHARED_GAMES } from '@/shared/api/fixtures/shared-game.mock';
+import {
+  MOCK_TAG_NAMES,
+  MOCK_SHARED_GAMES,
+  MOCK_SHARED_GAME_DETAIL,
+} from '@/shared/api/fixtures/shared-game.mock';
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? '';
 
 const parseBool = (v: string | null) => (v === 'true' ? true : v === 'false' ? false : undefined);
 
 export const sharedGame = [
-  http.get('*/games/shared/tags', () => {
-    const payload = {
-      tagNames: MOCK_TAG_NAMES,
-    };
-
-    return HttpResponse.json(payload, { status: 200 });
+  http.get(`${BASE_URL}/shared-games/tags`, () => {
+    return HttpResponse.json(MOCK_TAG_NAMES, { status: 200 });
   }),
 
-  http.get('*/games/shared', ({ request }) => {
+  http.get(`${BASE_URL}/shared-games`, ({ request }) => {
     const url = new URL(request.url);
     const sp = url.searchParams;
 
@@ -73,5 +75,9 @@ export const sharedGame = [
       },
       { status: 200 },
     );
+  }),
+
+  http.get(`${BASE_URL}/shared-games/:sharedGameUuid`, () => {
+    return HttpResponse.json(MOCK_SHARED_GAME_DETAIL, { status: 200 });
   }),
 ];

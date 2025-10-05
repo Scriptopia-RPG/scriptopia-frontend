@@ -45,7 +45,7 @@ const buildQueryString = ({
 
 export const getSharedGames = async (params: SharedGamesRequest): Promise<SharedGamesResponse> => {
   const queryString = buildQueryString(params);
-  return customFetch<SharedGamesResponse>(`/games/shared?${queryString}`);
+  return customFetch<SharedGamesResponse>(`/shared-games?${queryString}`);
 };
 
 export const useSharedGames = ({

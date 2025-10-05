@@ -8,8 +8,30 @@ export interface Tag {
 
 export interface SharedGame {
   sharedGameUuid: string;
-  thumbnail: string;
+  thumbnailUrl: string;
   title: string;
-  totalPlayed: number;
+  playCount: number;
   tags: ReadonlyArray<Tag>;
+}
+
+interface TopScore {
+  nickname: string;
+  profileUrl: string;
+  score: number;
+  createdAt: string;
+}
+
+export interface SharedGameDetail {
+  sharedGameUuid: string;
+  posterUrl: string;
+  title: string;
+  worldView: string;
+  backgroundStory: string;
+  tags: ReadonlyArray<Tag>;
+  creator: string;
+  playCount: number;
+  likeCount: number;
+  isLiked?: boolean;
+  topScores: ReadonlyArray<TopScore>;
+  sharedAt: string;
 }
