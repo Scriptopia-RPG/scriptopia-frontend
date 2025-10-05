@@ -20,7 +20,7 @@ const LikeButton = ({ isLiked = false, likeCount }: LikeButtonProps) => {
       return;
     }
 
-    // 좋아요 요청
+    // TODO: 좋아요 요청
   };
 
   return (

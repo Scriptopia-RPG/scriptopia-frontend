@@ -116,6 +116,7 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
       </div>
 
       <div className="bg-bg sticky bottom-0 z-10 flex border-t border-gray-100 px-4 py-3">
+        {/* TODO: 게임 플레이 기능 연결 필요 */}
         <Button label="게임 플레이" />
       </div>
     </Modal>
