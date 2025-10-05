@@ -17,7 +17,7 @@ const GameCard = ({ sharedGameUuid, thumbnailUrl, title, playCount, tags }: Shar
 
   return (
     <article className="group cursor-pointer">
-      <Link href={`/shared-games/${sharedGameUuid}`}>
+      <Link href={`/shared-games/${sharedGameUuid}`} scroll={false}>
         <div className="relative aspect-[3/4] overflow-hidden rounded-md bg-gray-100 shadow-[0_0_2px_0_rgba(255,255,255,0.8)]">
           {thumbnailUrl && (
             <Image
