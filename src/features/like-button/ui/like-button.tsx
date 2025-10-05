@@ -25,7 +25,13 @@ const LikeButton = ({ isLiked = false, likeCount }: LikeButtonProps) => {
 
   return (
     <div className="flex items-center gap-2.5">
-      <button type="button" onClick={handleButtonClick} className="size-6 cursor-pointer">
+      <button
+        type="button"
+        onClick={handleButtonClick}
+        aria-pressed={isLiked}
+        aria-label={isLiked ? '좋아요 취소' : '좋아요'}
+        className="size-6 cursor-pointer"
+      >
         {isLiked ? <ThumbsFilledIcon /> : <ThumbsIcon />}
       </button>
       <span className="text-sm">{likeCount}</span>
