@@ -77,7 +77,7 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
             </div>
             <div className="flex flex-1 items-center justify-end gap-2.5">
               <CrownIcon className="size-6" />
-              <span className="text-sm">{sharedGameDetail.topScores[0].score}</span>
+              <span className="text-sm">{sharedGameDetail.topScores[0]?.score ?? '-'}</span>
             </div>
           </div>
 
