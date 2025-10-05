@@ -45,7 +45,7 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
             alt="게임 포스터"
             width={200}
             height={300}
-            className="shadow- rounded-sm"
+            className="rounded-sm"
             style={{ boxShadow: '4px 6px 20px rgba(0, 0, 0, 0.4)' }}
           />
         </div>
