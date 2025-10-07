@@ -2,6 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 
+import useAuthStore from '@/entities/auth/model/auth.store';
+
 import ThumbsIcon from '@icons/thumbs-up.svg';
 import ThumbsFilledIcon from '@icons/thumbs-up-fill.svg';
 
@@ -11,7 +13,7 @@ interface LikeButtonProps {
 }
 
 const LikeButton = ({ isLiked = false, likeCount }: LikeButtonProps) => {
-  const isLoggedIn = false;
+  const isLoggedIn = useAuthStore((s) => s.isLoggedIn());
   const router = useRouter();
 
   const handleButtonClick = () => {
@@ -21,6 +23,7 @@ const LikeButton = ({ isLiked = false, likeCount }: LikeButtonProps) => {
     }
 
     // TODO: 좋아요 요청
+    console.log('좋아요');
   };
 
   return (
