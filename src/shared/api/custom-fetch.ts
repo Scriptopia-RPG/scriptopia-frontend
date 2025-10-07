@@ -10,7 +10,7 @@ const isFormData = (b: unknown): b is FormData =>
   typeof FormData !== 'undefined' && b instanceof FormData;
 
 const customFetch = async <T>(url: string, options?: JsonRequestInit): Promise<T> => {
-  const accessToken = useAuthStore.getState().accessToken;
+  const { accessToken } = useAuthStore.getState();
 
   const method = (options?.method ?? 'GET').toUpperCase();
 
