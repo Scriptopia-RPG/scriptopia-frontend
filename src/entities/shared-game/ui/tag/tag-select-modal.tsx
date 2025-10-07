@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { useTags } from '@/entities/shared-game/api/use-tags.query';
 
+import Modal from '@/shared/ui/modal/modal';
 import CloseButton from '@/shared/ui/button/close-button';
 import Tag from '@/entities/shared-game/ui/tag/tag';
 import ResetButton from '@/entities/shared-game/ui/tag/reset-button';
@@ -49,19 +50,8 @@ const TagSelectModal = ({ isOpen, initialSelected, onClose }: TagSelectModalProp
   }
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="tag-select-title"
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center"
-    >
-      <div className="absolute inset-0 bg-black/80"></div>
-
-      <div
-        className="bg-bg relative z-40 mx-6 w-full max-w-lg space-y-10 rounded-2xl p-10"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <Modal ariaLabelledby="tag-select-title" onClose={onClose}>
+      <div className="w-full max-w-lg space-y-10 rounded-2xl p-10">
         <div className="flex justify-between">
           <p id="tag-select-title" className="text-base font-medium select-none sm:text-xl">
             검색할 게임 태그를 선택해 주세요.
@@ -84,7 +74,7 @@ const TagSelectModal = ({ isOpen, initialSelected, onClose }: TagSelectModalProp
 
         <Button label="검색하기" onClick={handleApply} />
       </div>
-    </div>
+    </Modal>
   );
 };
 
