@@ -4,11 +4,11 @@ import customFetch from '@/shared/api/custom-fetch';
 
 import type { EmailPayload } from './use-email-duplicate-check.mutation';
 
-export interface EmailCodeVerifyPayload extends EmailPayload {
+interface EmailCodeVerifyPayload extends EmailPayload {
   code: string;
 }
 
-export interface EmailCodeVerifyResponse {
+interface EmailCodeVerifyResponse {
   message: string;
 }
 

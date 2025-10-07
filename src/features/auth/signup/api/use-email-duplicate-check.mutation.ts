@@ -6,7 +6,7 @@ export interface EmailPayload {
   email: string;
 }
 
-export interface EmailDuplicateResponse {
+interface EmailDuplicateResponse {
   message: string;
 }
 

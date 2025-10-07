@@ -8,6 +8,7 @@ import { useEmailDuplicateCheck } from '@/features/auth/signup/api/use-email-dup
 import { useSendEmailCode } from '@/features/auth/signup/api/use-send-email-code.mutation';
 import { useSignup } from '@/features/auth/signup/api/use-signup.mutation';
 import { useVerifyEmailCode } from '@/features/auth/signup/api/use-verify-email-code.mutation';
+
 import Modal from '@/shared/ui/modal/modal';
 import CloseButton from '@/shared/ui/button/close-button';
 import LogoText from '@public/logo/logo-text.svg';
@@ -145,8 +146,10 @@ const SignupModal = () => {
   }, [hasEmptyField, hasMismatch, isEmailVerified, isSigningUp]);
 
   const canCheckDuplicate = email.length > 0 && !isCheckingDuplicate;
-  const canSendCode = isEmailAvailable && !isEmailVerified && remainingSeconds === 0 && !isSendingCode;
-  const canVerifyCode = isEmailAvailable && !isEmailVerified && form.code.trim().length === 6 && !isVerifyingCode;
+  const canSendCode =
+    isEmailAvailable && !isEmailVerified && remainingSeconds === 0 && !isSendingCode;
+  const canVerifyCode =
+    isEmailAvailable && !isEmailVerified && form.code.trim().length === 6 && !isVerifyingCode;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -197,7 +200,10 @@ const SignupModal = () => {
         onSuccess: (response) => {
           setIsEmailAvailable(true);
           setIsEmailVerified(false);
-          setEmailMessage({ type: 'success', text: response.message ?? '사용 가능한 이메일입니다.' });
+          setEmailMessage({
+            type: 'success',
+            text: response.message ?? '사용 가능한 이메일입니다.',
+          });
           setCodeMessage(null);
         },
         onError: (error) => {
@@ -222,7 +228,10 @@ const SignupModal = () => {
         onSuccess: (response) => {
           setLastCodeSentAt(Date.now());
           setIsEmailVerified(false);
-          setCodeMessage({ type: 'success', text: response.message ?? '인증 코드가 이메일로 발송되었습니다.' });
+          setCodeMessage({
+            type: 'success',
+            text: response.message ?? '인증 코드가 이메일로 발송되었습니다.',
+          });
           if (response.code) {
             setForm((prev) => ({ ...prev, code: response.code ?? prev.code }));
           }
@@ -249,7 +258,10 @@ const SignupModal = () => {
       {
         onSuccess: (response) => {
           setIsEmailVerified(true);
-          setCodeMessage({ type: 'success', text: response.message ?? '이메일 인증이 완료되었습니다.' });
+          setCodeMessage({
+            type: 'success',
+            text: response.message ?? '이메일 인증이 완료되었습니다.',
+          });
           setSignupMessage(null);
         },
         onError: (error) => {
@@ -311,7 +323,13 @@ const SignupModal = () => {
             />
             <Button
               type="button"
-              label={isSendingCode ? '코드 발송 중...' : remainingSeconds > 0 ? `재전송 (${remainingSeconds}s)` : '인증 코드 발송'}
+              label={
+                isSendingCode
+                  ? '코드 발송 중...'
+                  : remainingSeconds > 0
+                    ? `재전송 (${remainingSeconds}s)`
+                    : '인증 코드 발송'
+              }
               onClick={handleSendCode}
               disabled={!canSendCode}
             />

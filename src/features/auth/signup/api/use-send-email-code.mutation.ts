@@ -4,7 +4,7 @@ import customFetch from '@/shared/api/custom-fetch';
 
 import type { EmailPayload } from './use-email-duplicate-check.mutation';
 
-export interface EmailCodeSendResponse {
+interface EmailCodeSendResponse {
   message: string;
   code?: string;
 }
