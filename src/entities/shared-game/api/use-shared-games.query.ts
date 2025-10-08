@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import customFetch from '@/shared/api/custom-fetch';
-import { SORT_OPTIONS } from '../model/shared-game.constant';
+import { SORT_OPTIONS } from '@/entities/shared-game/model/shared-game.constant';
 import type { SharedGame, SortKey } from '@/entities/shared-game/model/shared-game.type';
 import type { CursorRequest, CursorResponse } from '@/shared/types/pagination';
 
@@ -16,15 +16,7 @@ interface SharedGamesRequest extends CursorRequest {
   query?: string;
 }
 
-const buildQueryString = ({
-  mode,
-  sort,
-  tags,
-  query,
-  isFirstPage,
-  lastUuid,
-  pageSize,
-}: SharedGamesRequest) => {
+const buildQueryString = ({ mode, sort, tags, query, lastUuid, pageSize }: SharedGamesRequest) => {
   const qs = new URLSearchParams();
 
   if (mode === 'filter') {
@@ -36,7 +28,6 @@ const buildQueryString = ({
     qs.set('query', query);
   }
 
-  if (typeof isFirstPage === 'boolean') qs.set('isFirstPage', String(isFirstPage));
   if (lastUuid) qs.set('lastUuid', lastUuid);
   if (pageSize) qs.set('pageSize', String(pageSize));
 
@@ -54,7 +45,7 @@ export const useSharedGames = ({
   tags,
   query,
   pageSize = 12,
-}: Omit<SharedGamesRequest, 'isFirstPage' | 'lastUuid'>) => {
+}: Omit<SharedGamesRequest, 'lastUuid'>) => {
   return useInfiniteQuery({
     queryKey: ['shared-games', { mode, sort, tags, query }],
     queryFn: ({ pageParam }) =>
@@ -64,12 +55,10 @@ export const useSharedGames = ({
         tags,
         query,
         pageSize,
-        ...(pageParam ?? { isFirstPage: true }),
+        ...(pageParam ?? {}),
       }),
-    initialPageParam: { isFirstPage: true },
+    initialPageParam: {},
     getNextPageParam: (lastPage) =>
-      lastPage.hasNextPage && lastPage.lastUuid
-        ? { isFirstPage: false, lastUuid: lastPage.lastUuid }
-        : undefined,
+      lastPage.hasNextPage && lastPage.lastUuid ? { lastUuid: lastPage.lastUuid } : undefined,
   });
 };
