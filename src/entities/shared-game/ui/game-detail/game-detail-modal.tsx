@@ -71,6 +71,7 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
             </div>
             <div className="flex flex-1 items-center justify-center">
               <LikeButton
+                sharedGameUuid={sharedGameDetail.sharedGameUuid}
                 isLiked={sharedGameDetail.isLiked}
                 likeCount={sharedGameDetail.likeCount}
               />

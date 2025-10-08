@@ -3,18 +3,21 @@
 import { useRouter } from 'next/navigation';
 
 import useAuthStore from '@/entities/auth/model/auth.store';
+import { useToggleLike } from '../api/use-toggle-like.mutation';
 
 import ThumbsIcon from '@icons/thumbs-up.svg';
 import ThumbsFilledIcon from '@icons/thumbs-up-fill.svg';
 
 interface LikeButtonProps {
+  sharedGameUuid: string;
   isLiked?: boolean;
   likeCount: number;
 }
 
-const LikeButton = ({ isLiked = false, likeCount }: LikeButtonProps) => {
+const LikeButton = ({ sharedGameUuid, isLiked = false, likeCount }: LikeButtonProps) => {
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn());
   const router = useRouter();
+  const toggleLike = useToggleLike(sharedGameUuid);
 
   const handleButtonClick = () => {
     if (!isLoggedIn) {
@@ -22,8 +25,7 @@ const LikeButton = ({ isLiked = false, likeCount }: LikeButtonProps) => {
       return;
     }
 
-    // TODO: 좋아요 요청
-    console.log('좋아요');
+    toggleLike.mutate();
   };
 
   return (
