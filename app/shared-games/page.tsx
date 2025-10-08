@@ -26,10 +26,9 @@ const Page = async ({
 
   if (mode === 'filter') {
     await queryClient.prefetchInfiniteQuery({
-      queryKey: ['shared-games', { mode, sort, tags: selectedTags, query: q }],
+      queryKey: ['shared-games', { sort, tags: selectedTags, query: q }],
       queryFn: () =>
         getSharedGames({
-          mode,
           sort,
           tags: selectedTags,
           query: q,
@@ -59,7 +58,7 @@ const Page = async ({
         <section>
           <h2 className="sr-only">공유된 게임 목록</h2>
           <HydrationBoundary state={dehydrate(queryClient)}>
-            <GameGridInfinite mode={mode} sort={sort} tags={selectedTags} query={q} />
+            <GameGridInfinite sort={sort} tags={selectedTags} query={q} />
           </HydrationBoundary>
         </section>
       </main>

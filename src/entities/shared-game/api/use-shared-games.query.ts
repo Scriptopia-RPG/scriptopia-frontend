@@ -10,22 +10,21 @@ interface SharedGamesResponse extends CursorResponse {
 }
 
 interface SharedGamesRequest extends CursorRequest {
-  mode: 'filter' | 'search';
   sort?: SortKey;
   tags?: number[];
   query?: string;
 }
 
-const buildQueryString = ({ mode, sort, tags, query, lastUuid, pageSize }: SharedGamesRequest) => {
+const buildQueryString = ({ sort, tags, query, lastUuid, pageSize }: SharedGamesRequest) => {
   const qs = new URLSearchParams();
 
-  if (mode === 'filter') {
+  if (query) {
+    qs.set('query', query);
+  } else {
     qs.set('sort', sort ?? SORT_OPTIONS[0].key);
     if (tags?.length) {
       qs.set('tags', tags.join(','));
     }
-  } else if (mode === 'search' && query) {
-    qs.set('query', query);
   }
 
   if (lastUuid) qs.set('lastUuid', lastUuid);
@@ -40,17 +39,15 @@ export const getSharedGames = async (params: SharedGamesRequest): Promise<Shared
 };
 
 export const useSharedGames = ({
-  mode,
   sort,
   tags,
   query,
   pageSize = 12,
 }: Omit<SharedGamesRequest, 'lastUuid'>) => {
   return useInfiniteQuery({
-    queryKey: ['shared-games', { mode, sort, tags, query }],
+    queryKey: ['shared-games', { sort, tags, query }],
     queryFn: ({ pageParam }) =>
       getSharedGames({
-        mode,
         sort,
         tags,
         query,
