@@ -1,6 +1,6 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { getSharedGames } from '@/entities/shared-game/api/use-shared-games.query';
+import { prefetchSharedGames } from '@/entities/shared-game/api/use-shared-games.query';
 import { parseTagIds } from '@/shared/utils/parse-tag-ids';
 import type { SortKey } from '@/entities/shared-game/model/shared-game.type';
 
@@ -25,16 +25,11 @@ const Page = async ({
   const queryClient = new QueryClient();
 
   if (mode === 'filter') {
-    await queryClient.prefetchInfiniteQuery({
-      queryKey: ['shared-games', { sort, tags: selectedTags, query: q }],
-      queryFn: () =>
-        getSharedGames({
-          sort,
-          tags: selectedTags,
-          query: q,
-          pageSize: 12,
-        }),
-      initialPageParam: {},
+    await prefetchSharedGames(queryClient, {
+      sort,
+      tags: selectedTags,
+      query: q,
+      pageSize: 12,
     });
   }
 

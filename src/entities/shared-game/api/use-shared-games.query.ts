@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { QueryClient, useInfiniteQuery } from '@tanstack/react-query';
 
 import customFetch from '@/shared/api/custom-fetch';
 import { SORT_OPTIONS } from '@/entities/shared-game/model/shared-game.constant';
@@ -33,9 +33,20 @@ const buildQueryString = ({ sort, tags, query, lastUuid, pageSize }: SharedGames
   return qs.toString();
 };
 
-export const getSharedGames = async (params: SharedGamesRequest): Promise<SharedGamesResponse> => {
+const getSharedGames = async (params: SharedGamesRequest): Promise<SharedGamesResponse> => {
   const queryString = buildQueryString(params);
   return customFetch<SharedGamesResponse>(`/shared-games?${queryString}`);
+};
+
+export const prefetchSharedGames = async (
+  queryClient: QueryClient,
+  params: Omit<SharedGamesRequest, 'lastUuid'>,
+) => {
+  return queryClient.prefetchInfiniteQuery({
+    queryKey: ['shared-games', params],
+    queryFn: () => getSharedGames(params),
+    initialPageParam: {},
+  });
 };
 
 export const useSharedGames = ({
