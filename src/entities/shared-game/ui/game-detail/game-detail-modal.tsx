@@ -71,6 +71,7 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
             </div>
             <div className="flex flex-1 items-center justify-center">
               <LikeButton
+                sharedGameUuid={sharedGameDetail.sharedGameUuid}
                 isLiked={sharedGameDetail.isLiked}
                 likeCount={sharedGameDetail.likeCount}
               />
@@ -82,7 +83,7 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
           </div>
 
           <section className="space-y-2.5 py-2.5">
-            <h3 className="font-medium">시놉시스</h3>
+            <h3 className="font-medium">배경 이야기</h3>
             <p className="bg-surface-subtle rounded-xl px-4 py-3.5">
               {sharedGameDetail.backgroundStory}
             </p>

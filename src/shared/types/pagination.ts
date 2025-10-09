@@ -1,5 +1,4 @@
 export interface CursorRequest {
-  isFirstPage?: boolean;
   lastUuid?: string;
   pageSize?: number;
 }

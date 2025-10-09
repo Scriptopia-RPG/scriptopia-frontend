@@ -6,6 +6,7 @@ const meta = {
   title: 'Feature/LikeButton',
   component: LikeButton,
   args: {
+    sharedGameUuid: '1',
     likeCount: 23,
   },
 } satisfies Meta<typeof LikeButton>;
@@ -13,8 +14,14 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Off: Story = {
   args: {
     isLiked: false,
+  },
+};
+
+export const On: Story = {
+  args: {
+    isLiked: true,
   },
 };

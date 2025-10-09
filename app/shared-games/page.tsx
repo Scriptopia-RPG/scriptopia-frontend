@@ -1,8 +1,8 @@
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
-import { getSharedGames } from '@/entities/shared-game/api/use-shared-games.query';
+import { prefetchSharedGames } from '@/entities/shared-game/api/use-shared-games.query';
 import { parseTagIds } from '@/shared/utils/parse-tag-ids';
-import { SortKey } from '@/entities/shared-game/model/shared-game.type';
+import type { SortKey } from '@/entities/shared-game/model/shared-game.type';
 
 import Header from '@/widgets/header/ui/header';
 import TagFilter from '@/features/tag-filter/ui/tag-filter';
@@ -25,18 +25,10 @@ const Page = async ({
   const queryClient = new QueryClient();
 
   if (mode === 'filter') {
-    await queryClient.prefetchInfiniteQuery({
-      queryKey: ['shared-games', { mode, sort, tags: selectedTags, query: q }],
-      queryFn: ({ pageParam }) =>
-        getSharedGames({
-          mode,
-          sort,
-          tags: selectedTags,
-          query: q,
-          pageSize: 12,
-          ...(pageParam ?? { isFirstPage: true }),
-        }),
-      initialPageParam: { isFirstPage: true },
+    await prefetchSharedGames(queryClient, {
+      sort,
+      tags: selectedTags,
+      query: q,
     });
   }
 
@@ -60,7 +52,7 @@ const Page = async ({
         <section>
           <h2 className="sr-only">공유된 게임 목록</h2>
           <HydrationBoundary state={dehydrate(queryClient)}>
-            <GameGridInfinite mode={mode} sort={sort} tags={selectedTags} query={q} />
+            <GameGridInfinite sort={sort} tags={selectedTags} query={q} />
           </HydrationBoundary>
         </section>
       </main>

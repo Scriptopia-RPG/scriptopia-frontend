@@ -7,7 +7,11 @@ import { ReactQueryProvider } from '@/app/providers/react-query-provider';
 import { pretendard } from '@/shared/styles/fonts';
 import '@/shared/styles/globals.css';
 
-if (process.env.NEXT_RUNTIME === 'nodejs' && process.env.NODE_ENV !== 'production') {
+if (
+  process.env.NEXT_RUNTIME === 'nodejs' &&
+  process.env.NODE_ENV !== 'production' &&
+  process.env.NEXT_PUBLIC_API_MOCKING === 'true'
+) {
   const { server } = await import('@/shared/api/mocks/server');
   server.listen();
 }

@@ -10,24 +10,22 @@ import type { SortKey } from '@/entities/shared-game/model/shared-game.type';
 import GameGrid from '@/entities/shared-game/ui/game-grid/game-grid';
 
 interface GameGridInfiniteProps {
-  mode: 'filter' | 'search';
   sort?: SortKey;
   tags?: number[];
   query?: string;
 }
 
-const GameGridInfinite = ({ mode, sort, tags, query }: GameGridInfiniteProps) => {
+const GameGridInfinite = ({ sort, tags, query }: GameGridInfiniteProps) => {
   const pageSize = usePageSize();
   const debouncedQ = useDebounced(query);
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage, isLoading } = useSharedGames({
-    mode,
     sort,
     tags,
-    query: mode === 'search' ? debouncedQ : '',
+    query: debouncedQ,
     pageSize,
   });
 
-  const items = useMemo(() => data?.pages.flatMap((p) => p.sharedGames) ?? [], [data]);
+  const items = useMemo(() => data?.pages.flatMap((p) => p.items) ?? [], [data]);
 
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
