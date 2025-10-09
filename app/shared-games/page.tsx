@@ -29,7 +29,6 @@ const Page = async ({
       sort,
       tags: selectedTags,
       query: q,
-      pageSize: 12,
     });
   }
 

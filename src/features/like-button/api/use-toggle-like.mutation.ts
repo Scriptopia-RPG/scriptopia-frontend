@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import customFetch from '@/shared/api/custom-fetch';
+import { sharedGameKeys } from '@/entities/shared-game/api/shared-game.key';
 import type { SharedGameDetail } from '@/entities/shared-game/model/shared-game.type';
 
 const likeSharedGame = async (sharedGameUuid: string) => {
@@ -15,15 +16,17 @@ export const useToggleLike = (sharedGameUuid: string) => {
   return useMutation({
     mutationFn: () => likeSharedGame(sharedGameUuid),
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['shared-game', sharedGameUuid] });
+      await queryClient.cancelQueries({ queryKey: sharedGameKeys.detail(sharedGameUuid) });
 
-      const prev = queryClient.getQueryData<SharedGameDetail>(['shared-game', sharedGameUuid]);
+      const prev = queryClient.getQueryData<SharedGameDetail>(
+        sharedGameKeys.detail(sharedGameUuid),
+      );
 
       if (prev) {
         const isLiked = prev.isLiked;
         const newLikeCount = prev.likeCount + (isLiked ? -1 : 1);
 
-        queryClient.setQueryData<SharedGameDetail>(['shared-game', sharedGameUuid], {
+        queryClient.setQueryData<SharedGameDetail>(sharedGameKeys.detail(sharedGameUuid), {
           ...prev,
           isLiked: !isLiked,
           likeCount: newLikeCount,
@@ -34,11 +37,11 @@ export const useToggleLike = (sharedGameUuid: string) => {
     },
     onError: (err, _, context) => {
       if (context?.prev) {
-        queryClient.setQueryData(['shared-games', sharedGameUuid], context.prev);
+        queryClient.setQueryData(sharedGameKeys.detail(sharedGameUuid), context.prev);
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['shared-games', sharedGameUuid] });
+      queryClient.invalidateQueries({ queryKey: sharedGameKeys.detail(sharedGameUuid) });
     },
   });
 };

@@ -1,10 +1,10 @@
 import { QueryClient, useInfiniteQuery } from '@tanstack/react-query';
 
 import customFetch from '@/shared/api/custom-fetch';
+import { sharedGameKeys } from '@/entities/shared-game/api/shared-game.key';
 import { SORT_OPTIONS } from '@/entities/shared-game/model/shared-game.constant';
 import type { SharedGame, SortKey } from '@/entities/shared-game/model/shared-game.type';
 import type { CursorRequest, CursorResponse } from '@/shared/types/pagination';
-
 interface SharedGamesResponse extends CursorResponse {
   items: SharedGame[];
 }
@@ -40,10 +40,10 @@ const getSharedGames = async (params: SharedGamesRequest): Promise<SharedGamesRe
 
 export const prefetchSharedGames = async (
   queryClient: QueryClient,
-  params: Omit<SharedGamesRequest, 'lastUuid'>,
+  params: Omit<SharedGamesRequest, 'lastUuid' | 'pageSize'>,
 ) => {
   return queryClient.prefetchInfiniteQuery({
-    queryKey: ['shared-games', params],
+    queryKey: sharedGameKeys.list(params),
     queryFn: () => getSharedGames(params),
     initialPageParam: {},
   });
@@ -56,7 +56,7 @@ export const useSharedGames = ({
   pageSize = 12,
 }: Omit<SharedGamesRequest, 'lastUuid'>) => {
   return useInfiniteQuery({
-    queryKey: ['shared-games', { sort, tags, query }],
+    queryKey: sharedGameKeys.list({ sort, tags, query }),
     queryFn: ({ pageParam }) =>
       getSharedGames({
         sort,
