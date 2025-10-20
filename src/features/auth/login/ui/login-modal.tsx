@@ -19,24 +19,26 @@ const LoginModal = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(''); // 에러 초기화
 
     if (!email || !password) {
-      alert('이메일과 비밀번호를 입력해 주세요.');
+      setError('이메일과 비밀번호를 입력해 주세요.');
       return;
     }
 
     mutate(
-      { email, password, deviceId: '1' },
+      { email, password }, // deviceId는 자동으로 생성됨
       {
         onSuccess: () => {
           router.back();
           router.refresh();
         },
         onError: (err) => {
-          alert((err as Error).message);
+          setError((err as Error).message);
         },
       },
     );
@@ -76,6 +78,14 @@ const LoginModal = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          
+          {/* 에러 메시지 표시 */}
+          {error && (
+            <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
+              {error}
+            </div>
+          )}
+          
           <Button
             type="submit"
             label={isPending ? '로그인 중…' : '로그인'}

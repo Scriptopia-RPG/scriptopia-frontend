@@ -3,7 +3,10 @@
   password: string;
   nickname: string;
   role: 'USER' | 'ADMIN';
-  ticket: string;
+  ticket: number;
+  ticketMax: number;
+  pia: number;
+  status: string;
 }
 
 export const MOCK_AUTH_USERS: MockAuthUser[] = [
@@ -12,7 +15,10 @@ export const MOCK_AUTH_USERS: MockAuthUser[] = [
     password: 'test',
     nickname: 'Tester',
     role: 'USER',
-    ticket: '3',
+    ticket: 3,
+    ticketMax: 5,
+    pia: 5000,
+    status: '테스터'
   },
 ];
 

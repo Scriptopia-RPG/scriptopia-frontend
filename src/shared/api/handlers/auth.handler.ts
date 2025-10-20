@@ -1,4 +1,4 @@
-﻿import { http, HttpResponse, type JsonBodyType } from 'msw';
+import { http, HttpResponse, type JsonBodyType } from 'msw';
 
 import { MOCK_AUTH_USERS, MOCK_EMAIL_VERIFICATIONS } from '@/shared/api/fixtures/auth.mock';
 
@@ -25,7 +25,7 @@ const jsonError = (status: number, body: { code: string; message: string; status
   });
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,20}$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,20}$/;
 const codeRegex = /^\d{6}$/;
 
 const ensureValidEmail = (rawEmail?: string) => {
@@ -35,7 +35,7 @@ const ensureValidEmail = (rawEmail?: string) => {
     return {
       error: jsonError(400, {
         code: 'E400001',
-        message: '이메일은 필수 입력 값입니다.',
+        message: '이메일을 입력해주세요.',
         status: 'BAD_REQUEST',
       }),
     } as const;
@@ -88,28 +88,8 @@ const markVerified = (email: string) => {
 };
 
 export const auth = [
-  http.post('*/auth/login', async ({ request }) => {
-    const { email, password } = (await request.json()) as {
-      email: string;
-      password: string;
-    };
-
-    const user = MOCK_AUTH_USERS.find((item) => item.email === email && item.password === password);
-
-    if (!user) {
-      return new HttpResponse(null, {
-        status: 401,
-        statusText: 'Unauthorized',
-      });
-    }
-
-    return jsonResponse(200, {
-      accessToken: createAccessToken(),
-      expiresIn: TOKEN_TTL,
-      role: user.role,
-    });
-  }),
-
+  // 로그인은 실제 API 사용하므로 MSW에서 제외
+  
   http.post('*/auth/register', async ({ request }) => {
     const body = (await request.json()) as {
       email?: string;
@@ -129,7 +109,7 @@ export const auth = [
     if (!password) {
       return jsonError(400, {
         code: 'E400004',
-        message: '비밀번호는 필수 입력 값입니다.',
+        message: '비밀번호를 입력해주세요.',
         status: 'BAD_REQUEST',
       });
     }
@@ -137,7 +117,7 @@ export const auth = [
     if (password.length < 8 || password.length > 20) {
       return jsonError(400, {
         code: 'E400005',
-        message: '비밀번호는 8~20자여야 합니다.',
+        message: '비밀번호는 8~20자 이어야 합니다.',
         status: 'BAD_REQUEST',
       });
     }
@@ -145,7 +125,7 @@ export const auth = [
     if (!passwordRegex.test(password)) {
       return jsonError(400, {
         code: 'E400006',
-        message: '비밀번호는 대문자, 소문자, 숫자, 특수문자를 포함해야 합니다.',
+        message: '비밀번호는 소문자, 대문자, 숫자, 특수문자를 포함해야 합니다.',
         status: 'BAD_REQUEST',
       });
     }
@@ -153,7 +133,7 @@ export const auth = [
     if (!nickname) {
       return jsonError(400, {
         code: 'E400007',
-        message: '닉네임은 필수 입력 값입니다.',
+        message: '닉네임을 입력해주세요.',
         status: 'BAD_REQUEST',
       });
     }
@@ -162,7 +142,7 @@ export const auth = [
     if (duplicatedEmail) {
       return jsonError(409, {
         code: 'E409001',
-        message: '이미 사용 중인 이메일입니다.',
+        message: '이미 존재하는 이메일입니다.',
         status: 'CONFLICT',
       });
     }
@@ -171,7 +151,7 @@ export const auth = [
     if (duplicatedNickname) {
       return jsonError(409, {
         code: 'E409002',
-        message: '이미 사용 중인 닉네임입니다.',
+        message: '이미 존재하는 닉네임입니다.',
         status: 'CONFLICT',
       });
     }
@@ -180,7 +160,7 @@ export const auth = [
     if (!verification || !verification.verified) {
       return jsonError(403, {
         code: 'E403001',
-        message: '이메일 인증이 완료되지 않았습니다.',
+        message: '이메일 인증을 완료해주세요.',
         status: 'FORBIDDEN',
       });
     }
@@ -190,7 +170,10 @@ export const auth = [
       password,
       nickname,
       role: 'USER' as const,
-      ticket: '0',
+      ticket: 3,
+      ticketMax: 5,
+      pia: 5000,
+      status: '인증 완료^',
     };
 
     MOCK_AUTH_USERS.push(newUser);
@@ -203,6 +186,9 @@ export const auth = [
         nickname,
         role: newUser.role,
         ticket: newUser.ticket,
+        ticketMax: newUser.ticketMax,
+        pia: newUser.pia,
+        status: newUser.status,
       },
     });
   }),
@@ -221,13 +207,13 @@ export const auth = [
     if (duplicatedEmail) {
       return jsonError(409, {
         code: 'E409001',
-        message: '이미 사용 중인 이메일입니다.',
+        message: '이미 존재하는 이메일입니다.',
         status: 'CONFLICT',
       });
     }
 
     return jsonResponse(200, {
-      message: '사용 가능한 이메일입니다.',
+      message: '이메일 인증을 완료해주세요.',
     });
   }),
 
@@ -244,7 +230,7 @@ export const auth = [
     if (duplicatedEmail) {
       return jsonError(409, {
         code: 'E409001',
-        message: '이미 사용 중인 이메일입니다.',
+        message: '이미 존재하는 이메일입니다.',
         status: 'CONFLICT',
       });
     }
@@ -253,7 +239,7 @@ export const auth = [
     upsertVerification(email, code);
 
     return jsonResponse(200, {
-      message: '인증 코드가 이메일로 발송되었습니다.',
+      message: '인증 코드를 발송해주세요.',
       code,
     });
   }),
@@ -282,7 +268,7 @@ export const auth = [
     if (!verification || verification.code !== rawCode || verification.expiresAt < Date.now()) {
       return jsonError(401, {
         code: 'E401002',
-        message: '인증 코드가 올바르지 않습니다.',
+        message: '인증 코드가 일치하지 않습니다.',
         status: 'UNAUTHORIZED',
       });
     }
@@ -290,7 +276,9 @@ export const auth = [
     markVerified(email);
 
     return jsonResponse(200, {
-      message: '이메일 인증이 완료되었습니다.',
+      message: '인증 코드를 완료해주세요.',
     });
   }),
 ];
+
+

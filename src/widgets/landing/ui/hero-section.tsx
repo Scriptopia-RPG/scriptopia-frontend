@@ -1,0 +1,87 @@
+﻿'use client';
+
+import Link from 'next/link';
+
+import styles from './hero-section.module.css';
+
+const HeroSection = () => {
+  return (
+    <section className={styles.hero}>
+      <div className={styles.wordmark}>
+        <svg viewBox="0 0 188 24" className={styles.wordmarkSvg} xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="heroGradient" x1="94" y1="31" x2="94" y2="-7" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#FFA600" />
+              <stop offset="1" stopColor="#FF6F00" />
+            </linearGradient>
+            <clipPath id="wordmarkClip">
+              <path d="M4.778 14.8V13.682H3.374V12.46H1.97V11.186H0.514V4.088H1.97V2.762H3.322V1.566H4.596V0.473999H16.218V1.67H17.622V4.816H16.218V6.038H8.054V6.974H7.092V8.534H8.054V9.47H13.696V10.614H15.074V11.81H16.504V13.11H17.96V20.182H16.504V21.508H15.126V22.704H13.878V23.822H2.178V22.6H0.826V19.454H2.178V18.258H10.342V17.296H11.304V15.762H10.342V14.8H4.778ZM26.2812 7.416V16.906H27.7892V18.31H36.1872V19.584H37.5652V22.548H36.1872V23.848H24.6432V22.574H23.0052V21.118H21.4712V19.558H20.0152V4.764H21.4712V3.178H23.0052V1.722H24.6432V0.473999H36.1872V1.774H37.5652V4.738H36.1872V5.986H27.7892V7.416H26.2812ZM53.4482 15.892H54.8262V17.296H56.2302V18.674H57.5562V22.6H56.2302V23.822H52.2522V22.6H50.9002V21.222H49.6002V19.792H48.4042V18.336H47.2342V16.906H45.8302V22.652H44.5822V23.848H40.9682V22.652H39.7202V1.722H40.9682V0.473999H53.6042V1.722H55.0082V3.048H56.3342V4.582H57.3742V11.836H56.1782V13.292H54.8522V14.696H53.4482V15.892ZM49.9382 11.758V10.484H51.2122V6.974H49.9382V5.7H45.8042V11.758H49.9382ZM71.4038 18.336V19.558H72.5998V22.652H71.4038V23.848H60.2238V22.652H59.0018V19.558H60.2238V18.336H62.7198V5.934H60.2238V4.738H59.0018V1.644H60.2238V0.447999H71.4038V1.644H72.5998V4.738H71.4038V5.934H68.9078V18.336H71.4038ZM84.444 11.862V10.614H85.718V6.974H84.444V5.7H80.31V11.862H84.444ZM91.88 4.582V13.006H90.684V14.514H89.358V15.84H87.954V17.114H80.336V22.574H79.088V23.848H75.474V22.574H74.226V1.722H75.474V0.473999H88.11V1.722H89.514V3.048H90.84V4.582H91.88ZM110.413 1.67H111.609V4.868H110.413V6.064H105.603V22.652H104.407V23.848H100.559V22.652H99.3625V6.064H94.4745V4.868H93.2785V1.67H94.4745V0.473999H110.413V1.67ZM131.582 4.712V19.61H130.1V21.196H128.67V22.574H127.344V23.848H117.464V22.574H116.138V21.196H114.708V19.61H113.226V4.712H114.708V3.126H116.138V1.722H117.464V0.473999H127.344V1.722H128.67V3.126H130.1V4.712H131.582ZM119.232 7.26V17.062H120.584V18.466H124.224V17.062H125.576V7.26H124.224V5.83H120.584V7.26H119.232ZM144.061 11.862V10.614H145.335V6.974H144.061V5.7H139.927V11.862H144.061ZM151.497 4.582V13.006H150.301V14.514H148.975V15.84H147.571V17.114H139.953V22.574H138.705V23.848H135.091V22.574H133.843V1.722H135.091V0.473999H147.727V1.722H149.131V3.048H150.457V4.582H151.497ZM165.324 18.336V19.558H166.52V22.652H165.324V23.848H154.144V22.652H152.922V19.558H154.144V18.336H156.64V5.934H154.144V4.738H152.922V1.644H154.144V0.447999H165.324V1.644H166.52V4.738H165.324V5.934H162.828V18.336H165.324ZM181.224 9.496H179.872V7.65H178.598V6.038H176.83V7.65H175.556V9.496H174.204V11.81H181.224V9.496ZM174.204 17.114V22.652H172.93V23.848H169.394V22.652H168.146V7.312H169.498V5.18H170.85V3.334H172.176V1.826H173.45V0.473999H181.952V1.826H183.2V3.334H184.526V5.18H185.904V7.312H187.282V22.652H186.008V23.848H182.472V22.652H181.224V17.114H174.204Z" />
+            </clipPath>
+            <filter id="pixelMorph" x="-20%" y="-150%" width="140%" height="400%" colorInterpolationFilters="sRGB">
+              <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="1" seed="3" result="turb">
+                <animate attributeName="baseFrequency" dur="4s" values="0.85;0.55;0.25;0.08;0.02" keyTimes="0;0.25;0.5;0.75;1" fill="freeze" />
+              </feTurbulence>
+              <feDisplacementMap in="SourceGraphic" in2="turb" scale="160" result="disp">
+                <animate attributeName="scale" dur="4s" values="160;120;70;25;0" keyTimes="0;0.3;0.55;0.8;1" fill="freeze" />
+              </feDisplacementMap>
+              <feGaussianBlur in="disp" stdDeviation="6" result="blur">
+                <animate attributeName="stdDeviation" dur="4s" values="6;5;3;1;0" keyTimes="0;0.35;0.6;0.85;1" fill="freeze" />
+              </feGaussianBlur>
+              <feBlend in="blur" in2="SourceGraphic" mode="normal" />
+            </filter>
+          </defs>
+          <g clipPath="url(#wordmarkClip)">
+            <rect width="188" height="24" fill="url(#heroGradient)" filter="url(#pixelMorph)" />
+          </g>
+          <path className={styles.revealPath} d="M4.778 14.8V13.682H3.374V12.46H1.97V11.186H0.514V4.088H1.97V2.762H3.322V1.566H4.596V0.473999H16.218V1.67H17.622V4.816H16.218V6.038H8.054V6.974H7.092V8.534H8.054V9.47H13.696V10.614H15.074V11.81H16.504V13.11H17.96V20.182H16.504V21.508H15.126V22.704H13.878V23.822H2.178V22.6H0.826V19.454H2.178V18.258H10.342V17.296H11.304V15.762H10.342V14.8H4.778ZM26.2812 7.416V16.906H27.7892V18.31H36.1872V19.584H37.5652V22.548H36.1872V23.848H24.6432V22.574H23.0052V21.118H21.4712V19.558H20.0152V4.764H21.4712V3.178H23.0052V1.722H24.6432V0.473999H36.1872V1.774H37.5652V4.738H36.1872V5.986H27.7892V7.416H26.2812ZM53.4482 15.892H54.8262V17.296H56.2302V18.674H57.5562V22.6H56.2302V23.822H52.2522V22.6H50.9002V21.222H49.6002V19.792H48.4042V18.336H47.2342V16.906H45.8302V22.652H44.5822V23.848H40.9682V22.652H39.7202V1.722H40.9682V0.473999H53.6042V1.722H55.0082V3.048H56.3342V4.582H57.3742V11.836H56.1782V13.292H54.8522V14.696H53.4482V15.892ZM49.9382 11.758V10.484H51.2122V6.974H49.9382V5.7H45.8042V11.758H49.9382ZM71.4038 18.336V19.558H72.5998V22.652H71.4038V23.848H60.2238V22.652H59.0018V19.558H60.2238V18.336H62.7198V5.934H60.2238V4.738H59.0018V1.644H60.2238V0.447999H71.4038V1.644H72.5998V4.738H71.4038V5.934H68.9078V18.336H71.4038ZM84.444 11.862V10.614H85.718V6.974H84.444V5.7H80.31V11.862H84.444ZM91.88 4.582V13.006H90.684V14.514H89.358V15.84H87.954V17.114H80.336V22.574H79.088V23.848H75.474V22.574H74.226V1.722H75.474V0.473999H88.11V1.722H89.514V3.048H90.84V4.582H91.88ZM110.413 1.67H111.609V4.868H110.413V6.064H105.603V22.652H104.407V23.848H100.559V22.652H99.3625V6.064H94.4745V4.868H93.2785V1.67H94.4745V0.473999H110.413V1.67ZM131.582 4.712V19.61H130.1V21.196H128.67V22.574H127.344V23.848H117.464V22.574H116.138V21.196H114.708V19.61H113.226V4.712H114.708V3.126H116.138V1.722H117.464V0.473999H127.344V1.722H128.67V3.126H130.1V4.712H131.582ZM119.232 7.26V17.062H120.584V18.466H124.224V17.062H125.576V7.26H124.224V5.83H120.584V7.26H119.232ZM144.061 11.862V10.614H145.335V6.974H144.061V5.7H139.927V11.862H144.061ZM151.497 4.582V13.006H150.301V14.514H148.975V15.84H147.571V17.114H139.953V22.574H138.705V23.848H135.091V22.574H133.843V1.722H135.091V0.473999H147.727V1.722H149.131V3.048H150.457V4.582H151.497ZM165.324 18.336V19.558H166.52V22.652H165.324V23.848H154.144V22.652H152.922V19.558H154.144V18.336H156.64V5.934H154.144V4.738H152.922V1.644H154.144V0.447999H165.324V1.644H166.52V4.738H165.324V5.934H162.828V18.336H165.324ZM181.224 9.496H179.872V7.65H178.598V6.038H176.83V7.65H175.556V9.496H174.204V11.81H181.224V9.496ZM174.204 17.114V22.652H172.93V23.848H169.394V22.652H168.146V7.312H169.498V5.18H170.85V3.334H172.176V1.826H173.45V0.473999H181.952V1.826H183.2V3.334H184.526V5.18H185.904V7.312H187.282V22.652H186.008V23.848H182.472V22.652H181.224V17.114H174.204Z" fill="url(#heroGradient)" />
+        </svg>
+      </div>
+      <div className="flex max-w-4xl flex-col items-center gap-8 text-center relative">
+        <div className="relative">
+          <p className="text-xl sm:text-2xl text-gray-200 leading-relaxed mb-4">
+            당신의 상상이 스크립트가 되는 곳,
+            <br className="hidden sm:block" /> 
+            <span className="text-transparent bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text font-semibold">
+              Scriptopia
+            </span>
+            에서 시작하세요.
+          </p>
+          <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-orange-500/50 to-transparent"></div>
+        </div>
+        
+        <div className="flex flex-col sm:flex-row gap-4 items-center">
+          <Link 
+            href="/play" 
+            className="group relative bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 hover:from-orange-400 hover:to-red-400 text-white font-bold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-300 to-red-300 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+            <span className="relative flex items-center gap-2">
+              게임하기 
+              <span className="transform group-hover:translate-x-1 transition-transform duration-300">✨</span>
+            </span>
+          </Link>
+          
+          <Link 
+            href="/explore" 
+            className="group bg-transparent border-2 border-gray-600 hover:border-orange-500/50 text-gray-300 hover:text-white font-semibold py-4 px-8 rounded-2xl transition-all duration-300 backdrop-blur-sm"
+          >
+            <span className="flex items-center gap-2">
+              게임 탐색
+              <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
+            </span>
+          </Link>
+        </div>
+        
+        {/* 파티클 효과 */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-orange-400 rounded-full opacity-60 animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-red-400 rounded-full opacity-40 animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute top-1/2 left-3/4 w-1.5 h-1.5 bg-orange-300 rounded-full opacity-50 animate-pulse" style={{animationDelay: '2s'}}></div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default HeroSection;
+

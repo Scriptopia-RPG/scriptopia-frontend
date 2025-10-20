@@ -41,23 +41,39 @@ const Page = async ({
   }
 
   return (
-    <div className="mb-14">
+    <div className="min-h-screen bg-[#151518] text-white">
       <Header />
-      <main className="mx-auto mt-7 flex w-full max-w-6xl flex-col gap-7 px-3.5 sm:px-8">
-        <h1 className="sr-only">공유된 게임 탐색</h1>
-        <section className="flex flex-col gap-5">
-          <h2 className="sr-only">탐색 제어</h2>
-          <SearchBarContainer q={q} />
-          {mode === 'filter' && <TagFilter />}
+      <main className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 pb-16 pt-10">
+        {/* 헤더 섹션 */}
+        <section className="text-center">
+          <h1 className="text-3xl font-bold text-white mb-4">공유 게임 탐색</h1>
+          <p className="text-gray-400 text-lg">다른 플레이어들이 만든 게임을 탐색하고 플레이해보세요</p>
         </section>
 
+        {/* 검색 및 필터 섹션 */}
+        <section className="space-y-6">
+          <div className="bg-[#17171c] border border-[#2a2a32] rounded-3xl p-6">
+            <SearchBarContainer q={q} />
+          </div>
+          
+          {mode === 'filter' && (
+            <div className="bg-[#17171c] border border-[#2a2a32] rounded-3xl p-6">
+              <TagFilter />
+            </div>
+          )}
+        </section>
+
+        {/* 정렬 옵션 */}
         {mode === 'filter' && (
           <nav className="flex justify-end">
-            <SortTabs />
+            <div className="bg-[#17171c] border border-[#2a2a32] rounded-2xl p-2">
+              <SortTabs />
+            </div>
           </nav>
         )}
 
-        <section>
+        {/* 게임 목록 */}
+        <section className="bg-[#17171c] border border-[#2a2a32] rounded-3xl p-6">
           <h2 className="sr-only">공유된 게임 목록</h2>
           <HydrationBoundary state={dehydrate(queryClient)}>
             <GameGridInfinite mode={mode} sort={sort} tags={selectedTags} query={q} />

@@ -20,6 +20,15 @@ const mockingEnabledPromise =
             if (request.url.includes('_next')) {
               return;
             }
+            // 게임 세션 관련 API는 실제 API를 사용하므로 경고 무시
+            if (request.url.includes('/games/') && 
+                (request.url.includes('/select') || request.url.includes('/progress'))) {
+              return;
+            }
+            // Chrome extension 요청 무시
+            if (request.url.includes('chrome-extension://')) {
+              return;
+            }
             print.warning();
           },
         });

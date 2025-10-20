@@ -1,0 +1,60 @@
+﻿.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+  padding: clamp(48px, 8vw, 112px) clamp(16px, 6vw, 40px) clamp(64px, 10vw, 128px);
+  text-align: center;
+}
+
+.wordmark {
+  width: min(88vw, 720px);
+}
+
+.wordmarkSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.revealPath {
+  opacity: 0;
+  animation: finalFade 3.6s ease-in-out forwards 0.35s;
+}
+
+.subtitle {
+  color: #d9d9df;
+  font-size: clamp(16px, 2.8vw, 24px);
+  line-height: 1.5;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 32px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #ffa600 0%, #ff6f00 100%);
+  color: #fff;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 0 0 rgba(255, 128, 0, 0);
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 24px rgba(255, 128, 0, 0.35);
+}
+
+@keyframes finalFade {
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}

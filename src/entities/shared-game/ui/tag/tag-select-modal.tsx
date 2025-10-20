@@ -82,7 +82,7 @@ const TagSelectModal = ({ isOpen, initialSelected, onClose }: TagSelectModalProp
           <ResetButton onClick={() => setSelectedTagIds([])} />
         </div>
 
-        <Button label="검색하기" onClick={handleApply} />
+        <Button onClick={handleApply}>검색하기</Button>
       </div>
     </div>
   );
