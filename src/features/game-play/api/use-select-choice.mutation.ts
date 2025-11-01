@@ -8,10 +8,10 @@ export interface SelectChoiceRequest {
   customAction?: string;
 }
 
-export const useSelectChoice = (gameUuid: string) => {
+export const useSelectChoice = (gameId: string) => {
   return useMutation({
     mutationFn: async (data: SelectChoiceRequest): Promise<SceneData> => {
-      return customFetch<SceneData>(`/games/${gameUuid}/select`, {
+      return customFetch<SceneData>(`/games/${gameId}/select`, {
         method: 'POST',
         body: data,
       });

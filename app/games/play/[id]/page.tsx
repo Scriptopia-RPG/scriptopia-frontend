@@ -12,7 +12,7 @@ import { BattleScene } from '@/features/game-play/ui/battle-scene';
 import { DoneScene } from '@/features/game-play/ui/done-scene';
 
 interface PageProps {
-  params: Promise<{ uuid: string }>;
+  params: Promise<{ id: string }>;
 }
 
 interface Message {
@@ -23,10 +23,10 @@ interface Message {
 }
 
 const Page = ({ params }: PageProps) => {
-  const { uuid } = use(params);
-  const { data: gameData, isLoading, refetch } = useGamePlay(uuid);
-  const { mutate: selectChoice, isPending } = useSelectChoice(uuid);
-  const { mutate: progressGame, isPending: isProgressing } = useProgressGame(uuid);
+  const { id } = use(params);
+  const { data: gameData, isLoading, refetch } = useGamePlay(id);
+  const { mutate: selectChoice, isPending } = useSelectChoice(id);
+  const { mutate: progressGame, isPending: isProgressing } = useProgressGame(id);
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
