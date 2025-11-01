@@ -34,14 +34,14 @@ const Page = () => {
 
   return (
     <>
-      <main className="mx-auto mt-32 w-full max-w-5xl px-5 py-8 sm:px-14">
+      <main className="mx-auto mt-20 w-full max-w-5xl px-4 pt-6 pb-24 sm:mt-32 sm:px-14 sm:py-8 sm:pb-8">
         <h1 className="sr-only">게임 생성</h1>
 
         {/* Progress Steps */}
-        <div className="mb-12 flex justify-center">
+        <div className="mb-8 flex justify-center sm:mb-12">
           <div className="relative flex w-full max-w-3xl items-center justify-between">
             {/* Progress Line Background */}
-            <div className="absolute top-5 right-0 left-0 z-0 flex gap-8">
+            <div className="absolute top-4 right-0 left-0 z-0 flex gap-2 sm:top-5 sm:gap-8">
               {STEP_LABELS.slice(0, -1).map((_, idx) => (
                 <div
                   key={idx}
@@ -54,9 +54,12 @@ const Page = () => {
 
             {/* Step Circles */}
             {STEP_LABELS.map((label, idx) => (
-              <div key={idx} className="bg-bg relative z-10 flex flex-col items-center">
+              <div
+                key={idx}
+                className="bg-bg relative z-10 flex flex-1 flex-col items-center sm:flex-none"
+              >
                 <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition-colors ${
+                  className={`flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold transition-colors sm:h-10 sm:w-10 sm:text-sm ${
                     idx <= currentStepIndex
                       ? 'bg-gradient-primary text-white'
                       : 'border-2 border-gray-300 bg-transparent text-gray-400'
@@ -65,7 +68,7 @@ const Page = () => {
                   {idx + 1}
                 </div>
                 <span
-                  className={`mt-2 text-xs font-medium ${
+                  className={`mt-1.5 text-[10px] leading-tight font-medium sm:mt-2 sm:text-xs ${
                     idx <= currentStepIndex ? 'text-fg' : 'text-gray-400'
                   }`}
                 >
@@ -77,7 +80,7 @@ const Page = () => {
         </div>
 
         {/* Step Content */}
-        <div className="bg-surface-subtle rounded-2xl p-8 sm:p-12">
+        <div className="bg-surface-subtle rounded-2xl p-4 sm:p-8 md:p-12">
           {step === 'background' && <BackgroundStep onNext={handleNext} />}
           {step === 'character' && <CharacterStep onNext={handleNext} onPrev={handlePrev} />}
           {step === 'items' && <ItemsStep onNext={handleNext} onPrev={handlePrev} />}

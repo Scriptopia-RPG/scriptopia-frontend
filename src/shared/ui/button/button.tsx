@@ -30,7 +30,7 @@ const Button = ({
 
   const sizeClasses = {
     full: 'w-full py-2.5',
-    auto: 'px-8 py-3',
+    auto: 'px-6 py-3 text-base sm:px-8',
   };
 
   return (

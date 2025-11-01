@@ -81,7 +81,7 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-bg fixed top-0 right-0 left-0 z-50 flex items-center justify-between border-b border-gray-200 px-5 py-3 md:px-20 md:py-4">
+    <header className="bg-bg fixed top-0 right-0 left-0 z-50 flex items-center justify-between px-5 py-3 md:px-20 md:py-4">
       <div className="flex items-center gap-8">
         <Link href="/" className="flex items-center">
           <Logo className="h-8 w-auto" />
