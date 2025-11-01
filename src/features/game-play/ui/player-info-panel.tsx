@@ -42,7 +42,7 @@ export const PlayerInfoPanel = ({ playerInfo, inventory }: PlayerInfoPanelProps)
 
         {/* 능력치 */}
         <div className="mb-6">
-          <h4 className="mb-3 text-xs font-semibold uppercase text-gray-500">능력치</h4>
+          <h4 className="mb-3 text-xs font-semibold text-gray-500 uppercase">능력치</h4>
           <div className="flex flex-col gap-2 text-xs">
             <div className="flex justify-between">
               <span className="text-gray-600">힘 (STR)</span>
@@ -65,19 +65,43 @@ export const PlayerInfoPanel = ({ playerInfo, inventory }: PlayerInfoPanelProps)
 
         {/* 특성 */}
         <div className="mb-6">
-          <h4 className="mb-3 text-xs font-semibold uppercase text-gray-500">특성</h4>
+          <h4 className="mb-3 text-xs font-semibold text-gray-500 uppercase">특성</h4>
           <p className="text-xs leading-relaxed text-gray-600">{playerInfo.trait}</p>
         </div>
 
         {/* 장착 장비 */}
         <div>
-          <h4 className="mb-3 text-xs font-semibold uppercase text-gray-500">장착 장비</h4>
+          <h4 className="mb-3 text-xs font-semibold text-gray-500 uppercase">장착 장비</h4>
           {equippedItems.length > 0 ? (
             <div className="flex flex-col gap-2">
               {equippedItems.map((item) => (
                 <div key={item.itemDefId} className="rounded-lg border border-gray-200 p-3">
-                  <p className="mb-1 text-xs font-medium">{item.name}</p>
-                  <p className="text-xs text-gray-500">{item.description}</p>
+                  <div className="mb-1 flex items-center gap-2">
+                    <p className="text-xs font-medium">{item.name}</p>
+                    <span
+                      className={`text-[10px] font-medium uppercase ${
+                        item.grade === 'COMMON'
+                          ? 'text-gray-600'
+                          : item.grade === 'RARE'
+                            ? 'text-blue-600'
+                            : item.grade === 'EPIC'
+                              ? 'text-purple-600'
+                              : 'text-orange-600'
+                      }`}
+                    >
+                      {item.grade}
+                    </span>
+                  </div>
+                  <p className="mb-2 text-xs text-gray-500">{item.description}</p>
+                  {item.itemEffects.length > 0 && (
+                    <div className="border-t border-gray-200 pt-2">
+                      {item.itemEffects.map((effect, idx) => (
+                        <p key={idx} className="text-[10px] text-blue-600">
+                          {effect.itemEffectName}
+                        </p>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -89,4 +113,3 @@ export const PlayerInfoPanel = ({ playerInfo, inventory }: PlayerInfoPanelProps)
     </div>
   );
 };
-
