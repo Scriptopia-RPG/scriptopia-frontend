@@ -1,10 +1,9 @@
-import Link from 'next/link';
+'use client';
 
 const Home = () => {
   return (
     <div>
-      <Link href="/auth/login"> 로그인 </Link>
-      <Link href={'/shared-games'}>탐색</Link>
+      <main className="pt-24 sm:pt-28">메인</main>
     </div>
   );
 };

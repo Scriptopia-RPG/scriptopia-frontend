@@ -1,0 +1,48 @@
+'use client';
+
+import Button from '@/shared/ui/button/button';
+
+interface BackgroundStepProps {
+  onNext: () => void;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export const BackgroundStep = ({ onNext, value, onChange }: BackgroundStepProps) => {
+  return (
+    <div className="flex flex-col gap-4 sm:gap-6">
+      <div className="flex flex-col gap-2">
+        <h2 className="text-fg text-xl font-bold sm:text-2xl">배경 입력하기</h2>
+        <p className="text-xs text-gray-500 sm:text-sm">
+          게임의 배경 스토리를 입력해 주세요. AI가 이를 기반으로 게임을 생성합니다.
+        </p>
+      </div>
+      <textarea
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="예: 검은 숲에서 길을 잃은 모험가가 마법의 전설을 쫓아 모험을 떠나는 스토리..."
+        className="focus:border-primary text-fg min-h-32 w-full rounded-lg border border-gray-200 p-3 text-sm placeholder-gray-400 focus:outline-none sm:min-h-40 sm:p-4"
+      />
+      {/* Desktop Button */}
+      <div className="hidden justify-end gap-3 pt-8 sm:flex">
+        <Button
+          label="다음"
+          onClick={onNext}
+          disabled={!value.trim()}
+          variant="primary"
+          size="auto"
+        />
+      </div>
+      {/* Mobile Button - fixed at bottom */}
+      <div className="bg-bg fixed right-0 bottom-0 left-0 z-40 border-t border-gray-200 p-4 sm:hidden">
+        <Button
+          label="다음"
+          onClick={onNext}
+          disabled={!value.trim()}
+          variant="primary"
+          size="full"
+        />
+      </div>
+    </div>
+  );
+};
