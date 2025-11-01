@@ -2,7 +2,7 @@
 
 import type { BattleSceneData } from '@/entities/game/model/game-play.type';
 
-import { PlayerInfoPanel } from '@/features/game-play/ui/player-info-panel';
+import PlayerInfoPanel from '@/features/game-play/ui/player-info-panel';
 
 interface BattleSceneProps {
   data: BattleSceneData;

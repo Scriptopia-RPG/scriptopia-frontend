@@ -6,15 +6,17 @@ import Header from '@/widgets/header/ui/header';
 
 const HeaderLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
-  const hideHeader = pathname?.startsWith('/games/play');
-
-  if (hideHeader) {
-    return <>{children}</>;
-  }
+  const isGamePlayPage = pathname?.startsWith('/games/play');
 
   return (
     <>
-      <Header />
+      {isGamePlayPage ? (
+        <div className="hidden md:block">
+          <Header />
+        </div>
+      ) : (
+        <Header />
+      )}
       {children}
     </>
   );

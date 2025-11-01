@@ -40,7 +40,7 @@ const Page = ({ params }: PageProps) => {
   }
 
   return (
-    <main className="bg-bg h-screen overflow-hidden">
+    <main className="bg-bg h-screen overflow-hidden md:pt-16">
       {gameData.sceneType === 'CHOICE' && (
         <ChoiceScene data={gameData} onChoiceSelect={handleChoiceSelect} />
       )}
