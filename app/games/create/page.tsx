@@ -11,8 +11,21 @@ type GameCreateStep = 'background' | 'character' | 'items' | 'complete';
 
 const STEP_LABELS = ['배경 입력', '캐릭터 생성', '아이템 선택', '게임 생성'] as const;
 
+type GameFormData = {
+  background: string;
+  characterName: string;
+  characterDescription: string;
+  selectedItem: string | null;
+};
+
 const Page = () => {
   const [step, setStep] = useState<GameCreateStep>('background');
+  const [formData, setFormData] = useState<GameFormData>({
+    background: '',
+    characterName: '',
+    characterDescription: '',
+    selectedItem: null,
+  });
 
   const currentStepIndex = ['background', 'character', 'items', 'complete'].indexOf(step);
 
@@ -81,10 +94,40 @@ const Page = () => {
 
         {/* Step Content */}
         <div className="bg-surface-subtle rounded-2xl p-4 sm:p-8 md:p-12">
-          {step === 'background' && <BackgroundStep onNext={handleNext} />}
-          {step === 'character' && <CharacterStep onNext={handleNext} onPrev={handlePrev} />}
-          {step === 'items' && <ItemsStep onNext={handleNext} onPrev={handlePrev} />}
-          {step === 'complete' && <CompleteStep />}
+          {step === 'background' && (
+            <BackgroundStep
+              onNext={handleNext}
+              value={formData.background}
+              onChange={(value) => setFormData((prev) => ({ ...prev, background: value }))}
+            />
+          )}
+          {step === 'character' && (
+            <CharacterStep
+              onNext={handleNext}
+              onPrev={handlePrev}
+              characterName={formData.characterName}
+              characterDescription={formData.characterDescription}
+              onCharacterNameChange={(value) =>
+                setFormData((prev) => ({ ...prev, characterName: value }))
+              }
+              onCharacterDescriptionChange={(value) =>
+                setFormData((prev) => ({ ...prev, characterDescription: value }))
+              }
+            />
+          )}
+          {step === 'items' && (
+            <ItemsStep
+              onNext={handleNext}
+              onPrev={handlePrev}
+              selectedItem={formData.selectedItem}
+              onSelectedItemChange={(value) =>
+                setFormData((prev) => ({ ...prev, selectedItem: value }))
+              }
+            />
+          )}
+          {step === 'complete' && (
+            <CompleteStep formData={formData} onPrev={handlePrev} onComplete={handleNext} />
+          )}
         </div>
       </main>
     </>

@@ -1,15 +1,14 @@
 'use client';
 
-import { useState } from 'react';
 import Button from '@/shared/ui/button/button';
 
 interface BackgroundStepProps {
   onNext: () => void;
+  value: string;
+  onChange: (value: string) => void;
 }
 
-export const BackgroundStep = ({ onNext }: BackgroundStepProps) => {
-  const [background, setBackground] = useState('');
-
+export const BackgroundStep = ({ onNext, value, onChange }: BackgroundStepProps) => {
   return (
     <div className="flex flex-col gap-4 sm:gap-6">
       <div className="flex flex-col gap-2">
@@ -19,8 +18,8 @@ export const BackgroundStep = ({ onNext }: BackgroundStepProps) => {
         </p>
       </div>
       <textarea
-        value={background}
-        onChange={(e) => setBackground(e.target.value)}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         placeholder="예: 검은 숲에서 길을 잃은 모험가가 마법의 전설을 쫓아 모험을 떠나는 스토리..."
         className="focus:border-primary text-fg min-h-32 w-full rounded-lg border border-gray-200 p-3 text-sm placeholder-gray-400 focus:outline-none sm:min-h-40 sm:p-4"
       />
@@ -29,7 +28,7 @@ export const BackgroundStep = ({ onNext }: BackgroundStepProps) => {
         <Button
           label="다음"
           onClick={onNext}
-          disabled={!background.trim()}
+          disabled={!value.trim()}
           variant="primary"
           size="auto"
         />
@@ -39,7 +38,7 @@ export const BackgroundStep = ({ onNext }: BackgroundStepProps) => {
         <Button
           label="다음"
           onClick={onNext}
-          disabled={!background.trim()}
+          disabled={!value.trim()}
           variant="primary"
           size="full"
         />

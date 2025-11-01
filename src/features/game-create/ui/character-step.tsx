@@ -1,18 +1,24 @@
 'use client';
 
-import { useState } from 'react';
-
 import Button from '@/shared/ui/button/button';
 
 interface CharacterStepProps {
   onNext: () => void;
   onPrev: () => void;
+  characterName: string;
+  characterDescription: string;
+  onCharacterNameChange: (value: string) => void;
+  onCharacterDescriptionChange: (value: string) => void;
 }
 
-export const CharacterStep = ({ onNext, onPrev }: CharacterStepProps) => {
-  const [characterName, setCharacterName] = useState('');
-  const [characterDescription, setCharacterDescription] = useState('');
-
+export const CharacterStep = ({
+  onNext,
+  onPrev,
+  characterName,
+  characterDescription,
+  onCharacterNameChange,
+  onCharacterDescriptionChange,
+}: CharacterStepProps) => {
   return (
     <div className="flex flex-col gap-4 sm:gap-6">
       <div className="flex flex-col gap-2">
@@ -27,7 +33,7 @@ export const CharacterStep = ({ onNext, onPrev }: CharacterStepProps) => {
           <input
             type="text"
             value={characterName}
-            onChange={(e) => setCharacterName(e.target.value)}
+            onChange={(e) => onCharacterNameChange(e.target.value)}
             placeholder="예: 아리엘"
             className="focus:border-primary text-fg mt-2 w-full rounded-lg border border-gray-200 p-3 text-sm placeholder-gray-400 focus:outline-none"
           />
@@ -36,7 +42,7 @@ export const CharacterStep = ({ onNext, onPrev }: CharacterStepProps) => {
           <label className="text-fg block text-xs sm:text-sm">캐릭터 특징</label>
           <textarea
             value={characterDescription}
-            onChange={(e) => setCharacterDescription(e.target.value)}
+            onChange={(e) => onCharacterDescriptionChange(e.target.value)}
             placeholder="캐릭터의 특징, 성격, 배경 등을 설명해 주세요..."
             className="focus:border-primary text-fg min-h-28 w-full rounded-lg border border-gray-200 p-3 text-sm placeholder-gray-400 focus:outline-none sm:min-h-32"
           />
