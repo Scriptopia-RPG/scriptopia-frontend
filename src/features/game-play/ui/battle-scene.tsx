@@ -2,13 +2,16 @@
 
 import type { BattleSceneData } from '@/entities/game/model/game-play.type';
 
+import Button from '@/shared/ui/button/button';
 import PlayerInfoPanel from '@/features/game-play/ui/player-info-panel';
 
 interface BattleSceneProps {
   data: BattleSceneData;
+  onNext?: () => void;
+  isPending?: boolean;
 }
 
-export const BattleScene = ({ data }: BattleSceneProps) => {
+export const BattleScene = ({ data, onNext, isPending }: BattleSceneProps) => {
   const currentTurn = data.curTurnId;
   const isCompleted = currentTurn >= data.battleStory.length;
 
@@ -105,6 +108,21 @@ export const BattleScene = ({ data }: BattleSceneProps) => {
             </div>
           </div>
         </div>
+
+        {/* 하단 고정 버튼 */}
+        {onNext && (
+          <div className="bg-bg flex-shrink-0 border-t border-gray-200 p-4">
+            <div className="mx-auto flex max-w-2xl gap-3">
+              <Button
+                label={isPending ? '진행 중...' : '다음으로'}
+                onClick={onNext}
+                variant="primary"
+                size="full"
+                disabled={isPending}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

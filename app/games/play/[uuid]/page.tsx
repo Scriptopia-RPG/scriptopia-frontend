@@ -172,7 +172,9 @@ const Page = ({ params }: PageProps) => {
           messagesEndRef={messagesEndRef}
         />
       )}
-      {gameData.sceneType === 'BATTLE' && <BattleScene data={gameData} />}
+      {gameData.sceneType === 'BATTLE' && (
+        <BattleScene data={gameData} onNext={handleNext} isPending={isProgressing} />
+      )}
       {gameData.sceneType === 'DONE' && (
         <DoneScene data={gameData} onNext={handleNext} isPending={isProgressing} />
       )}
