@@ -8,10 +8,9 @@ import PlayerInfoPanel from '@/features/game-play/ui/player-info-panel';
 interface DoneSceneProps {
   data: DoneSceneData;
   onNext?: () => void;
-  onShare?: () => void;
 }
 
-export const DoneScene = ({ data, onNext, onShare }: DoneSceneProps) => {
+export const DoneScene = ({ data, onNext }: DoneSceneProps) => {
   const hasRewards =
     data.rewardInfo.rewardStrength !== 0 ||
     data.rewardInfo.rewardAgility !== 0 ||
@@ -103,12 +102,9 @@ export const DoneScene = ({ data, onNext, onShare }: DoneSceneProps) => {
         </div>
 
         {/* 하단 고정 버튼 */}
-        {(onNext || onShare) && (
+        {onNext && (
           <div className="bg-bg flex-shrink-0 border-t border-gray-200 p-4">
             <div className="mx-auto flex max-w-2xl gap-3">
-              {onShare && (
-                <Button label="공유하기" onClick={onShare} variant="outline" size="full" />
-              )}
               {onNext && <Button label="다음으로" onClick={onNext} variant="primary" size="full" />}
             </div>
           </div>

@@ -72,11 +72,6 @@ const Page = ({ params }: PageProps) => {
     // TODO: 다음 씬으로 진행
   };
 
-  const handleShare = () => {
-    console.log('Share clicked');
-    // TODO: 게임 공유
-  };
-
   if (isLoading || !gameData) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -96,9 +91,7 @@ const Page = ({ params }: PageProps) => {
         />
       )}
       {gameData.sceneType === 'BATTLE' && <BattleScene data={gameData} />}
-      {gameData.sceneType === 'DONE' && (
-        <DoneScene data={gameData} onNext={handleNext} onShare={handleShare} />
-      )}
+      {gameData.sceneType === 'DONE' && <DoneScene data={gameData} onNext={handleNext} />}
     </main>
   );
 };
