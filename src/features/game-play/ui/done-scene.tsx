@@ -8,9 +8,10 @@ import PlayerInfoPanel from '@/features/game-play/ui/player-info-panel';
 interface DoneSceneProps {
   data: DoneSceneData;
   onNext?: () => void;
+  isPending?: boolean;
 }
 
-export const DoneScene = ({ data, onNext }: DoneSceneProps) => {
+export const DoneScene = ({ data, onNext, isPending }: DoneSceneProps) => {
   const hasRewards =
     data.rewardInfo.rewardStrength !== 0 ||
     data.rewardInfo.rewardAgility !== 0 ||
@@ -105,7 +106,15 @@ export const DoneScene = ({ data, onNext }: DoneSceneProps) => {
         {onNext && (
           <div className="bg-bg flex-shrink-0 border-t border-gray-200 p-4">
             <div className="mx-auto flex max-w-2xl gap-3">
-              {onNext && <Button label="다음으로" onClick={onNext} variant="primary" size="full" />}
+              {onNext && (
+                <Button
+                  label={isPending ? '진행 중...' : '다음으로'}
+                  onClick={onNext}
+                  variant="primary"
+                  size="full"
+                  disabled={isPending}
+                />
+              )}
             </div>
           </div>
         )}

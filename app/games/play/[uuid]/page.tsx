@@ -5,6 +5,7 @@ import { use } from 'react';
 import { useGamePlay } from '@/entities/game/api/use-game-play.query';
 
 import { useSelectChoice } from '@/features/game-play/api/use-select-choice.mutation';
+import { useProgressGame } from '@/features/game-play/api/use-progress-game.mutation';
 
 import { ChoiceScene } from '@/features/game-play/ui/choice-scene';
 import { BattleScene } from '@/features/game-play/ui/battle-scene';
@@ -18,6 +19,7 @@ const Page = ({ params }: PageProps) => {
   const { uuid } = use(params);
   const { data: gameData, isLoading, refetch } = useGamePlay(uuid);
   const { mutate: selectChoice, isPending } = useSelectChoice(uuid);
+  const { mutate: progressGame, isPending: isProgressing } = useProgressGame(uuid);
 
   const handleChoiceSelect = (choiceIndex: number) => {
     selectChoice(
@@ -68,8 +70,24 @@ const Page = ({ params }: PageProps) => {
   };
 
   const handleNext = () => {
-    console.log('Next clicked');
-    // TODO: 다음 씬으로 진행
+    progressGame(undefined, {
+      onSuccess: () => {
+        refetch();
+      },
+      onError: (error) => {
+        const fetchError = error as { body?: string };
+        if (fetchError?.body) {
+          try {
+            const errorBody = JSON.parse(fetchError.body);
+            alert(errorBody.message || '게임 진행에 실패했습니다.');
+          } catch {
+            alert('게임 진행에 실패했습니다.');
+          }
+        } else {
+          alert('게임 진행에 실패했습니다.');
+        }
+      },
+    });
   };
 
   if (isLoading || !gameData) {
@@ -91,7 +109,9 @@ const Page = ({ params }: PageProps) => {
         />
       )}
       {gameData.sceneType === 'BATTLE' && <BattleScene data={gameData} />}
-      {gameData.sceneType === 'DONE' && <DoneScene data={gameData} onNext={handleNext} />}
+      {gameData.sceneType === 'DONE' && (
+        <DoneScene data={gameData} onNext={handleNext} isPending={isProgressing} />
+      )}
     </main>
   );
 };
