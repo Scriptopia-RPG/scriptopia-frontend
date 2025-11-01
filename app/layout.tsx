@@ -6,6 +6,7 @@ import { ReactQueryProvider } from '@/app/providers/react-query-provider';
 
 import { pretendard } from '@/shared/styles/fonts';
 import '@/shared/styles/globals.css';
+import HeaderLayout from '@/widgets/header/ui/header-layout';
 
 if (
   process.env.NEXT_RUNTIME === 'nodejs' &&
@@ -33,8 +34,10 @@ export default function RootLayout({
       <body className={`${pretendard.variable} antialiased`}>
         <MSWProvider>
           <ReactQueryProvider>
-            {children}
-            {modal}
+            <HeaderLayout>
+              {children}
+              {modal}
+            </HeaderLayout>
           </ReactQueryProvider>
         </MSWProvider>
       </body>
