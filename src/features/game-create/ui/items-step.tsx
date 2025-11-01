@@ -28,13 +28,15 @@ export const ItemsStep = ({
     <div className="flex flex-col gap-4 sm:gap-6">
       <div className="flex flex-col gap-2">
         <h2 className="text-fg text-xl font-bold sm:text-2xl">아이템 선택하기</h2>
-        <p className="text-xs text-gray-500 sm:text-sm">아이템은 최대 1개 선택할 수 있습니다.</p>
+        <p className="text-xs text-gray-500 sm:text-sm">
+          아이템은 최대 1개 선택할 수 있습니다. (선택)
+        </p>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
         {AVAILABLE_ITEMS.map((item) => (
           <button
             key={item.id}
-            onClick={() => onSelectedItemChange(item.id)}
+            onClick={() => onSelectedItemChange(selectedItem === item.id ? '' : item.id)}
             className={`flex flex-col rounded-lg border-2 p-3 text-left transition-all sm:p-4 ${
               selectedItem === item.id
                 ? 'border-primary bg-primary/10'
@@ -49,24 +51,12 @@ export const ItemsStep = ({
       {/* Desktop Button */}
       <div className="hidden justify-between gap-3 pt-8 sm:flex">
         <Button label="이전" onClick={onPrev} variant="outline" size="auto" />
-        <Button
-          label="게임 생성"
-          onClick={onNext}
-          disabled={!selectedItem}
-          variant="primary"
-          size="auto"
-        />
+        <Button label="다음" onClick={onNext} variant="primary" size="auto" />
       </div>
       {/* Mobile Button - fixed at bottom */}
       <div className="bg-bg fixed right-0 bottom-0 left-0 z-40 flex gap-3 border-t border-gray-200 p-4 sm:hidden">
         <Button label="이전" onClick={onPrev} variant="outline" size="full" />
-        <Button
-          label="게임 생성"
-          onClick={onNext}
-          disabled={!selectedItem}
-          variant="primary"
-          size="full"
-        />
+        <Button label="다음" onClick={onNext} variant="primary" size="full" />
       </div>
     </div>
   );
