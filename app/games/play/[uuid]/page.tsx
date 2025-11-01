@@ -1,6 +1,6 @@
 'use client';
 
-import { use } from 'react';
+import { use, useState, useEffect, useRef } from 'react';
 
 import { useGamePlay } from '@/entities/game/api/use-game-play.query';
 
@@ -15,13 +15,65 @@ interface PageProps {
   params: Promise<{ uuid: string }>;
 }
 
+interface Message {
+  id: string;
+  type: 'background' | 'choice' | 'custom';
+  content: string;
+  timestamp: Date;
+}
+
 const Page = ({ params }: PageProps) => {
   const { uuid } = use(params);
   const { data: gameData, isLoading, refetch } = useGamePlay(uuid);
   const { mutate: selectChoice, isPending } = useSelectChoice(uuid);
   const { mutate: progressGame, isPending: isProgressing } = useProgressGame(uuid);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // 게임 데이터가 변경될 때마다 배경 메시지 추가
+  useEffect(() => {
+    if (gameData) {
+      setMessages((prev) => {
+        const exists = prev.some((msg) => msg.id === gameData.updatedAt);
+        if (!exists) {
+          return [
+            ...prev,
+            {
+              id: gameData.updatedAt,
+              type: 'background' as const,
+              content: gameData.background,
+              timestamp: new Date(gameData.updatedAt),
+            },
+          ];
+        }
+        return prev;
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameData?.updatedAt, gameData?.background]);
+
+  // 스크롤을 가장 아래로
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   const handleChoiceSelect = (choiceIndex: number) => {
+    if (!gameData) return;
+
+    const selectedChoice =
+      gameData.sceneType === 'CHOICE' ? gameData.choiceInfo[choiceIndex] : null;
+    if (selectedChoice?.detail) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `choice-${Date.now()}`,
+          type: 'choice' as const,
+          content: selectedChoice.detail || '',
+          timestamp: new Date(),
+        },
+      ]);
+    }
+
     selectChoice(
       { choiceIndex },
       {
@@ -46,6 +98,16 @@ const Page = ({ params }: PageProps) => {
   };
 
   const handleTextSubmit = (text: string) => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: `custom-${Date.now()}`,
+        type: 'custom' as const,
+        content: text,
+        timestamp: new Date(),
+      },
+    ]);
+
     selectChoice(
       { customAction: text },
       {
@@ -103,9 +165,11 @@ const Page = ({ params }: PageProps) => {
       {gameData.sceneType === 'CHOICE' && (
         <ChoiceScene
           data={gameData}
+          messages={messages}
           onChoiceSelect={handleChoiceSelect}
           onTextSubmit={handleTextSubmit}
           isPending={isPending}
+          messagesEndRef={messagesEndRef}
         />
       )}
       {gameData.sceneType === 'BATTLE' && <BattleScene data={gameData} />}

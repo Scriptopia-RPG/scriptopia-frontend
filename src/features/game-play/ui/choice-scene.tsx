@@ -1,23 +1,34 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, RefObject } from 'react';
 
 import type { ChoiceSceneData } from '@/entities/game/model/game-play.type';
 
 import PlayerInfoPanel from '@/features/game-play/ui/player-info-panel';
 
+interface Message {
+  id: string;
+  type: 'background' | 'choice' | 'custom';
+  content: string;
+  timestamp: Date;
+}
+
 interface ChoiceSceneProps {
   data: ChoiceSceneData;
+  messages: Message[];
   onChoiceSelect: (choiceIndex: number) => void;
   onTextSubmit?: (text: string) => void;
   isPending?: boolean;
+  messagesEndRef: RefObject<HTMLDivElement | null>;
 }
 
 export const ChoiceScene = ({
   data,
+  messages,
   onChoiceSelect,
   onTextSubmit,
   isPending,
+  messagesEndRef,
 }: ChoiceSceneProps) => {
   const [inputText, setInputText] = useState('');
 
@@ -57,32 +68,53 @@ export const ChoiceScene = ({
         {/* 스크롤 가능한 메시지 영역 */}
         <div className="flex-1 overflow-y-auto bg-gradient-to-b from-gray-50 to-white">
           <div className="mx-auto max-w-2xl p-4">
-            {/* 배경 스토리 */}
-            <div className="mb-4 rounded-2xl bg-white p-4 shadow-sm">
-              <p className="text-sm leading-relaxed whitespace-pre-wrap">{data.background}</p>
-            </div>
+            {/* 메시지 히스토리 */}
+            {messages.map((message) => (
+              <div key={message.id} className="mb-4">
+                {message.type === 'background' ? (
+                  <div className="rounded-2xl bg-white p-4 shadow-sm">
+                    <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                  </div>
+                ) : message.type === 'choice' ? (
+                  <div className="rounded-2xl border border-blue-200 bg-blue-50 p-4 shadow-sm">
+                    <p className="text-sm leading-relaxed font-medium text-blue-900">
+                      {message.content}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="rounded-2xl border border-gray-300 bg-gray-100 p-4 shadow-sm">
+                    <p className="text-sm leading-relaxed text-gray-800">{message.content}</p>
+                  </div>
+                )}
+              </div>
+            ))}
 
-            {/* 선택지 */}
-            <div className="mb-4 flex flex-col gap-3">
-              <h3 className="px-2 text-xs font-medium text-gray-500">어떻게 하시겠습니까?</h3>
-              {data.choiceInfo.map((choice, index) => (
-                <button
-                  key={index}
-                  onClick={() => onChoiceSelect(index)}
-                  disabled={isPending}
-                  className="hover:bg-primary/5 rounded-2xl border border-gray-200 bg-white p-4 text-left shadow-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  <p className="text-sm leading-relaxed">{choice.detail}</p>
-                  {choice.stats && choice.probability && (
-                    <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">
-                      <span className="font-medium">{choice.stats}</span>
-                      <span className="text-gray-400">•</span>
-                      <span>{choice.probability}% 성공 확률</span>
-                    </div>
-                  )}
-                </button>
-              ))}
-            </div>
+            {/* 현재 선택지 */}
+            {data.choiceInfo.length > 0 && (
+              <div className="mb-4 flex flex-col gap-3">
+                <h3 className="px-2 text-xs font-medium text-gray-500">어떻게 하시겠습니까?</h3>
+                {data.choiceInfo.map((choice, index) => (
+                  <button
+                    key={index}
+                    onClick={() => onChoiceSelect(index)}
+                    disabled={isPending}
+                    className="hover:bg-primary/5 rounded-2xl border border-gray-200 bg-white p-4 text-left shadow-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <p className="text-sm leading-relaxed">{choice.detail}</p>
+                    {choice.stats && choice.probability && (
+                      <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">
+                        <span className="font-medium">{choice.stats}</span>
+                        <span className="text-gray-400">•</span>
+                        <span>{choice.probability}% 성공 확률</span>
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* 스크롤 맨 아래로 이동하는 div */}
+            <div ref={messagesEndRef} />
           </div>
         </div>
 
