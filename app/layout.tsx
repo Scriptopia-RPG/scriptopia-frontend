@@ -35,8 +35,10 @@ export default function RootLayout({
         <MSWProvider>
           <ReactQueryProvider>
             <HeaderLayout>
-              {children}
-              {modal}
+              <div className="mx-auto max-w-[1440px]">
+                {children}
+                {modal}
+              </div>
             </HeaderLayout>
           </ReactQueryProvider>
         </MSWProvider>
