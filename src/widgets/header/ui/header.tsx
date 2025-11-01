@@ -7,6 +7,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import useAuthStore from '@/entities/auth/model/auth.store';
 import { NAV_ITEMS } from '@/widgets/header/model/header.constant';
+import { useGame, fetchGame } from '@/entities/game/api/use-game.query';
 
 import Logo from '@public/logo/logo.svg';
 
@@ -23,6 +24,8 @@ const Header = () => {
   }, []);
 
   const loggedIn = isMounted && isLoggedIn();
+
+  useGame({ enabled: false });
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -41,6 +44,16 @@ const Header = () => {
     clearAuth();
     setIsProfileDropdownOpen(false);
     router.push('/');
+  };
+
+  const handlePlayClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    try {
+      const gameData = await fetchGame();
+      router.push(`/games/play/${gameData.sessionId}`);
+    } catch {
+      router.push('/games/create');
+    }
   };
 
   if (!loggedIn) {
@@ -76,6 +89,22 @@ const Header = () => {
         <nav className="hidden items-center gap-4 md:flex md:gap-6">
           {NAV_ITEMS.map((item) => {
             const isActive = item.isActive ? item.isActive(pathname || '') : false;
+            const isPlayButton = item.href === '/games/play';
+
+            if (isPlayButton) {
+              return (
+                <button
+                  key={item.href}
+                  onClick={handlePlayClick}
+                  className={`text-sm font-medium transition-colors md:text-base ${
+                    isActive ? 'text-primary' : 'text-fg hover:text-primary'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            }
+
             return (
               <Link
                 key={item.href}
