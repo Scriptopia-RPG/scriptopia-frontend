@@ -3,10 +3,10 @@ import { useMutation } from '@tanstack/react-query';
 import customFetch from '@/shared/api/custom-fetch';
 
 interface CreateGameRequest {
-  backround: string;
+  background: string;
   characterName: string;
   characterDescription: string;
-  itemDefId: number;
+  itemDefId?: number;
 }
 
 interface CreateGameResponse {
@@ -16,7 +16,7 @@ interface CreateGameResponse {
 }
 
 const createGame = async (gameData: CreateGameRequest) => {
-  return await customFetch<CreateGameResponse>('/game', {
+  return await customFetch<CreateGameResponse>('/games', {
     method: 'POST',
     body: gameData,
   });

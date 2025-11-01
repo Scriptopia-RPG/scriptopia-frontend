@@ -52,36 +52,39 @@ const Page = () => {
   };
 
   const handleComplete = () => {
-    if (!formData.selectedItem) {
-      return;
+    const payload: {
+      background: string;
+      characterName: string;
+      characterDescription: string;
+      itemDefId?: number;
+    } = {
+      background: formData.background,
+      characterName: formData.characterName,
+      characterDescription: formData.characterDescription,
+    };
+
+    if (formData.selectedItem) {
+      payload.itemDefId = parseInt(formData.selectedItem, 10);
     }
 
-    createGame(
-      {
-        backround: formData.background,
-        characterName: formData.characterName,
-        characterDescription: formData.characterDescription,
-        itemDefId: parseInt(formData.selectedItem, 10),
+    createGame(payload, {
+      onSuccess: (response) => {
+        router.push(`/games/play/${response.gameId}`);
       },
-      {
-        onSuccess: (response) => {
-          router.push(`/games/play/${response.gameId}`);
-        },
-        onError: (error) => {
-          const fetchError = error as { body?: string };
-          if (fetchError?.body) {
-            try {
-              const errorBody = JSON.parse(fetchError.body);
-              alert(errorBody.message || '게임 생성에 실패했습니다.');
-            } catch {
-              alert('게임 생성에 실패했습니다.');
-            }
-          } else {
+      onError: (error) => {
+        const fetchError = error as { body?: string };
+        if (fetchError?.body) {
+          try {
+            const errorBody = JSON.parse(fetchError.body);
+            alert(errorBody.message || '게임 생성에 실패했습니다.');
+          } catch {
             alert('게임 생성에 실패했습니다.');
           }
-        },
+        } else {
+          alert('게임 생성에 실패했습니다.');
+        }
       },
-    );
+    });
   };
 
   return (
@@ -160,7 +163,7 @@ const Page = () => {
               onPrev={handlePrev}
               selectedItem={formData.selectedItem}
               onSelectedItemChange={(value) =>
-                setFormData((prev) => ({ ...prev, selectedItem: value }))
+                setFormData((prev) => ({ ...prev, selectedItem: value || null }))
               }
             />
           )}
