@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import type { ChoiceSceneData } from '@/entities/game/model/game-play.type';
 
 import PlayerInfoPanel from '@/features/game-play/ui/player-info-panel';
@@ -7,9 +9,20 @@ import PlayerInfoPanel from '@/features/game-play/ui/player-info-panel';
 interface ChoiceSceneProps {
   data: ChoiceSceneData;
   onChoiceSelect: (choiceIndex: number) => void;
+  onTextSubmit?: (text: string) => void;
 }
 
-export const ChoiceScene = ({ data, onChoiceSelect }: ChoiceSceneProps) => {
+export const ChoiceScene = ({ data, onChoiceSelect, onTextSubmit }: ChoiceSceneProps) => {
+  const [inputText, setInputText] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (inputText.trim() && onTextSubmit) {
+      onTextSubmit(inputText.trim());
+      setInputText('');
+    }
+  };
+
   return (
     <div className="flex h-full">
       {/* 좌측 플레이어 정보 - 모바일에서 숨김 */}
@@ -20,7 +33,7 @@ export const ChoiceScene = ({ data, onChoiceSelect }: ChoiceSceneProps) => {
       {/* 우측 콘텐츠 - 채팅 형식 */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* 상단 고정 헤더 */}
-        <div className="flex-shrink-0 border-b border-gray-200 bg-bg p-4">
+        <div className="bg-bg flex-shrink-0 border-b border-gray-200 p-4">
           <div className="flex justify-between text-sm">
             <span className="font-medium">{data.location}</span>
             <span className="text-gray-500">
@@ -50,7 +63,7 @@ export const ChoiceScene = ({ data, onChoiceSelect }: ChoiceSceneProps) => {
                 <button
                   key={index}
                   onClick={() => onChoiceSelect(index)}
-                  className="bg-white hover:bg-primary/5 rounded-2xl border border-gray-200 p-4 text-left transition-colors shadow-sm"
+                  className="hover:bg-primary/5 rounded-2xl border border-gray-200 bg-white p-4 text-left shadow-sm transition-colors"
                 >
                   <p className="text-sm leading-relaxed">{choice.detail}</p>
                   <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">
@@ -63,6 +76,30 @@ export const ChoiceScene = ({ data, onChoiceSelect }: ChoiceSceneProps) => {
             </div>
           </div>
         </div>
+
+        {/* 하단 입력창 */}
+        {onTextSubmit && (
+          <div className="bg-bg flex-shrink-0 border-t border-gray-200 p-4">
+            <form onSubmit={handleSubmit} className="mx-auto max-w-2xl">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value)}
+                  placeholder="자유롭게 입력해주세요..."
+                  className="focus:border-primary focus:ring-primary/20 flex-1 rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:ring-2 focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  disabled={!inputText.trim()}
+                  className="bg-gradient-primary rounded-xl px-6 py-2.5 text-sm font-medium text-white transition-colors disabled:bg-gray-300 disabled:bg-none"
+                >
+                  전송
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );

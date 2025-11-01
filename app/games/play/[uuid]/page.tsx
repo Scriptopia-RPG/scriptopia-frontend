@@ -21,6 +21,11 @@ const Page = ({ params }: PageProps) => {
     // TODO: API 호출로 선택 전송
   };
 
+  const handleTextSubmit = (text: string) => {
+    console.log('Text submitted:', text);
+    // TODO: API 호출로 텍스트 전송
+  };
+
   const handleNext = () => {
     console.log('Next clicked');
     // TODO: 다음 씬으로 진행
@@ -42,7 +47,11 @@ const Page = ({ params }: PageProps) => {
   return (
     <main className="bg-bg h-screen overflow-hidden md:pt-16">
       {gameData.sceneType === 'CHOICE' && (
-        <ChoiceScene data={gameData} onChoiceSelect={handleChoiceSelect} />
+        <ChoiceScene
+          data={gameData}
+          onChoiceSelect={handleChoiceSelect}
+          onTextSubmit={handleTextSubmit}
+        />
       )}
       {gameData.sceneType === 'BATTLE' && <BattleScene data={gameData} />}
       {gameData.sceneType === 'DONE' && (
