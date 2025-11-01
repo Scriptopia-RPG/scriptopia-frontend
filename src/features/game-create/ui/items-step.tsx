@@ -68,22 +68,28 @@ export const ItemsStep = ({
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
-        {filteredItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => onSelectedItemChange(selectedItem === item.id ? '' : item.id)}
-            className={`flex flex-col rounded-lg border-2 p-3 text-left transition-all sm:p-4 ${
-              selectedItem === item.id
-                ? 'border-primary bg-primary/10'
-                : 'border-gray-200 hover:border-gray-300 active:border-gray-400'
-            }`}
-          >
-            <span className="text-sm font-semibold sm:text-base">{item.name}</span>
-            <span className="text-xs text-gray-500">{item.description}</span>
-          </button>
-        ))}
-      </div>
+      {filteredItems.length > 0 ? (
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+          {filteredItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => onSelectedItemChange(selectedItem === item.id ? '' : item.id)}
+              className={`flex flex-col rounded-lg border-2 p-3 text-left transition-all sm:p-4 ${
+                selectedItem === item.id
+                  ? 'border-primary bg-primary/10'
+                  : 'border-gray-200 hover:border-gray-300 active:border-gray-400'
+              }`}
+            >
+              <span className="text-sm font-semibold sm:text-base">{item.name}</span>
+              <span className="text-xs text-gray-500">{item.description}</span>
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="flex items-center justify-center py-12">
+          <p className="text-sm text-gray-500">해당 카테고리에 아이템이 없습니다.</p>
+        </div>
+      )}
       {/* Desktop Button */}
       <div className="hidden justify-between gap-3 pt-8 sm:flex">
         <Button label="이전" onClick={onPrev} variant="outline" size="auto" />
