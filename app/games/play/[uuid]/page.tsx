@@ -4,6 +4,8 @@ import { use } from 'react';
 
 import { useGamePlay } from '@/entities/game/api/use-game-play.query';
 
+import { useSelectChoice } from '@/features/game-play/api/use-select-choice.mutation';
+
 import { ChoiceScene } from '@/features/game-play/ui/choice-scene';
 import { BattleScene } from '@/features/game-play/ui/battle-scene';
 import { DoneScene } from '@/features/game-play/ui/done-scene';
@@ -14,16 +16,55 @@ interface PageProps {
 
 const Page = ({ params }: PageProps) => {
   const { uuid } = use(params);
-  const { data: gameData, isLoading } = useGamePlay(uuid);
+  const { data: gameData, isLoading, refetch } = useGamePlay(uuid);
+  const { mutate: selectChoice, isPending } = useSelectChoice(uuid);
 
   const handleChoiceSelect = (choiceIndex: number) => {
-    console.log('Choice selected:', choiceIndex);
-    // TODO: API 호출로 선택 전송
+    selectChoice(
+      { choiceIndex },
+      {
+        onSuccess: () => {
+          refetch();
+        },
+        onError: (error) => {
+          const fetchError = error as { body?: string };
+          if (fetchError?.body) {
+            try {
+              const errorBody = JSON.parse(fetchError.body);
+              alert(errorBody.message || '선택에 실패했습니다.');
+            } catch {
+              alert('선택에 실패했습니다.');
+            }
+          } else {
+            alert('선택에 실패했습니다.');
+          }
+        },
+      },
+    );
   };
 
   const handleTextSubmit = (text: string) => {
-    console.log('Text submitted:', text);
-    // TODO: API 호출로 텍스트 전송
+    selectChoice(
+      { customAction: text },
+      {
+        onSuccess: () => {
+          refetch();
+        },
+        onError: (error) => {
+          const fetchError = error as { body?: string };
+          if (fetchError?.body) {
+            try {
+              const errorBody = JSON.parse(fetchError.body);
+              alert(errorBody.message || '입력에 실패했습니다.');
+            } catch {
+              alert('입력에 실패했습니다.');
+            }
+          } else {
+            alert('입력에 실패했습니다.');
+          }
+        },
+      },
+    );
   };
 
   const handleNext = () => {
@@ -51,6 +92,7 @@ const Page = ({ params }: PageProps) => {
           data={gameData}
           onChoiceSelect={handleChoiceSelect}
           onTextSubmit={handleTextSubmit}
+          isPending={isPending}
         />
       )}
       {gameData.sceneType === 'BATTLE' && <BattleScene data={gameData} />}

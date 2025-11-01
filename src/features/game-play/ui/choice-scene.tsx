@@ -10,9 +10,15 @@ interface ChoiceSceneProps {
   data: ChoiceSceneData;
   onChoiceSelect: (choiceIndex: number) => void;
   onTextSubmit?: (text: string) => void;
+  isPending?: boolean;
 }
 
-export const ChoiceScene = ({ data, onChoiceSelect, onTextSubmit }: ChoiceSceneProps) => {
+export const ChoiceScene = ({
+  data,
+  onChoiceSelect,
+  onTextSubmit,
+  isPending,
+}: ChoiceSceneProps) => {
   const [inputText, setInputText] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -63,14 +69,17 @@ export const ChoiceScene = ({ data, onChoiceSelect, onTextSubmit }: ChoiceSceneP
                 <button
                   key={index}
                   onClick={() => onChoiceSelect(index)}
-                  className="hover:bg-primary/5 rounded-2xl border border-gray-200 bg-white p-4 text-left shadow-sm transition-colors"
+                  disabled={isPending}
+                  className="hover:bg-primary/5 rounded-2xl border border-gray-200 bg-white p-4 text-left shadow-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <p className="text-sm leading-relaxed">{choice.detail}</p>
-                  <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">
-                    <span className="font-medium">{choice.stats}</span>
-                    <span className="text-gray-400">•</span>
-                    <span>{choice.probability}% 성공 확률</span>
-                  </div>
+                  {choice.stats && choice.probability && (
+                    <div className="mt-3 flex items-center gap-2 text-xs text-gray-500">
+                      <span className="font-medium">{choice.stats}</span>
+                      <span className="text-gray-400">•</span>
+                      <span>{choice.probability}% 성공 확률</span>
+                    </div>
+                  )}
                 </button>
               ))}
             </div>
@@ -87,14 +96,15 @@ export const ChoiceScene = ({ data, onChoiceSelect, onTextSubmit }: ChoiceSceneP
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   placeholder="자유롭게 입력해주세요..."
-                  className="focus:border-primary focus:ring-primary/20 flex-1 rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:ring-2 focus:outline-none"
+                  disabled={isPending}
+                  className="focus:border-primary focus:ring-primary/20 flex-1 rounded-xl border border-gray-300 px-4 py-2.5 text-sm focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                 />
                 <button
                   type="submit"
-                  disabled={!inputText.trim()}
+                  disabled={!inputText.trim() || isPending}
                   className="bg-gradient-primary rounded-xl px-6 py-2.5 text-sm font-medium text-white transition-colors disabled:bg-gray-300 disabled:bg-none"
                 >
-                  전송
+                  {isPending ? '전송 중...' : '전송'}
                 </button>
               </div>
             </form>

@@ -53,9 +53,11 @@ export interface InventoryItem {
 }
 
 export interface ChoiceInfo {
-  detail: string;
-  stats: string;
-  probability: number;
+  detail: string | null;
+  stats: string | null;
+  probability: number | null;
+  resultType: string;
+  rewardType: string;
 }
 
 export interface BattleTurn {
