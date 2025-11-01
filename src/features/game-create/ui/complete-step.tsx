@@ -11,6 +11,7 @@ interface CompleteStepProps {
   };
   onPrev: () => void;
   onComplete: () => void;
+  isPending?: boolean;
 }
 
 const ITEM_MAP: Record<string, { name: string; description: string }> = {
@@ -22,7 +23,12 @@ const ITEM_MAP: Record<string, { name: string; description: string }> = {
   '6': { name: '투명 망토', description: '일시적으로 투명해짐' },
 };
 
-export const CompleteStep = ({ formData, onPrev, onComplete }: CompleteStepProps) => {
+export const CompleteStep = ({
+  formData,
+  onPrev,
+  onComplete,
+  isPending = false,
+}: CompleteStepProps) => {
   const selectedItemInfo = formData.selectedItem ? ITEM_MAP[formData.selectedItem] : null;
 
   return (
@@ -71,12 +77,24 @@ export const CompleteStep = ({ formData, onPrev, onComplete }: CompleteStepProps
       {/* Desktop Button */}
       <div className="hidden justify-between gap-3 pt-8 sm:flex">
         <Button label="이전" onClick={onPrev} variant="outline" size="auto" />
-        <Button label="게임 생성하기" onClick={onComplete} variant="primary" size="auto" />
+        <Button
+          label={isPending ? '게임 생성 중...' : '게임 생성하기'}
+          onClick={onComplete}
+          disabled={isPending}
+          variant="primary"
+          size="auto"
+        />
       </div>
       {/* Mobile Button - fixed at bottom */}
       <div className="bg-bg fixed right-0 bottom-0 left-0 z-40 flex gap-3 border-t border-gray-200 p-4 sm:hidden">
         <Button label="이전" onClick={onPrev} variant="outline" size="full" />
-        <Button label="게임 생성하기" onClick={onComplete} variant="primary" size="full" />
+        <Button
+          label={isPending ? '게임 생성 중...' : '게임 생성하기'}
+          onClick={onComplete}
+          disabled={isPending}
+          variant="primary"
+          size="full"
+        />
       </div>
     </div>
   );

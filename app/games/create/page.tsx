@@ -1,6 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+
+import { useCreateGame } from '@/features/game-create/api/use-create-game.mutation';
 
 import { BackgroundStep } from '@/features/game-create/ui/background-step';
 import { CharacterStep } from '@/features/game-create/ui/character-step';
@@ -19,6 +22,7 @@ type GameFormData = {
 };
 
 const Page = () => {
+  const router = useRouter();
   const [step, setStep] = useState<GameCreateStep>('background');
   const [formData, setFormData] = useState<GameFormData>({
     background: '',
@@ -26,6 +30,8 @@ const Page = () => {
     characterDescription: '',
     selectedItem: null,
   });
+
+  const { mutate: createGame, isPending } = useCreateGame();
 
   const currentStepIndex = ['background', 'character', 'items', 'complete'].indexOf(step);
 
@@ -43,6 +49,39 @@ const Page = () => {
     if (prevIndex >= 0) {
       setStep(steps[prevIndex]);
     }
+  };
+
+  const handleComplete = () => {
+    if (!formData.selectedItem) {
+      return;
+    }
+
+    createGame(
+      {
+        backround: formData.background,
+        characterName: formData.characterName,
+        characterDescription: formData.characterDescription,
+        itemDefId: parseInt(formData.selectedItem, 10),
+      },
+      {
+        onSuccess: (response) => {
+          router.push(`/games/play/${response.gameId}`);
+        },
+        onError: (error) => {
+          const fetchError = error as { body?: string };
+          if (fetchError?.body) {
+            try {
+              const errorBody = JSON.parse(fetchError.body);
+              alert(errorBody.message || '게임 생성에 실패했습니다.');
+            } catch {
+              alert('게임 생성에 실패했습니다.');
+            }
+          } else {
+            alert('게임 생성에 실패했습니다.');
+          }
+        },
+      },
+    );
   };
 
   return (
@@ -126,7 +165,12 @@ const Page = () => {
             />
           )}
           {step === 'complete' && (
-            <CompleteStep formData={formData} onPrev={handlePrev} onComplete={handleNext} />
+            <CompleteStep
+              formData={formData}
+              onPrev={handlePrev}
+              onComplete={handleComplete}
+              isPending={isPending}
+            />
           )}
         </div>
       </main>
