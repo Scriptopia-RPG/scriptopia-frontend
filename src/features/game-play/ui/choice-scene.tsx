@@ -2,7 +2,7 @@
 
 import type { ChoiceSceneData } from '@/entities/game/model/game-play.type';
 
-import { PlayerInfoPanel } from '@/features/game-play/ui/player-info-panel';
+import PlayerInfoPanel from '@/features/game-play/ui/player-info-panel';
 
 interface ChoiceSceneProps {
   data: ChoiceSceneData;
