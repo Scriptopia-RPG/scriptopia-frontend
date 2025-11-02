@@ -32,7 +32,7 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
   }
 
   return (
-    <Modal onClose={() => router.back()}>
+    <Modal ariaLabelledby="game-detail-title" onClose={() => router.back()}>
       <header className="bg-bg sticky top-0 z-10 flex items-center justify-between px-6 py-3.5">
         <h2 className="text-lg font-medium">게임 정보</h2>
         <CloseButton onClick={() => router.back()} />
@@ -54,7 +54,9 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
         <div className="space-y-4 px-5">
           {/* 게임 제목, 창작자, 태그 */}
           <div className="flex flex-col gap-3 py-2.5">
-            <h1 className="text-xl font-medium">{sharedGameDetail.title}</h1>
+            <h1 id="game-detail-title" className="text-xl font-medium">
+              {sharedGameDetail.title}
+            </h1>
             <span>@{sharedGameDetail.creator}</span>
             <div className="flex gap-1.5">
               {sharedGameDetail.tags.map((tag) => (
