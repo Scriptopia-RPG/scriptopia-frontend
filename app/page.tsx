@@ -3,7 +3,7 @@
 const Home = () => {
   return (
     <div>
-      <main className="pt-24 sm:pt-28">메인</main>
+      <main className="py-6 sm:py-12">메인</main>
     </div>
   );
 };

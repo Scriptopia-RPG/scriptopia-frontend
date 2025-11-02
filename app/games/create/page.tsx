@@ -89,7 +89,7 @@ const Page = () => {
 
   return (
     <>
-      <main className="mx-auto mt-20 w-full max-w-5xl px-4 pt-6 pb-24 sm:mt-32 sm:px-14 sm:py-8 sm:pb-8">
+      <main className="mx-auto w-full max-w-5xl px-4 py-6 pb-24 sm:px-14 sm:py-12 sm:pb-8">
         <h1 className="sr-only">게임 생성</h1>
 
         {/* Progress Steps */}

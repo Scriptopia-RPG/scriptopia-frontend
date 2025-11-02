@@ -33,7 +33,7 @@ const Page = async ({
 
   return (
     <div className="mb-14">
-      <main className="mx-auto mt-24 flex w-full max-w-4xl flex-col gap-7 px-3.5 sm:mt-28 sm:px-14">
+      <main className="mx-auto flex w-full max-w-4xl flex-col gap-7 px-3.5 py-6 sm:px-14 sm:py-12">
         <h1 className="sr-only">공유된 게임 탐색</h1>
         <section className="flex flex-col gap-5">
           <h2 className="sr-only">탐색 제어</h2>
