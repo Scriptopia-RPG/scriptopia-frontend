@@ -17,17 +17,18 @@ const TagFilter = () => {
   const searchParams = useSearchParams();
 
   const [isOpen, setIsOpen] = useState(false);
-  const { tags = [] } = useTags();
+  const { tags } = useTags();
+  const safeTags = Array.isArray(tags) ? tags : [];
 
   const selectedTagIds = useMemo(() => {
     const ids = parseTagIds(searchParams.get('tags'));
-    const valid = new Set(tags.map((t) => t.tagId));
+    const valid = new Set(safeTags.map((t) => t.tagId));
     return ids.filter((id) => valid.has(id));
-  }, [searchParams, tags]);
+  }, [searchParams, safeTags]);
 
   const tagIdToName = useMemo(() => {
-    return new Map(tags.map((tag) => [tag.tagId, tag.tagName]));
-  }, [tags]);
+    return new Map(safeTags.map((tag) => [tag.tagId, tag.tagName]));
+  }, [safeTags]);
 
   const removeOne = (id: number) => {
     const next = selectedTagIds.filter((x) => x !== id);

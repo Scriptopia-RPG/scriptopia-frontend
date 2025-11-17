@@ -22,6 +22,7 @@ const TagSelectModal = ({ isOpen, initialSelected, onClose }: TagSelectModalProp
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { tags } = useTags();
+  const safeTags = Array.isArray(tags) ? tags : [];
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const TagSelectModal = ({ isOpen, initialSelected, onClose }: TagSelectModalProp
         </div>
 
         <div className="flex flex-wrap items-center gap-x-2 gap-y-3">
-          {tags.map((tag) => (
+          {safeTags.map((tag) => (
             <Tag
               key={tag.tagId}
               name={tag.tagName}
