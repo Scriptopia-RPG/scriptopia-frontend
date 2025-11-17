@@ -383,9 +383,13 @@ const SignupModal = () => {
         <div className="flex flex-col items-center gap-y-6 text-xs text-gray-400">
           <div className="flex gap-x-2.5">
             <p>이미 회원이신가요?</p>
-            <Link href="/auth/login" className="text-primary font-medium">
+            <button
+              type="button"
+              onClick={() => router.replace('/auth/login', { scroll: false })}
+              className="text-primary cursor-pointer font-medium"
+            >
               로그인
-            </Link>
+            </button>
           </div>
         </div>
       </div>

@@ -88,9 +88,13 @@ const LoginModal = () => {
         <div className="flex flex-col items-center gap-y-6 text-xs text-gray-400">
           <div className="flex gap-x-2.5">
             <p>아직 회원이 아니신가요?</p>
-            <Link href="/auth/signup" className="text-primary font-medium">
+            <button
+              type="button"
+              onClick={() => router.replace('/auth/signup', { scroll: false })}
+              className="text-primary cursor-pointer font-medium"
+            >
               회원가입
-            </Link>
+            </button>
           </div>
           <Link href="/auth/forgot">비밀번호 찾기</Link>
         </div>

@@ -65,12 +65,14 @@ const Header = () => {
         <nav className="flex items-center gap-4 md:gap-8">
           <Link
             href="/auth/login"
+            scroll={false}
             className="text-fg hover:text-primary text-sm font-medium transition-colors md:text-base"
           >
             로그인
           </Link>
           <Link
             href="/auth/signup"
+            scroll={false}
             className="text-fg hover:text-primary text-sm font-medium transition-colors md:text-base"
           >
             회원가입
