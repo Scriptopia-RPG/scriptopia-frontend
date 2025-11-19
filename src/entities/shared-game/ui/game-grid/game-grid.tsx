@@ -9,17 +9,25 @@ interface GameGridProps {
 const GameGrid = ({ sharedGames }: GameGridProps) => {
   return (
     <ul className="grid grid-cols-3 gap-x-1.5 gap-y-5 sm:grid-cols-4 sm:gap-x-3 sm:gap-y-12">
-      {sharedGames?.map((sharedGame) => (
-        <li key={sharedGame.sharedGameUuid}>
-          <GameCard
-            sharedGameUuid={sharedGame.sharedGameUuid}
-            thumbnailUrl={sharedGame.thumbnailUrl}
-            title={sharedGame.title}
-            playCount={sharedGame.playCount}
-            tags={sharedGame.tags}
-          />
-        </li>
-      ))}
+      {sharedGames
+        ?.filter(
+          (sharedGame): sharedGame is SharedGame =>
+            sharedGame !== null &&
+            sharedGame !== undefined &&
+            sharedGame.sharedGameUuid !== null &&
+            sharedGame.sharedGameUuid !== undefined,
+        )
+        .map((sharedGame) => (
+          <li key={sharedGame.sharedGameUuid}>
+            <GameCard
+              sharedGameUuid={sharedGame.sharedGameUuid}
+              thumbnailUrl={sharedGame.thumbnailUrl}
+              title={sharedGame.title}
+              playCount={sharedGame.playCount}
+              tags={sharedGame.tags}
+            />
+          </li>
+        ))}
     </ul>
   );
 };

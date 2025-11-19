@@ -11,6 +11,6 @@ export const useTags = () => {
   });
 
   return {
-    tags: data ?? [],
+    tags: Array.isArray(data) ? data : [],
   };
 };
