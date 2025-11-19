@@ -19,13 +19,28 @@ interface GameDetailModalProps {
 
 const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
   const router = useRouter();
-  const { sharedGameDetail, isLoading } = useSharedGameDetail(uuid);
+  const { sharedGameDetail, isLoading, isError, error } = useSharedGameDetail(uuid);
 
-  if (isLoading || !sharedGameDetail) {
+  if (isLoading) {
     return (
       <Modal onClose={() => router.back()}>
         <div className="flex items-center justify-center p-20">
           <p>불러오는 중...</p>
+        </div>
+      </Modal>
+    );
+  }
+
+  if (isError || !sharedGameDetail) {
+    return (
+      <Modal onClose={() => router.back()}>
+        <div className="flex flex-col items-center justify-center gap-4 p-20">
+          <p className="text-gray-500">게임 정보를 불러올 수 없습니다.</p>
+          <p className="text-sm text-gray-400">
+            {error && typeof error === 'object' && 'status' in error
+              ? `에러 코드: ${error.status}`
+              : '다시 시도해 주세요.'}
+          </p>
         </div>
       </Modal>
     );
@@ -57,9 +72,8 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
             <h1 className="text-xl font-medium">{sharedGameDetail.title}</h1>
             <span>@{sharedGameDetail.creator}</span>
             <div className="flex gap-1.5">
-              {sharedGameDetail.tags.map((tag) => (
-                <Tag key={tag.tagId} name={tag.tagName} />
-              ))}
+              {Array.isArray(sharedGameDetail.tags) &&
+                sharedGameDetail.tags.map((tag) => <Tag key={tag.tagId} name={tag.tagName} />)}
             </div>
           </div>
 
@@ -78,7 +92,11 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
             </div>
             <div className="flex flex-1 items-center justify-end gap-2.5">
               <CrownIcon className="size-6" />
-              <span className="text-sm">{sharedGameDetail.topScores[0]?.score ?? '-'}</span>
+              <span className="text-sm">
+                {Array.isArray(sharedGameDetail.topScores) && sharedGameDetail.topScores.length > 0
+                  ? sharedGameDetail.topScores[0].score
+                  : '-'}
+              </span>
             </div>
           </div>
 
@@ -92,25 +110,26 @@ const GameDetailModal = ({ uuid }: GameDetailModalProps) => {
           <section className="space-y-2.5 py-2.5">
             <h3 className="font-medium">랭킹</h3>
             <ul className="bg-surface-subtle rounded-xl px-4">
-              {sharedGameDetail.topScores.map((s, i) => (
-                <li
-                  key={i}
-                  className="flex items-center justify-between border-b border-gray-100 px-2.5 py-3 last:border-0"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-sm font-medium">{i + 1}</span>
-                    <Image
-                      src={s.profileUrl}
-                      width={32}
-                      height={32}
-                      alt="프로필"
-                      className="rounded-sm border border-gray-200"
-                    />
-                    <span>{s.nickname}</span>
-                  </div>
-                  <span className="text-sm">{s.score}</span>
-                </li>
-              ))}
+              {Array.isArray(sharedGameDetail.topScores) &&
+                sharedGameDetail.topScores.map((s, i) => (
+                  <li
+                    key={i}
+                    className="flex items-center justify-between border-b border-gray-100 px-2.5 py-3 last:border-0"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-sm font-medium">{i + 1}</span>
+                      <Image
+                        src={s.profileUrl}
+                        width={32}
+                        height={32}
+                        alt="프로필"
+                        className="rounded-sm border border-gray-200"
+                      />
+                      <span>{s.nickname}</span>
+                    </div>
+                    <span className="text-sm">{s.score}</span>
+                  </li>
+                ))}
             </ul>
           </section>
         </div>

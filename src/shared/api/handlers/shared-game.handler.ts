@@ -7,16 +7,18 @@ import {
   MOCK_SHARED_GAME_DETAIL,
 } from '@/shared/api/fixtures/shared-game.mock';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? '';
+// MSW가 활성화되어 있을 때는 /api 경로로 매칭
+// 프록시를 통해 /api로 요청이 오므로 /api로 매칭
+const API_URL = '/api';
 
 const parseBool = (v: string | null) => (v === 'true' ? true : v === 'false' ? false : undefined);
 
 export const sharedGame = [
-  http.get(`${BASE_URL}/shared-games/tags`, () => {
+  http.get(`${API_URL}/shared-games/tags`, () => {
     return HttpResponse.json(MOCK_TAG_NAMES, { status: 200 });
   }),
 
-  http.get(`${BASE_URL}/shared-games`, ({ request }) => {
+  http.get(`${API_URL}/shared-games`, ({ request }) => {
     const url = new URL(request.url);
     const sp = url.searchParams;
 
@@ -77,7 +79,7 @@ export const sharedGame = [
     );
   }),
 
-  http.get(`${BASE_URL}/shared-games/:sharedGameUuid`, () => {
+  http.get(`${API_URL}/shared-games/:sharedGameUuid`, () => {
     return HttpResponse.json(MOCK_SHARED_GAME_DETAIL, { status: 200 });
   }),
 ];

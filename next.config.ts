@@ -10,6 +10,27 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  async rewrites() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const apiVersion = process.env.NEXT_PUBLIC_API_VERSION || 'v1';
+
+    if (apiUrl) {
+      console.log('[next.config] 프록시 설정:', {
+        source: '/api/:path*',
+        destination: `${apiUrl}/api/${apiVersion}/:path*`,
+      });
+      return [
+        {
+          source: '/api/:path*',
+          destination: `${apiUrl}/api/${apiVersion}/:path*`,
+        },
+      ];
+    }
+
+    console.warn('[next.config] NEXT_PUBLIC_API_URL이 설정되지 않아 프록시가 비활성화됩니다.');
+    return [];
+  },
+
   turbopack: {
     // SVGR 로더 (Turbopack용)
     rules: {
