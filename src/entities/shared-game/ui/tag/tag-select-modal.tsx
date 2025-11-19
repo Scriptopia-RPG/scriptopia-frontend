@@ -22,6 +22,7 @@ const TagSelectModal = ({ isOpen, initialSelected, onClose }: TagSelectModalProp
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { tags } = useTags();
+  const safeTags = Array.isArray(tags) ? tags : [];
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
 
   useEffect(() => {
@@ -60,16 +61,21 @@ const TagSelectModal = ({ isOpen, initialSelected, onClose }: TagSelectModalProp
         </div>
 
         <div className="flex flex-wrap items-center gap-x-2 gap-y-3">
-          {tags.map((tag) => (
-            <Tag
-              key={tag.tagId}
-              name={tag.tagName}
-              selected={selectedTagIds.includes(tag.tagId)}
-              onSelect={() => handleTagToggle(tag.tagId)}
-            />
-          ))}
-
-          <ResetButton onClick={() => setSelectedTagIds([])} />
+          {safeTags.length === 0 ? (
+            <p className="text-gray-500">사용 가능한 태그가 없습니다.</p>
+          ) : (
+            <>
+              {safeTags.map((tag) => (
+                <Tag
+                  key={tag.tagId}
+                  name={tag.tagName}
+                  selected={selectedTagIds.includes(tag.tagId)}
+                  onSelect={() => handleTagToggle(tag.tagId)}
+                />
+              ))}
+              <ResetButton onClick={() => setSelectedTagIds([])} />
+            </>
+          )}
         </div>
 
         <Button label="검색하기" onClick={handleApply} />

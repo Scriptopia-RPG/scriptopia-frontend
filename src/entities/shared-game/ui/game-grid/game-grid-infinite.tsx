@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { useSharedGames } from '@/entities/shared-game/api/use-shared-games.query';
 import { usePageSize } from '@/entities/shared-game/hooks/use-page-size';
 import { useDebounced } from '@/shared/hooks/use-debounced';
-import type { SortKey } from '@/entities/shared-game/model/shared-game.type';
+import type { SharedGame, SortKey } from '@/entities/shared-game/model/shared-game.type';
 
 import GameGrid from '@/entities/shared-game/ui/game-grid/game-grid';
 
@@ -25,7 +25,19 @@ const GameGridInfinite = ({ sort, tags, query }: GameGridInfiniteProps) => {
     pageSize,
   });
 
-  const items = useMemo(() => data?.pages.flatMap((p) => p.items) ?? [], [data]);
+  const items = useMemo(
+    () =>
+      data?.pages
+        .flatMap((p) => p.items ?? [])
+        .filter(
+          (item): item is SharedGame =>
+            item !== null &&
+            item !== undefined &&
+            item.sharedGameUuid !== null &&
+            item.sharedGameUuid !== undefined,
+        ) ?? [],
+    [data],
+  );
 
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
